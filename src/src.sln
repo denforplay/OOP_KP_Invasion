@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion.Core", "Invasion.Core\Invasion.Core.csproj", "{A45EACC4-CB87-439D-90C4-27C93BB19C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Core", "Invasion.Core\Invasion.Core.csproj", "{A45EACC4-CB87-439D-90C4-27C93BB19C2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion.Models", "Invasion.Models\Invasion.Models.csproj", "{9830F119-5ED7-4CE4-8978-10D144BC0EDA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion.View", "Invasion.View\Invasion.View.csproj", "{BA69372A-7D69-40FF-A8E5-C3CDE7FD5FFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Models", "Invasion.Models\Invasion.Models.csproj", "{9830F119-5ED7-4CE4-8978-10D144BC0EDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA69372A-7D69-40FF-A8E5-C3CDE7FD5FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA69372A-7D69-40FF-A8E5-C3CDE7FD5FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA69372A-7D69-40FF-A8E5-C3CDE7FD5FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA69372A-7D69-40FF-A8E5-C3CDE7FD5FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
