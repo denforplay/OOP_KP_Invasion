@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Core", "Invasion.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Models", "Invasion.Models\Invasion.Models.csproj", "{9830F119-5ED7-4CE4-8978-10D144BC0EDA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Engine", "Invasion.Engine\Invasion.Engine.csproj", "{AFB9CD48-7AB6-45A4-8AF8-2321FE47FE8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.View", "Invasion.View\Invasion.View.csproj", "{AF2410F7-4A5B-4791-801D-457DBDD6D138}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invasion.Controller", "Invasion.Controller\Invasion.Controller.csproj", "{33FBB539-EE92-45DD-B4FF-345F4AA138EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIApp", "UIApp\UIApp.csproj", "{70B401D4-C396-431B-A9C6-928E28C92AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invastion.CompositeRoot", "Invastion.CompositeRoot\Invastion.CompositeRoot.csproj", "{06EA49B5-A774-4D7E-AE4B-95268FDB80EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,26 @@ Global
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9830F119-5ED7-4CE4-8978-10D144BC0EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB9CD48-7AB6-45A4-8AF8-2321FE47FE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB9CD48-7AB6-45A4-8AF8-2321FE47FE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB9CD48-7AB6-45A4-8AF8-2321FE47FE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB9CD48-7AB6-45A4-8AF8-2321FE47FE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2410F7-4A5B-4791-801D-457DBDD6D138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2410F7-4A5B-4791-801D-457DBDD6D138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2410F7-4A5B-4791-801D-457DBDD6D138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF2410F7-4A5B-4791-801D-457DBDD6D138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33FBB539-EE92-45DD-B4FF-345F4AA138EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33FBB539-EE92-45DD-B4FF-345F4AA138EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33FBB539-EE92-45DD-B4FF-345F4AA138EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33FBB539-EE92-45DD-B4FF-345F4AA138EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B401D4-C396-431B-A9C6-928E28C92AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B401D4-C396-431B-A9C6-928E28C92AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B401D4-C396-431B-A9C6-928E28C92AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B401D4-C396-431B-A9C6-928E28C92AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06EA49B5-A774-4D7E-AE4B-95268FDB80EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06EA49B5-A774-4D7E-AE4B-95268FDB80EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06EA49B5-A774-4D7E-AE4B-95268FDB80EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06EA49B5-A774-4D7E-AE4B-95268FDB80EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
