@@ -1,7 +1,10 @@
-﻿using Invasion.Core;
+﻿using System;
+using System.Collections.Generic;
+using Invasion.Core;
 using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Components.Colliders;
 using SharpDX;
 
 namespace Invasion.Models.Collisions
@@ -12,13 +15,7 @@ namespace Invasion.Models.Collisions
         {
             yield return IfCollided<GameObject, GameObject>((g1, g2) =>
             {
-                if (g1.Layer == Layer.Player && g2.Layer == Layer.Border)
-                {
-                    if (g1.TryTakeComponent(out RigidBody2D rigidBody2D))
-                    {
-                        rigidBody2D.SetSpeed(Vector2.Zero);
-                    }
-                }
+                
             });
         }
 

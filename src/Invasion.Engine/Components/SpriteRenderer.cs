@@ -11,8 +11,8 @@ namespace Invasion.Engine.Components
         private DX2D _dx2d;
         private Transform _transform = new Transform();//!!!HARDCODE(VALUE MUST BE INITIALIZED FROM CONSTRUCTOR
         public Transform Transform => _transform;
-
         private int _bitmapIndex;
+        public Core.Size Size => _bitmapSize;
         private Core.Size _bitmapSize;
         private Vector2 _bitmapCenter;
         private Vector2 _translation;
@@ -35,7 +35,7 @@ namespace Invasion.Engine.Components
         {
             _translation.X = (-_bitmapCenter.X * _pu + Transform.Position.X) * scale;
             _translation.Y = height - (-_bitmapCenter.Y * _pu + Transform.Position.Y + 1) * scale;
-            _matrix = Matrix3x2.Rotation(-Transform.Position.X, _bitmapCenter) *
+            _matrix = 
                 Matrix3x2.Scaling(scale * _pu, scale * _pu, Vector2.Zero) *
                 Matrix3x2.Translation(_translation);
 

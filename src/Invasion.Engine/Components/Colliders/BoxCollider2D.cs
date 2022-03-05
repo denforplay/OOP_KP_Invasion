@@ -6,6 +6,7 @@ namespace Invasion.Engine.Components.Colliders
     {
         private Size _size;
 
+        public Size Size => _size;
         public BoxCollider2D(CollisionController collisions, GameObject colliderObject, Size size) : base(collisions, colliderObject)
         {
             _size = size;
@@ -17,6 +18,7 @@ namespace Invasion.Engine.Components.Colliders
             {
                 return otherTransform.Position.X <= transform.Position.X + _size.Width / 2f && otherTransform.Position.X >= transform.Position.X - _size.Width / 2f
                     && otherTransform.Position.Y <= transform.Position.Y + _size.Height / 2f && otherTransform.Position.Y >= transform.Position.Y - _size.Height / 2f;
+                
             }
 
             return false;

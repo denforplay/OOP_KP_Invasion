@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Invasion.Core.Interfaces;
+using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using SharpDX;
 
 namespace Invasion.Engine
 {
@@ -23,6 +25,7 @@ namespace Invasion.Engine
 
         public void Initialize()
         {
+
             _gameObjects.ForEach(g =>
             {
                 if (g.TryTakeComponent(out ColliderBase collider))
@@ -40,6 +43,15 @@ namespace Invasion.Engine
 
         public void FixedUpdate()
         {
+            _gameObjects.ForEach(g =>
+            {
+                if (g.TryTakeComponent(out Transform transform) && g.TryTakeComponent(out RigidBody2D rigidBody))
+                {
+                    transform.Position = new Vector3(transform.Position.X + rigidBody.Speed.X,
+                        transform.Position.Y + rigidBody.Speed.Y, transform.Position.Z);
+                }
+            });
+
             _colliders.ForEach(c =>
             {
                 _colliders.ForEach(nc =>

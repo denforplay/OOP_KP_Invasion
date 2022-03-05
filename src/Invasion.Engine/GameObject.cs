@@ -9,7 +9,7 @@ namespace Invasion.Engine
 
         public GameObject(List<IComponent> components, Layer layer = Layer.Default)
         {
-            Layer = Layer;
+            Layer = layer;
             if (components is not null)
                 _components = components;
             else

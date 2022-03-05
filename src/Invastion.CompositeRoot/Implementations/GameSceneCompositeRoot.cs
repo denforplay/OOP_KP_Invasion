@@ -52,8 +52,12 @@ namespace Invastion.CompositeRoot.Implementations
                     Position = new Vector3(0f, 0f, 0f)
                 },
                 new SpriteRenderer(_dx2d, bitmapIndex, new Vector3(0.0f, 0f, 0), Vector3.Zero),
+                new RigidBody2D
+                {
+                    Speed = new Vector2(0.25f, 0.25f),
+                },
             }, Layer.Player);
-            _firstPlayerObject.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, _firstPlayerObject, new System.Drawing.Size(1, 1)));
+            _firstPlayerObject.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, _firstPlayerObject, new System.Drawing.Size(2, 2)));
 
             _secondPlayerObject = new GameObject(new List<Invasion.Core.Interfaces.IComponent>
             {
@@ -62,8 +66,12 @@ namespace Invastion.CompositeRoot.Implementations
                     Position = new Vector3(5f, 5f, 0f),
                 },
                 new SpriteRenderer(_dx2d, bitmapIndex, new Vector3(0, 0, 0), Vector3.Zero),
+                new RigidBody2D
+                {
+                    Speed = new Vector2(0.25f, 0.25f),
+                },
             }, Layer.Border);
-            _secondPlayerObject.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, _secondPlayerObject, new System.Drawing.Size(1, 1)));
+            _secondPlayerObject.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, _secondPlayerObject, new System.Drawing.Size(2, 2)));
             _firstPlayerController = new PlayerController(_firstPlayerObject, new PlayerInput(_dInput, Key.W, Key.S, Key.D, Key.A));
             _secondPlayerController = new PlayerController(_secondPlayerObject, new PlayerInput(_dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4));
 

@@ -6,11 +6,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="077897e5-803a-4a8f-9a0d-95304973f94b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Invasion.Models/Collisions/CollisionController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invasion.Models/Collisions/CollisionRecords.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invasion.Models/Collisions/Collisions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invasion.Models/Collisions/Interfaces/ICollisionDetector.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src.sln" beforeDir="false" afterPath="$PROJECT_DIR$/src.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.src/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Controller/Controllers/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Controller/Controllers/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Collisions/CollisionRecords.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Collisions/CollisionRecords.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Collisions/CollisionsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Collisions/CollisionsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Components/Colliders/BoxCollider2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Components/Colliders/BoxCollider2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Components/Colliders/ColliderBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Components/Colliders/ColliderBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Components/RigidBody2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Components/RigidBody2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Components/SpriteRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Components/SpriteRenderer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/GameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/GameObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invasion.Engine/Scene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invasion.Engine/Scene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invastion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Invastion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +87,7 @@
       <updated>1645359858998</updated>
       <workItem from="1645359864719" duration="9000" />
       <workItem from="1646424851422" duration="38000" />
+      <workItem from="1646510272168" duration="2442000" />
     </task>
     <servers />
   </component>

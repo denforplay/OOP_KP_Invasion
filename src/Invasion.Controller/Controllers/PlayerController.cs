@@ -10,11 +10,13 @@ namespace Invasion.Controller.Controllers
     {
         private GameObject _player;
         private PlayerInput _input;
+        private RigidBody2D _rigidBody;
 
         public PlayerController(GameObject player, PlayerInput input)
         {
             _player = player;
             _input = input;
+            player.TryTakeComponent(out _rigidBody);
         }
 
         public void Update()
@@ -22,7 +24,7 @@ namespace Invasion.Controller.Controllers
             if (_player.TryTakeComponent<Transform>(out var transformable))
             {
                 Vector2 inputVector = _input.ReadValue()/10;
-                transformable.Position += new Vector3(inputVector.X, inputVector.Y, transformable.Position.Z);
+                _rigidBody.Speed = inputVector;
             }
         }
     }

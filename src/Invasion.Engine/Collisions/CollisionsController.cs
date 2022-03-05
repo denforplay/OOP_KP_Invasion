@@ -25,7 +25,7 @@ namespace Invasion.Models.Collisions
             IEnumerable<IRecord> records = _startCollideRecordsProvider?.Invoke().Where(record => record.IsTarget(pair));
 
             foreach (var record in records)
-                ((dynamic)record).Do((dynamic)pair.Item1, (dynamic)pair.Item2);//CAN BE DANGEROUS FOR FPS ON FIRST CALL
+                ((dynamic)record).Do((dynamic)pair.Item1, (dynamic)pair.Item2);
         }
     }
 }
