@@ -10,8 +10,7 @@ namespace Invasion.Engine.Collisions
         };
 
         public static bool IsCollided(Layer layer1, Layer layer2) => CollisionTable.Find(x =>
-            x.Layer1 == layer1 && x.Layer2 == layer2
-            || x.Layer2 == layer1 && x.Layer1 == layer2)?.IsCollide ?? false;
+            x.Layer1 == layer1 && x.Layer2 == layer2)?.IsCollide ?? false;
 
         private class CollisionRow
         {

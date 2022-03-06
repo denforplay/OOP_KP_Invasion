@@ -42,7 +42,6 @@ namespace Invasion.Engine.Components
             WindowRenderTarget r = _dx2d.RenderTarget;
             r.Transform = _matrix;
 
-            // Нарисовываемся
             SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[_bitmapIndex];
             r.DrawBitmap(bitmap, opacity, BitmapInterpolationMode.Linear);
         }

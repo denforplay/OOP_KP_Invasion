@@ -23,6 +23,20 @@ namespace Invasion.Engine
             Initialize();
         }
 
+        public void AddGameObject(GameObject gameObject)
+        {
+            _gameObjects.Add(gameObject);
+            if (gameObject.TryTakeComponent(out ColliderBase collider))
+            {
+                _colliders.Add(collider);
+            }
+        }
+
+        public void AddGameObjectView(IView gameObjectView)
+        {
+            _views.Add(gameObjectView);
+        }
+
         public void Initialize()
         {
 

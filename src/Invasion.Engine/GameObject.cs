@@ -1,4 +1,5 @@
-﻿using Invasion.Core.Interfaces;
+﻿using System.Collections.Generic;
+using Invasion.Core.Interfaces;
 
 namespace Invasion.Engine
 {
@@ -32,7 +33,7 @@ namespace Invasion.Engine
 
         public bool TryTakeComponent<T>(out T component) where T : IComponent
         {
-            component = (T)_components.First(component => component.GetType() == typeof(T) || component.GetType().BaseType == typeof(T));
+            component = (T)_components.Find(component => component.GetType() == typeof(T) || component.GetType().BaseType == typeof(T));
             return component is not null;
         }
     }
