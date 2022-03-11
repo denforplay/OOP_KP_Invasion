@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Invasion.Core.Interfaces;
+﻿using Invasion.Core.Interfaces;
 
 namespace Invasion.Engine
 {
@@ -7,8 +6,8 @@ namespace Invasion.Engine
     {
         public Layer Layer { get; private set; }
         private List<IComponent> _components;
-
-        public GameObject(List<IComponent> components, Layer layer = Layer.Default)
+        public List<IComponent> Components => _components;
+        public GameObject(List<IComponent> components = null , Layer layer = Layer.Default)
         {
             Layer = layer;
             if (components is not null)

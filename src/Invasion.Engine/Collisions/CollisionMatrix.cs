@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace Invasion.Engine.Collisions
+﻿namespace Invasion.Engine.Collisions
 {
     public class CollisionMatrix
     {
         private static List<CollisionRow> CollisionTable = new List<CollisionRow>
         {
-            new CollisionRow {Layer1 = Layer.Player, Layer2 = Layer.Border, IsCollide = true}
+            new CollisionRow {Layer1 = Layer.Player, Layer2 = Layer.Border, IsCollide = true},
+            new CollisionRow {Layer1 = Layer.Bullet, Layer2 = Layer.Player, IsCollide = true},
         };
 
         public static bool IsCollided(Layer layer1, Layer layer2) => CollisionTable.Find(x =>

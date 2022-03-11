@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Invasion.Engine\Invasion.Engine.csproj" />
+    <ProjectReference Include="..\Invasion.Models\Invasion.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Invasion.View\Invasion.View.csproj" />
-    <ProjectReference Include="..\Invastion.CompositeRoot\Invastion.CompositeRoot.csproj" />
+    <ProjectReference Include="..\Invasion.CompositeRoot\Invasion.CompositeRoot.csproj" />
   </ItemGroup>
 
   <ItemGroup>

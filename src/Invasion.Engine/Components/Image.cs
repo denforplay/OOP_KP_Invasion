@@ -10,19 +10,17 @@ namespace Invasion.Engine.Components
         private Matrix3x2 _matrix;
         private Vector2 _bitmapCenter;
         private DX2D _dx2d;
-        private int _bitmapIndex;
+        private string _imageFileName;
 
-        private Transform _transform = new Transform();//!!!HARDCODE(VALUE MUST BE INITIALIZED FROM CONSTRUCTOR
+        private Transform _transform = new Transform();
         public Transform Transform => _transform;
 
-        public Image(DX2D dx2d, int bitmapIndex, Vector3 position, Vector3 rotation)
+        public Image(DX2D dx2d, string imageFileName)
         {
             _dx2d = dx2d;
-            _bitmapIndex = bitmapIndex;
-            Transform.Position = position;
-            Transform.Rotation = rotation;
+            _imageFileName = imageFileName;
             Transform.Scale = new Vector3(1, 1, 1);
-            SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[_bitmapIndex];
+            SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[imageFileName];
             _bitmapCenter.X = bitmap.Size.Width / 2.0f;
             _bitmapCenter.Y = bitmap.Size.Height / 2.0f;
         }
@@ -36,7 +34,7 @@ namespace Invasion.Engine.Components
                 Matrix3x2.Translation(_translation);
             WindowRenderTarget r = _dx2d.RenderTarget;
             r.Transform = _matrix;
-            SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[_bitmapIndex];
+            SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[_imageFileName];
             r.DrawBitmap(bitmap, opacity, BitmapInterpolationMode.Linear);
         }
     }

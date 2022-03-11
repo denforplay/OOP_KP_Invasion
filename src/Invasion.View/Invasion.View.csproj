@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Invasion.Controller\Invasion.Controller.csproj" />
     <ProjectReference Include="..\Invasion.Engine\Invasion.Engine.csproj" />
+    <ProjectReference Include="..\Invasion.Models\Invasion.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

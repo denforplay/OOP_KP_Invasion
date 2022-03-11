@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Invasion.Core.Interfaces;
+﻿using Invasion.Core.Interfaces;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using SharpDX;
@@ -14,6 +13,14 @@ namespace Invasion.Engine
 
         private List<ColliderBase> _colliders;
 
+        public Scene()
+        {
+            _controllers = new List<IController>();
+            _views = new List<IView>();
+            _colliders = new List<ColliderBase>();
+            _gameObjects = new List<GameObject>();
+        }
+        
         public Scene(List<GameObject> gameObjects, List<IController> controllers, List<IView> views)
         {
             _colliders = new List<ColliderBase>();
@@ -23,6 +30,23 @@ namespace Invasion.Engine
             Initialize();
         }
 
+        public void Add(GameObject gameObject, IView view, IController controller)
+        {
+            AddGameObject(gameObject);
+            AddGameObjectView(view);
+            AddController(controller);
+        }
+
+        public void AddController(IController controller)
+        {
+            if (controller is null)
+            {
+                throw new ArgumentNullException(nameof(controller));
+            }
+            
+            _controllers.Add(controller);
+        }
+        
         public void AddGameObject(GameObject gameObject)
         {
             _gameObjects.Add(gameObject);
@@ -39,7 +63,6 @@ namespace Invasion.Engine
 
         public void Initialize()
         {
-
             _gameObjects.ForEach(g =>
             {
                 if (g.TryTakeComponent(out ColliderBase collider))

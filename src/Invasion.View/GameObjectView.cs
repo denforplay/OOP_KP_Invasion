@@ -25,15 +25,10 @@ namespace Invasion.View
 
         public void Update()
         {
-            if (_sprite is not null)
-            {
-                if (_transform is not null)
-                {
-                    _sprite.Transform.Position = _transform.Position;
-                }
-
-                _sprite.Draw(1, _scale, _height);
-            }
+            _sprite.Transform.Rotation = _transform.Rotation;
+            _sprite.Transform.Scale = _transform.Scale;
+            _sprite.Transform.Position = _transform.Position;
+            _sprite.Draw(1, _scale, _height);
         }
     }
 }

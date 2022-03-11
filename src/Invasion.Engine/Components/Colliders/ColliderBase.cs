@@ -25,28 +25,24 @@ namespace Invasion.Engine.Components.Colliders
             {
                 if (IsInside(other))
                 {
-                    if (ColliderObject.TryTakeComponent(out RigidBody2D thisRigidBody) &&
-                        other.ColliderObject.TryTakeComponent(out RigidBody2D otherRigidBody))
+                    if (CollisionMatrix.IsCollided(ColliderObject.Layer, other.ColliderObject.Layer))
                     {
-                        if (CollisionMatrix.IsCollided(ColliderObject.Layer, other.ColliderObject.Layer))
+                        if (ColliderObject.TryTakeComponent(out Transform g1transform)
+                            && ColliderObject.TryTakeComponent(out RigidBody2D rigidBody))
                         {
-                            if (ColliderObject.TryTakeComponent(out Transform g1transform) 
-                                && ColliderObject.TryTakeComponent(out RigidBody2D rigidBody)
-                                && other.ColliderObject.TryTakeComponent(out Transform g2transform))
-                            {
-                                int x = 0, y = 0;
-                                if (rigidBody.Speed.X < 0)
-                                    x = 1;
-                                else if (rigidBody.Speed.X > 0)
-                                    x = -1;
+                            int x = 0, y = 0;
+                            if (rigidBody.Speed.X < 0)
+                                x = 1;
+                            else if (rigidBody.Speed.X > 0)
+                                x = -1;
 
-                                if (rigidBody.Speed.Y < 0)
-                                    y = 1;
-                                else if (rigidBody.Speed.Y > 0)
-                                    y = -1;
+                            if (rigidBody.Speed.Y < 0)
+                                y = 1;
+                            else if (rigidBody.Speed.Y > 0)
+                                y = -1;
 
-                                g1transform.Position = new Vector3(g1transform.Position.X + x * 0.1f, g1transform.Position.Y + 0.1f * y, g1transform.Position.Z);
-                            }
+                            g1transform.Position = new Vector3(g1transform.Position.X + x * 0.1f,
+                                g1transform.Position.Y + 0.1f * y, g1transform.Position.Z);
                         }
                     }
                     else

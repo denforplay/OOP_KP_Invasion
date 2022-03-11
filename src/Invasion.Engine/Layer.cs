@@ -5,6 +5,7 @@
         Default,
         Player,
         Enemy,
-        Border
+        Border,
+        Bullet,
     }
 }

@@ -38,7 +38,7 @@ namespace UIApp
             _clientRect.Width = RenderForm.ClientSize.Width;
             _clientRect.Height = RenderForm.ClientSize.Height;
             _dInput = new DInput(RenderForm);
-            _game = new GameSceneCompositeRoot(DX2D, _dInput, RenderForm, _collisions, _clientRect);
+            _game = new GameSceneCompositeRoot(DX2D, _dInput, RenderForm, _clientRect);
             RenderForm_Resize(this, null);
         }
 

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Invasion.Core;
+﻿using Invasion.Core;
 using Invasion.Core.Interfaces;
 using Invasion.Engine;
-using Invasion.Engine.Components;
-using Invasion.Engine.Components.Colliders;
-using SharpDX;
 
 namespace Invasion.Models.Collisions
 {

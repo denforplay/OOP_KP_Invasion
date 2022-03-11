@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Invasion.Models.Collisions;
+﻿using Invasion.Models.Collisions;
 using SharpDX;
 
 namespace Invasion.Engine.Components.Colliders
