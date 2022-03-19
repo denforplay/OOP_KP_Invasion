@@ -52,8 +52,8 @@ public class HeroCompositeRoot : ICompositeRoot
 
     public void Compose()
     {
-       CreatePlayer("firstPlayer", "dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_renderForm, _dInput, Key.W, Key.S, Key.D, Key.A,MouseKey.Left));
-       CreatePlayer("secondPlayer", "dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_renderForm, _dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4, MouseKey.Right));
+       CreatePlayer("firstPlayer", "dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.W, Key.S, Key.D, Key.A));
+       CreatePlayer("secondPlayer", "dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4));
        InitializeWeapons();
     }
     
@@ -78,10 +78,11 @@ public class HeroCompositeRoot : ICompositeRoot
     
     private void InitializeWeapons()
     {
-        CreateWeapon(_players["firstPlayer"], "pistol.png");
+        CreateWeapon(_players["firstPlayer"], "pistol.png", new WeaponInput(_dInput, Key.Q, Key.E, Key.Space));
+        CreateWeapon(_players["secondPlayer"], "pistol.png", new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter));
     }
     
-    private void CreateWeapon(Player owner, string sprite)
+    private void CreateWeapon(Player owner, string sprite, WeaponInput weaponInput)
     {
         Transform ownerTransform;
         owner.TryTakeComponent(out ownerTransform);
@@ -96,7 +97,7 @@ public class HeroCompositeRoot : ICompositeRoot
             
         _gameScene.AddGameObject(weapon as GameObject);
         _gameScene.AddGameObjectView(weaponView);
-        _playersData[owner].Item1.BindGun(weapon);
+        _playersData[owner].Item1.BindGun(weapon, weaponInput);
         weapon.OnShotEvent += Shoot;
     }
     
