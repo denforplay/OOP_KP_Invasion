@@ -1,5 +1,4 @@
-﻿using System.Windows.Media.Animation;
-using Invasion.Core;
+﻿using Invasion.Core;
 using Invasion.Engine;
 
 namespace Invasion.View.Factories.Base;
@@ -16,7 +15,7 @@ public abstract class GameObjectViewFactoryBase<T> where T : GameObject
 
     public GameObjectView Create(Entity<T> entity, float scale, float height)
     {
-        GameObjectView view = new GameObjectView(GetEntity(entity.GetEntity), scale, height);
+        GameObjectView view = new GameObjectView(entity.GetEntity, scale, height);
         _entitiesViews.Enqueue(view);
         return view;
     }
@@ -24,8 +23,8 @@ public abstract class GameObjectViewFactoryBase<T> where T : GameObject
     public void Destroy(Entity<T> entity)
     {
         if (_entitiesViews.Count > 0)
+        {
             _entitiesViews.Dequeue();
+        }
     }
-    
-    protected abstract GameObject GetEntity(T entity);
 }

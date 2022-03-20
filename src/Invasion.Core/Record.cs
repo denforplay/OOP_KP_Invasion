@@ -16,10 +16,10 @@ namespace Invasion.Core
             _action.Invoke(modelA, modelB);
         }
 
-        //public void Do(T2 modelB, T1 modelA)
-        //{
-        //    _action.Invoke(modelA, modelB);
-        //}
+        public void Do(T2 modelB, T1 modelA)
+        {
+            _action.Invoke(modelA, modelB);
+        }
 
         public bool IsTarget((object, object) pair)
         {

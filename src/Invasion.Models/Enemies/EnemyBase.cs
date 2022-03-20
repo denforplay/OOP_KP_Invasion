@@ -1,12 +1,11 @@
-﻿using Invasion.Core.Interfaces;
+﻿using System.Diagnostics;
+using Invasion.Core.Interfaces;
 using Invasion.Engine;
 
 namespace Invasion.Models.Enemies;
 
 public abstract class EnemyBase : GameObject, IHealthable
 {
-    
-    
     public EnemyBase(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
     {
     }

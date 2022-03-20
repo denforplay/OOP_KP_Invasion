@@ -4,6 +4,7 @@ namespace Invasion.Engine
 {
     public class GameObject : ILiveObject
     {
+        public event Action OnDestroyed;
         public Layer Layer { get; private set; }
         private List<IComponent> _components;
         public List<IComponent> Components => _components;
@@ -29,6 +30,11 @@ namespace Invasion.Engine
         public virtual void OnUpdate() { }
         public virtual void OnEnable() { }
         public virtual void OnDisable() { }
+
+        public virtual void OnDestroy()
+        {
+            OnDestroyed?.Invoke();
+        }
 
         public bool TryTakeComponent<T>(out T component) where T : IComponent
         {

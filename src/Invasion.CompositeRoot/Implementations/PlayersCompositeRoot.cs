@@ -6,7 +6,6 @@ using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
-using Invasion.Engine.InputSystem.InputComponents;
 using Invasion.Models;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
@@ -18,14 +17,12 @@ using Invasion.View.Factories.BulletFactories;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
 using SharpDX.DirectInput;
-using SharpDX.Windows;
 using Size = System.Drawing.Size;
 
 namespace Invastion.CompositeRoot.Implementations;
 
 public class HeroCompositeRoot : ICompositeRoot
 {
-    private RenderForm _renderForm;
     private DInput _dInput;
     private DX2D _dx2D;
     private CollisionsCompositeRoot _collisionsRoot;
@@ -36,18 +33,19 @@ public class HeroCompositeRoot : ICompositeRoot
     private Dictionary<IWeapon, (GameObject, GameObjectView)> _weaponData = new Dictionary<IWeapon, (GameObject, GameObjectView)>();
     private GameObjectViewFactoryBase<BulletBase> _bulletFactory;
     private BulletSystem _bulletSystem;
-    public HeroCompositeRoot(RenderForm renderForm, DInput dInput, DX2D dx2D, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene)
+    public BulletSystem BulletSystem => _bulletSystem;
+    public List<Player> Players => _players.Values.ToList();
+    public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene)
     {
+        _bulletSystem = bulletSystem;
         _dInput = dInput;
         _dx2D = dx2D;
         _collisionsRoot = collisionsRoot;
         _clientRect = clientRect;
         _gameScene = gameScene;
-        _bulletSystem = new BulletSystem();
-        _bulletFactory = new DefaultBulletFactory(_dx2D);
+        _bulletFactory = new DefaultBulletFactory(_dx2D, _collisionsRoot.Controller);
         _bulletSystem.OnStart += SpawnBullet;
         _bulletSystem.OnEnd += DeleteBullet;
-        _renderForm = renderForm;
     }
 
     public void Compose()
@@ -84,13 +82,11 @@ public class HeroCompositeRoot : ICompositeRoot
     
     private void CreateWeapon(Player owner, string sprite, WeaponInput weaponInput)
     {
-        Transform ownerTransform;
-        owner.TryTakeComponent(out ownerTransform);
-        var weapon = new Pistol(new List<IComponent>
+        var weapon = new Pistol( _dx2D,new List<IComponent>
         {
             new Transform(),
             new SpriteRenderer(_dx2D, sprite),
-        }, ownerTransform);
+        }, owner);
             
         var weaponView =
             new GameObjectView(weapon, _clientRect.Height / 25F, _clientRect.Height);
@@ -103,17 +99,25 @@ public class HeroCompositeRoot : ICompositeRoot
     
     private void SpawnBullet(Entity<BulletBase> bullet)
     {
-        _gameScene.AddGameObjectView(_bulletFactory.Create(bullet, _clientRect.Height / 25f, _clientRect.Height));
+        var bulletView = _bulletFactory.Create(bullet, _clientRect.Height / 25f, _clientRect.Height);
+        _gameScene.AddGameObjectView(bulletView);
         _gameScene.AddGameObject(bullet.GetEntity);
+        bullet.GetEntity.OnDestroyed += () =>
+        {
+            _gameScene.RemoveGameObject(bullet.GetEntity);
+            _gameScene.RemoveGameObjectView(bulletView);
+        };
     }
         
     private void DeleteBullet(Entity<BulletBase> bullet)
     {
+        bullet.GetEntity.OnDestroy();
         _bulletFactory.Destroy(bullet);
     }
         
     private void Shoot(BulletBase bullet)
     {
+        bullet.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, bullet, new Size(1, 1)));
         _bulletSystem.Work(bullet);
     }
 }

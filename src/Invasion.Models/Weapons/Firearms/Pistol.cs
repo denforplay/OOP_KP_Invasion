@@ -7,7 +7,7 @@ namespace Invasion.Models.Weapons.Firearms;
 
 public class Pistol : FirearmBase
 {
-    public Pistol(List<IComponent> components, Transform parent, Layer layer = Layer.Default) : base(components, parent, layer)
+    public Pistol(DX2D dx2D, List<IComponent> components, GameObject parent, Layer layer = Layer.Default) : base(dx2D, components, parent, layer)
     {
     }
 }

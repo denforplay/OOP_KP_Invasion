@@ -22,6 +22,13 @@
             _entities.Remove(entity);
             OnEnd?.Invoke(entity);
         }
+        
+        public void StopWork(T entityModel)
+        {
+            var entity = _entities.Find(x => x.GetEntity.Equals(entityModel));
+            if (entity is not null)
+                Stop(entity);
+        }
 
         public void StopAll()
         {

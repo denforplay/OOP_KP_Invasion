@@ -1,29 +1,20 @@
-﻿using Invasion.Engine;
+﻿using System.Drawing;
+using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Components.Colliders;
+using Invasion.Models.Collisions;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using Invasion.View.Factories.Base;
 
 namespace Invasion.View.Factories.BulletFactories;
 
-public class DefaultBulletFactory : GameObjectViewFactoryBase<BulletBase>, IBulletFactory
+public class DefaultBulletFactory : GameObjectViewFactoryBase<BulletBase>
 {
     private string _defaultBulletSprite = "defaultBullet.png";
+    private CollisionController _collisionController;
     
-    public DefaultBulletFactory(DX2D dx2D) : base(dx2D)
+    public DefaultBulletFactory(DX2D dx2D, CollisionController collisionController) : base(dx2D)
     {
-    }
-
-    protected override GameObject GetEntity(BulletBase entity)
-    {
-        var bullet = Create();
-        bullet.Components.AddRange(entity.Components);
-        return bullet;
-    }
-
-    public BulletBase Create()
-    {
-        var bullet = new DefaultBullet();
-        bullet.AddComponent(new SpriteRenderer(_dx2D, _defaultBulletSprite));
-        return bullet;
+        _collisionController = collisionController;
     }
 }

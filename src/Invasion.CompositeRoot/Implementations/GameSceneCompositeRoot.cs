@@ -3,7 +3,9 @@ using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
+using Invasion.Models.Systems;
 using Invasion.View;
+using Invasion.View.Factories.BulletFactories;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
 using SharpDX.Windows;
@@ -16,6 +18,9 @@ namespace Invastion.CompositeRoot.Implementations
     {
         private CollisionsCompositeRoot _collisionsRoot;
         private HeroCompositeRoot _heroCompositeRoot;
+        private EnemyCompositeRoot _enemyCompositeRoot;
+        private BulletSystem _bulletSystem;
+        private EnemySystem _enemySystem;
         private Scene _gameScene;
         private DX2D _dx2d;
         private readonly DInput _dInput;
@@ -26,12 +31,12 @@ namespace Invastion.CompositeRoot.Implementations
         public GameSceneCompositeRoot(DX2D dX2D, DInput dInput, RenderForm renderForm, RectangleF clientRect)
         {
             _clientRect = clientRect;
-            _collisionsRoot = new CollisionsCompositeRoot();
             _dInput = dInput;
             _dx2d = dX2D;
             _renderForm = renderForm;
             _gameScene = new Scene();
-            _heroCompositeRoot = new HeroCompositeRoot(_renderForm, _dInput, _dx2d, _collisionsRoot, clientRect, _gameScene);
+            _bulletSystem = new BulletSystem();
+            _enemySystem = new EnemySystem();
             Compose();
         }
 
@@ -43,27 +48,34 @@ namespace Invastion.CompositeRoot.Implementations
             _dx2d.LoadBitmap("leftrightwall.png");
             _dx2d.LoadBitmap("pistol.png");
             _dx2d.LoadBitmap("defaultBullet.png");
+            _dx2d.LoadBitmap("shootingEnemy.png");
             _background = new Image(_dx2d, "background.bmp");
+            _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem);
+            _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _clientRect, _gameScene);
             _heroCompositeRoot.Compose();
+            _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _clientRect, 
+                _collisionsRoot.Controller, _gameScene, _heroCompositeRoot.Players);
+            _enemyCompositeRoot.Compose();
             GenerateBorders();
         }
 
         private void GenerateBorders()
         {
-            GenerateBorder("topdownwall.png", new Vector3(15f, 0.8f, 0), new Size(1920, 2));
-            GenerateBorder("topdownwall.png", new Vector3(22.25f, 25f, 0), new Size(1920, 2));
+            GenerateBorder("topdownwall.png", new Vector3(20, 0.8f, 0), Vector3.Zero, new Size(1920, 2));
+            GenerateBorder("topdownwall.png", new Vector3(20, 25f, 0),Vector3.Zero, new Size(1920, 2));
             
-            GenerateBorder("leftrightwall.png", new Vector3(0f, 15f, 0), new Size(2, 1080));
-            GenerateBorder("leftrightwall.png", new Vector3(44.5f, 15f, 0), new Size(2, 1080));
+            GenerateBorder("topdownwall.png", new Vector3(0f, 15f, 0), new Vector3((float)Math.PI/2, 0, 0), new Size(2, 1080));
+            GenerateBorder("topdownwall.png", new Vector3(44.5f, 15f, 0), new Vector3((float)Math.PI/2, 0, 0), new Size(2, 1080));
         }
 
-        private void GenerateBorder(string spriteName, Vector3 position, Size size)
+        private void GenerateBorder(string spriteName, Vector3 position, Vector3 rotation, Size size)
         {
             var border = new GameObject(new List<Invasion.Core.Interfaces.IComponent>
             {
                 new Transform
                 {
-                    Position = position
+                    Position = position,
+                    Rotation = rotation
                 },
                 new RigidBody2D
                 {

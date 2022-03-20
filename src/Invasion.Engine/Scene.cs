@@ -39,12 +39,12 @@ namespace Invasion.Engine
 
         public void AddController(IController controller)
         {
-            if (controller is null)
-            {
-                throw new ArgumentNullException(nameof(controller));
-            }
-            
             _controllers.Add(controller);
+        }
+        
+        public void RemoveController(IController controller)
+        {
+            _controllers.Remove(controller);
         }
         
         public void AddGameObject(GameObject gameObject)
@@ -56,11 +56,25 @@ namespace Invasion.Engine
             }
         }
 
+        public void RemoveGameObject(GameObject gameObject)
+        {
+            _gameObjects.Remove(gameObject);
+            if (gameObject.TryTakeComponent(out ColliderBase collider))
+            {
+                _colliders.Remove(collider);
+            }
+        }
+
         public void AddGameObjectView(IView gameObjectView)
         {
             _views.Add(gameObjectView);
         }
 
+        public void RemoveGameObjectView(IView gameObjectView)
+        {
+            _views.Remove(gameObjectView);
+        }
+        
         public void Initialize()
         {
             _gameObjects.ForEach(g =>
@@ -88,10 +102,10 @@ namespace Invasion.Engine
                         transform.Position.Y + rigidBody.Speed.Y, transform.Position.Z);
                 }
             });
-
-            _colliders.ForEach(c =>
+            var colliders = new List<ColliderBase>(_colliders);
+            colliders.ForEach(c =>
             {
-                _colliders.ForEach(nc =>
+                colliders.ForEach(nc =>
                 {
                     if (c != nc)
                     {
