@@ -1,18 +1,22 @@
-﻿using System.Diagnostics;
-using Invasion.Core.Interfaces;
+﻿using Invasion.Core.Interfaces;
 using Invasion.Engine;
+using Invasion.Models.Configurations;
 
 namespace Invasion.Models.Enemies;
 
 public abstract class EnemyBase : GameObject, IHealthable
 {
-    public EnemyBase(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
-    {
-    }
-
+    
     public event Action<int>? OnHealthChanged;
     public int MaxHealthPoint { get; set; }
     public int CurrentHealthPoints { get; set; }
+    
+    public EnemyBase(List<IComponent> components, EnemyConfiguration enemyConfiguration, Layer layer = Layer.Default) : base(components, layer)
+    {
+        MaxHealthPoint = enemyConfiguration.MaxHealth;
+        CurrentHealthPoints = enemyConfiguration.MaxHealth;
+    }
+
     public void TakeDamage(int damage)
     {
         CurrentHealthPoints -= damage;
@@ -21,6 +25,7 @@ public abstract class EnemyBase : GameObject, IHealthable
 
     public void SetHealth(int health)
     {
-        throw new NotImplementedException();
+        CurrentHealthPoints = health;
+        OnHealthChanged?.Invoke(health);
     }
 }

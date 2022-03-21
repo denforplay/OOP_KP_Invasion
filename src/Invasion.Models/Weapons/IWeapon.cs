@@ -5,6 +5,8 @@ namespace Invasion.Models.Weapons;
 
 public interface IWeapon
 {
+    void GiveDamage(IHealthable healthable);
+    float ReloadTime { get; set; }
     void Attack(Vector2 direction);
     void Update();
 }

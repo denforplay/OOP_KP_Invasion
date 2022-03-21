@@ -7,6 +7,8 @@
             new CollisionRow {Layer1 = Layer.Player, Layer2 = Layer.Border, IsCollide = true},
             new CollisionRow {Layer1 = Layer.Enemy, Layer2 = Layer.Bullet, IsCollide = false},
             new CollisionRow {Layer1 = Layer.Player, Layer2 = Layer.Bullet, IsCollide = false},
+            new CollisionRow {Layer1 = Layer.Bullet, Layer2 = Layer.Border, IsCollide = false},
+            new CollisionRow {Layer1 = Layer.MeleeWeapon, Layer2 = Layer.Enemy, IsCollide = false},
         };
 
         public static bool IsCollided(Layer layer1, Layer layer2) => CollisionTable.Find(x =>

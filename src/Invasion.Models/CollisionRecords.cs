@@ -1,10 +1,9 @@
 ﻿using Invasion.Core;
 using Invasion.Core.Interfaces;
-using Invasion.Engine;
 using Invasion.Models.Enemies;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
-using SharpDX;
+using Invasion.Models.Weapons.Melee;
 
 namespace Invasion.Models
 {
@@ -23,18 +22,37 @@ namespace Invasion.Models
         {
             yield return IfCollided<BulletBase, EnemyBase>((bullet, enemy) =>
             {
-                if (bullet.Parent is Player)
+                if (bullet.Parent.Parent is Player)
                 {
+                    bullet.Parent.GiveDamage(enemy);
                     _bulletSystem.StopWork(bullet);
+                    if (enemy.CurrentHealthPoints <= 0)
+                        _enemySystem.StopWork(enemy);
                 }
             });
             
             yield return IfCollided<BulletBase, Player>((bullet, player) =>
             {
-                if (bullet.Parent is EnemyBase)
+                if (bullet.Parent.Parent is EnemyBase)
                 {
                     _bulletSystem.StopWork(bullet);
+                    bullet.Parent.GiveDamage(player);
                 }
+            });
+
+            yield return IfCollided<BulletBase, Border>((bullet, border) =>
+            {
+                _bulletSystem.StopWork(bullet);
+            });
+            
+            yield return IfCollided<MeleeBase, EnemyBase>((meleeWeapon, enemy) =>
+            {
+                if (meleeWeapon.IsAttack)
+                {
+                    meleeWeapon.GiveDamage(enemy);
+                }
+                if (enemy.CurrentHealthPoints <= 0)
+                    _enemySystem.StopWork(enemy);
             });
         }
 

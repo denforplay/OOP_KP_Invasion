@@ -6,12 +6,6 @@ namespace Invasion.View.Factories.Base;
 public abstract class GameObjectViewFactoryBase<T> where T : GameObject
 {
     private Queue<GameObjectView> _entitiesViews = new Queue<GameObjectView>();
-    protected DX2D _dx2D;
-
-    public GameObjectViewFactoryBase(DX2D dx2D)
-    {
-        _dx2D = dx2D;
-    }
 
     public GameObjectView Create(Entity<T> entity, float scale, float height)
     {

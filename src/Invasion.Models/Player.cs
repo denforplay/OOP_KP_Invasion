@@ -1,5 +1,6 @@
 ﻿using Invasion.Core.Interfaces;
 using Invasion.Engine;
+using Invasion.Models.Configurations;
 using Invasion.Models.Weapons;
 
 namespace Invasion.Models;
@@ -12,8 +13,10 @@ public class Player : GameObject, IHealthable
     public int MaxHealthPoint { get; set; }
     public int CurrentHealthPoints { get; set; }
     
-    public Player(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
+    public Player(List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Default) : base(components, layer)
     {
+        CurrentHealthPoints = playerConfig.MaxHealth;
+        MaxHealthPoint = playerConfig.MaxHealth;
     }
 
     public void SetWeapon(IWeapon weapon)

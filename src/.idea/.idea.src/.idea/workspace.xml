@@ -26,10 +26,12 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/338b9e01eb0340078ee3f18af2f53b4543600/e7/28885f96/Result.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/62/f0e52fcb/TextFormat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1926840e96445bab6594dc7af963ba4b400/40/77637170/RenderForm.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/39e0ed74079db8bb6a6acfd0ebb549cd71ce662e2e6a7a5133b9aae8fc/Size.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/CollisionsCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8fe5b9fa0d07425ba30fafd53baa5a7ea23880/d0/c1b28d55/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/31/6fddc5fa/TextRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/0f/b60d42fc/WindowRenderTarget.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/198a6261cebc324728dcc4c178edc5f2894123f711722c80e8557cbfd27651/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
@@ -130,7 +132,9 @@
       <workItem from="1647356788779" duration="192000" />
       <workItem from="1647693064873" duration="11850000" />
       <workItem from="1647762519031" duration="18991000" />
-      <workItem from="1647791479481" duration="2205000" />
+      <workItem from="1647791479481" duration="6187000" />
+      <workItem from="1647805441313" duration="3763000" />
+      <workItem from="1647868690842" duration="17388000" />
     </task>
     <servers />
   </component>

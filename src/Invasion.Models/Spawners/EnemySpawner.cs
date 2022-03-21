@@ -4,6 +4,7 @@ using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Models.Collisions;
+using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
 using Invasion.Models.Systems;
 using SharpDX;
@@ -36,13 +37,16 @@ public class EnemySpawner
         };
     }
     
-    public void Spawn()
+    public async void Spawn()
     {
-        int count = 5;//MAGIC NUMBER
-        for (int i = 0; i < count; i++)
+        while (true)
         {
-            var randomEnemy = _variants[_random.Next(0, _variants.Length)];
-            _enemySystem.Work(randomEnemy.Invoke());
+            if (_enemySystem.Entities.Count() <= 50)
+            {
+                var randomEnemy = _variants[_random.Next(0, _variants.Length)];
+                _enemySystem.Work(randomEnemy.Invoke());
+            }
+            await Task.Delay(3000);
         }
     }
 
@@ -56,7 +60,7 @@ public class EnemySpawner
                 Position = position
             },
             new RigidBody2D()
-        }, Layer.Enemy);
+        }, new EnemyConfiguration(2, 1), Layer.Enemy);
         enemy.AddComponent(new SpriteRenderer(_dx2D, "shootingEnemy.png"));
         enemy.AddComponent(new BoxCollider2D(_collisionController, enemy, new Size(2, 2)));
         return enemy;

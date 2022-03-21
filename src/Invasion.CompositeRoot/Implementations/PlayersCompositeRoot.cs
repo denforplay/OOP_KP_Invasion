@@ -7,13 +7,16 @@ using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
 using Invasion.Models;
+using Invasion.Models.Configurations;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
+using Invasion.Models.Weapons.Factory;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Firearms.Bullets;
+using Invasion.Models.Weapons.Melee;
 using Invasion.View;
+using Invasion.View.Factories;
 using Invasion.View.Factories.Base;
-using Invasion.View.Factories.BulletFactories;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
 using SharpDX.DirectInput;
@@ -33,7 +36,8 @@ public class HeroCompositeRoot : ICompositeRoot
     private Dictionary<IWeapon, (GameObject, GameObjectView)> _weaponData = new Dictionary<IWeapon, (GameObject, GameObjectView)>();
     private GameObjectViewFactoryBase<BulletBase> _bulletFactory;
     private BulletSystem _bulletSystem;
-    public BulletSystem BulletSystem => _bulletSystem;
+    private PlayerConfiguration _playerConfiguration;
+    private WeaponFactory _weaponFactory;
     public List<Player> Players => _players.Values.ToList();
     public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene)
     {
@@ -43,9 +47,11 @@ public class HeroCompositeRoot : ICompositeRoot
         _collisionsRoot = collisionsRoot;
         _clientRect = clientRect;
         _gameScene = gameScene;
-        _bulletFactory = new DefaultBulletFactory(_dx2D, _collisionsRoot.Controller);
+        _bulletFactory = new DefaultBulletFactory();
+        _playerConfiguration = new PlayerConfiguration(1, 5);
         _bulletSystem.OnStart += SpawnBullet;
         _bulletSystem.OnEnd += DeleteBullet;
+        _weaponFactory = new WeaponFactory(_collisionsRoot.Controller, bulletSystem, dx2D);
     }
 
     public void Compose()
@@ -65,36 +71,33 @@ public class HeroCompositeRoot : ICompositeRoot
             },
             new SpriteRenderer(_dx2D, sprite),
             new RigidBody2D()
-        }, Layer.Player);
+        }, _playerConfiguration, Layer.Player);
         player.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, player, colliderSize));
         var playerView = new GameObjectView(player, _clientRect.Height / 25f, _clientRect.Height);
         var playerController = new PlayerController(player, inputs);
+        var healthView = new HealthView(player, _dx2D.RenderTarget);
         _gameScene.Add(player, playerView, playerController);
+        _gameScene.AddGameObjectView(healthView);
         _players.Add(playerTag, player);
         _playersData.Add(player, (playerController, playerView));
     }
     
     private void InitializeWeapons()
     {
-        CreateWeapon(_players["firstPlayer"], "pistol.png", new WeaponInput(_dInput, Key.Q, Key.E, Key.Space));
-        CreateWeapon(_players["secondPlayer"], "pistol.png", new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter));
+        CreateWeapon<Pistol>(_players["firstPlayer"], new WeaponInput(_dInput, Key.Q, Key.E, Key.Space));
+        CreateWeapon<Knife>(_players["secondPlayer"], new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter));
     }
     
-    private void CreateWeapon(Player owner, string sprite, WeaponInput weaponInput)
+    private void CreateWeapon<T>(Player owner, WeaponInput weaponInput) where T: IWeapon
     {
-        var weapon = new Pistol( _dx2D,new List<IComponent>
-        {
-            new Transform(),
-            new SpriteRenderer(_dx2D, sprite),
-        }, owner);
+        IWeapon weapon = _weaponFactory.Create<T>(owner);
             
         var weaponView =
-            new GameObjectView(weapon, _clientRect.Height / 25F, _clientRect.Height);
+            new GameObjectView(weapon as GameObject, _clientRect.Height / 25F, _clientRect.Height);
             
         _gameScene.AddGameObject(weapon as GameObject);
         _gameScene.AddGameObjectView(weaponView);
         _playersData[owner].Item1.BindGun(weapon, weaponInput);
-        weapon.OnShotEvent += Shoot;
     }
     
     private void SpawnBullet(Entity<BulletBase> bullet)
@@ -113,11 +116,5 @@ public class HeroCompositeRoot : ICompositeRoot
     {
         bullet.GetEntity.OnDestroy();
         _bulletFactory.Destroy(bullet);
-    }
-        
-    private void Shoot(BulletBase bullet)
-    {
-        bullet.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, bullet, new Size(1, 1)));
-        _bulletSystem.Work(bullet);
     }
 }

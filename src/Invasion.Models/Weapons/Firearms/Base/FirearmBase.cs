@@ -2,6 +2,8 @@
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Models.Collisions;
+using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using SharpDX;
 
@@ -9,20 +11,32 @@ namespace Invasion.Models.Weapons.Firearms.Base;
 
 public class FirearmBase : GameObject, IWeapon
 {
-    public event Action<BulletBase> OnShotEvent;
+    public void GiveDamage(IHealthable healthable)
+    {
+        healthable.TakeDamage(_damage);
+    }
+
+    public float ReloadTime { get; set; }
     private GameObject _parent;
     private DX2D _dx2D;
-
-    public FirearmBase(DX2D dx2D, List<IComponent> components, GameObject parent, Layer layer = Layer.Default) : base(components, layer)
+    private BulletSystem _bulletSystem;
+    private CollisionController _collisionController;
+    private int _damage;
+    public GameObject Parent => _parent;
+    public FirearmBase(CollisionController collisionController, DX2D dx2D, BulletSystem bulletSystem, List<IComponent> components, GameObject parent, Layer layer = Layer.Default) : base(components, layer)
     {
+        _damage = 1;
+        ReloadTime = 1f;
+        _collisionController = collisionController;
+        _bulletSystem = bulletSystem; 
         _dx2D = dx2D;
         _parent = parent;
     }
 
-
     public void Attack(Vector2 direction)
     {
-        OnShotEvent?.Invoke(GetBullet(direction));
+        var bullet = GetBullet(direction);
+        _bulletSystem.Work(bullet);
     }
 
     public void Update()
@@ -42,8 +56,9 @@ public class FirearmBase : GameObject, IWeapon
             new SpriteRenderer(_dx2D, "defaultBullet.png")
         });
         
-        bullet.SetParent(_parent);
+        bullet.SetParent(this);
         var rigidBody = new RigidBody2D();
+        bullet.AddComponent(new BoxCollider2D(_collisionController, bullet, new System.Drawing.Size(1, 1)));
         rigidBody.Speed = direction;
         bullet.AddComponent(rigidBody);
         return bullet;

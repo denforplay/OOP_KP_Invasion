@@ -36,10 +36,9 @@ namespace Invasion.Controller.Controllers
             _rigidBody.Speed = inputVector;
             _shootTime += Time.DeltaTime;
             Rotate();
-            if (_weapon is not null && _weaponInput.ReadShoot() && _shootTime >= 1)
+            if (_weapon is not null && _weaponInput.ReadShoot() && _shootTime >= _weapon.ReloadTime)
             {
-                Transform transform;
-                _player.TryTakeComponent(out transform);
+                _player.TryTakeComponent(out Transform transform);
                 var direction = new Vector2((float)Math.Cos(transform.Rotation.X), -(float)Math.Sin(transform.Rotation.X));
                 _shootTime = Time.DeltaTime;
                 _weapon?.Attack(Vector2.Normalize(direction)/10);
@@ -50,8 +49,7 @@ namespace Invasion.Controller.Controllers
         {
             if (_weapon is not null)
             {
-                Transform transform;
-                _player.TryTakeComponent(out transform);
+                _player.TryTakeComponent(out Transform transform);
                 var direction = _weaponInput.ReadValue();
                 var angle = Math.Tan(45) * direction.X / 10;
                 transform.Rotation = new Vector3(transform.Rotation.X + (float) angle, transform.Rotation.Y,
