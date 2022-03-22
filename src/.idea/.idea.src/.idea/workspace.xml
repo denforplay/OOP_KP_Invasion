@@ -12,6 +12,14 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="editable-svg" />
+        <option value="UML Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -24,6 +32,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/32ca50429b143dd4887097bb82be4132c75a91b0668a93f8b139b74d4274757c/NativeWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/338b9e01eb0340078ee3f18af2f53b4543600/e7/28885f96/Result.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/62/f0e52fcb/TextFormat.cs" root0="SKIP_HIGHLIGHTING" />
@@ -46,12 +55,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="XThreadsFramesViewSplitterKey" value="0.16489361" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Project.ConsoleApp1">
@@ -134,7 +144,14 @@
       <workItem from="1647762519031" duration="18991000" />
       <workItem from="1647791479481" duration="6187000" />
       <workItem from="1647805441313" duration="3763000" />
-      <workItem from="1647868690842" duration="17388000" />
+      <workItem from="1647868690842" duration="18386000" />
+      <workItem from="1647899543764" duration="263000" />
+      <workItem from="1647899876431" duration="330000" />
+      <workItem from="1647900455950" duration="937000" />
+      <workItem from="1647928420611" duration="4309000" />
+      <workItem from="1647951021506" duration="1358000" />
+      <workItem from="1647966863903" duration="6626000" />
+      <workItem from="1647975753745" duration="8975000" />
     </task>
     <servers />
   </component>
@@ -175,6 +192,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Invasion.Models/Modificators/Bonuses/SpeedBonus.cs</url>
+          <line>18</line>
+          <properties documentPath="F:\Git\OOP_KP_Invasion\src\Invasion.Models\Modificators\Bonuses\SpeedBonus.cs" initialLine="18" containingFunctionPresentation="method 'Apply'">
+            <startOffsets>
+              <option value="529" />
+            </startOffsets>
+            <endOffsets>
+              <option value="553" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

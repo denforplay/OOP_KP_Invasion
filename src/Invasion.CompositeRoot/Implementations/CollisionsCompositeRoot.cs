@@ -12,9 +12,11 @@ namespace Invastion.CompositeRoot.Implementations
         public CollisionController Controller => _controller;
         private BulletSystem _bulletSystem;
         private EnemySystem _enemySystem;
+        private ModificatorSystem _modificatorSystem;
 
-        public CollisionsCompositeRoot(BulletSystem bulletSystem, EnemySystem enemySystem)
+        public CollisionsCompositeRoot(BulletSystem bulletSystem, EnemySystem enemySystem, ModificatorSystem modificatorSystem)
         {
+            _modificatorSystem = modificatorSystem;
             _enemySystem = enemySystem;
             _bulletSystem = bulletSystem;
             Compose();
@@ -22,7 +24,7 @@ namespace Invastion.CompositeRoot.Implementations
         
         public void Compose()
         {
-            _records = new CollisionRecords(_bulletSystem, _enemySystem);
+            _records = new CollisionRecords(_bulletSystem, _enemySystem, _modificatorSystem);
             _controller = new CollisionController(_records.StartCollideValues);
         }
 

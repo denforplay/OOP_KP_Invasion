@@ -9,6 +9,7 @@ public class BulletBase : GameObject
 {
     private int _damage = 5;
     private FirearmBase _parent;
+    public bool IsUsed { get; set; }
     public int Damage => _damage;
 
     public FirearmBase Parent => _parent;

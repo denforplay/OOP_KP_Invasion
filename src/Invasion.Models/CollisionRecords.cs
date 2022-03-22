@@ -1,6 +1,8 @@
 ﻿using Invasion.Core;
 using Invasion.Core.Interfaces;
+using Invasion.Engine;
 using Invasion.Models.Enemies;
+using Invasion.Models.Modificators;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using Invasion.Models.Weapons.Melee;
@@ -11,9 +13,11 @@ namespace Invasion.Models
     {
         private BulletSystem _bulletSystem;
         private EnemySystem _enemySystem;
+        private ModificatorSystem _modificatorSystem;
 
-        public CollisionRecords(BulletSystem bulletSystem, EnemySystem enemySystem)
+        public CollisionRecords(BulletSystem bulletSystem, EnemySystem enemySystem, ModificatorSystem modificatorSystem)
         {
+            _modificatorSystem = modificatorSystem;
             _bulletSystem = bulletSystem;
             _enemySystem = enemySystem;
         }
@@ -22,10 +26,12 @@ namespace Invasion.Models
         {
             yield return IfCollided<BulletBase, EnemyBase>((bullet, enemy) =>
             {
-                if (bullet.Parent.Parent is Player)
+                if (bullet.Parent.Parent is Player && !bullet.IsUsed)
                 {
+                    Console.WriteLine("Damage" + enemy);
                     bullet.Parent.GiveDamage(enemy);
                     _bulletSystem.StopWork(bullet);
+                    bullet.IsUsed = true;
                     if (enemy.CurrentHealthPoints <= 0)
                         _enemySystem.StopWork(enemy);
                 }
@@ -33,8 +39,9 @@ namespace Invasion.Models
             
             yield return IfCollided<BulletBase, Player>((bullet, player) =>
             {
-                if (bullet.Parent.Parent is EnemyBase)
+                if (bullet.Parent.Parent is EnemyBase && !bullet.IsUsed)
                 {
+                    bullet.IsUsed = true;
                     _bulletSystem.StopWork(bullet);
                     bullet.Parent.GiveDamage(player);
                 }
@@ -53,6 +60,15 @@ namespace Invasion.Models
                 }
                 if (enemy.CurrentHealthPoints <= 0)
                     _enemySystem.StopWork(enemy);
+            });
+            
+            yield return IfCollided<ModificatorBase, GameObject>((modificator, modificatedObject) =>
+            {
+                modificator.Apply(modificatedObject);
+                if (modificator.IsApplied)
+                {
+                    _modificatorSystem.StopWork(modificator);
+                }
             });
         }
 

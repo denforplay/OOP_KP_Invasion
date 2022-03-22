@@ -18,8 +18,10 @@ namespace Invastion.CompositeRoot.Implementations
         private CollisionsCompositeRoot _collisionsRoot;
         private HeroCompositeRoot _heroCompositeRoot;
         private EnemyCompositeRoot _enemyCompositeRoot;
+        private ModificatorsCompositeRoot _modificatorsCompositeRoot;
         private BulletSystem _bulletSystem;
         private EnemySystem _enemySystem;
+        private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
         private DX2D _dx2d;
         private readonly DInput _dInput;
@@ -33,6 +35,7 @@ namespace Invastion.CompositeRoot.Implementations
             _gameScene = new Scene();
             _bulletSystem = new BulletSystem();
             _enemySystem = new EnemySystem();
+            _modificatorSystem = new ModificatorSystem();
             Compose();
         }
 
@@ -41,18 +44,22 @@ namespace Invastion.CompositeRoot.Implementations
             _dx2d.LoadBitmap("background.bmp");
             _dx2d.LoadBitmap("dash.bmp");
             _dx2d.LoadBitmap("topdownwall.png");
-            _dx2d.LoadBitmap("leftrightwall.png");
             _dx2d.LoadBitmap("pistol.png");
             _dx2d.LoadBitmap("knife.png");
             _dx2d.LoadBitmap("defaultBullet.png");
             _dx2d.LoadBitmap("shootingEnemy.png");
+            _dx2d.LoadBitmap("speedBonus.png");
+            _dx2d.LoadBitmap("slowTrap.png");
             _background = new Image(_dx2d, "background.bmp");
-            _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem);
+            _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _clientRect, _gameScene);
             _heroCompositeRoot.Compose();
             _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _enemySystem, _clientRect, 
                 _collisionsRoot.Controller, _gameScene, _heroCompositeRoot.Players);
             _enemyCompositeRoot.Compose();
+            _modificatorsCompositeRoot =
+                new ModificatorsCompositeRoot(_dx2d, _collisionsRoot.Controller, _gameScene, _clientRect, _modificatorSystem);
+            _modificatorsCompositeRoot.Compose();
             GenerateBorders();
         }
 

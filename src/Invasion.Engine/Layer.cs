@@ -7,6 +7,7 @@
         Enemy,
         Border,
         Bullet,
-        MeleeWeapon
+        Weapon,
+        Modificator
     }
 }

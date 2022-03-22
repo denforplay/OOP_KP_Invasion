@@ -21,7 +21,7 @@ public class MeleeBase : GameObject, IWeapon
 
     public bool IsAttack => !_canAttack;
 
-    public MeleeBase(GameObject parent, List<IComponent> components = null) : base(components, Layer.MeleeWeapon)
+    public MeleeBase(GameObject parent, List<IComponent> components = null) : base(components, Layer.Weapon)
     {
         ReloadTime = 0.5f;
         _damage = 1;

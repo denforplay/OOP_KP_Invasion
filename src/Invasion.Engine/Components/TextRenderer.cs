@@ -2,11 +2,9 @@
 using SharpDX;
 using SharpDX.DirectWrite;
 using SharpDX.Direct2D1;
-using SharpDX.Mathematics.Interop;
 using Brush = SharpDX.Direct2D1.Brush;
 using Color = SharpDX.Color;
 using Factory = SharpDX.DirectWrite.Factory;
-using FlowDirection = SharpDX.DirectWrite.FlowDirection;
 using RectangleF = SharpDX.RectangleF;
 
 namespace Invasion.Engine.Components;

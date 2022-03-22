@@ -1,8 +1,7 @@
 ﻿using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
-using Invasion.Engine.Components.Colliders;
-using Invasion.Models.Collisions;
+using Invasion.Models.Factories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using SharpDX;
@@ -11,26 +10,26 @@ namespace Invasion.Models.Weapons.Firearms.Base;
 
 public class FirearmBase : GameObject, IWeapon
 {
+    private float _reloadTime;
+    
     public void GiveDamage(IHealthable healthable)
     {
         healthable.TakeDamage(_damage);
     }
 
-    public float ReloadTime { get; set; }
+    public float ReloadTime => _reloadTime;
     private GameObject _parent;
-    private DX2D _dx2D;
     private BulletSystem _bulletSystem;
-    private CollisionController _collisionController;
     private int _damage;
+    private IModelFactory<BulletBase> _bulletFactory;
     public GameObject Parent => _parent;
-    public FirearmBase(CollisionController collisionController, DX2D dx2D, BulletSystem bulletSystem, List<IComponent> components, GameObject parent, Layer layer = Layer.Default) : base(components, layer)
+    public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, List<IComponent> components, GameObject parent) : base(components, Layer.Weapon)
     {
         _damage = 1;
-        ReloadTime = 1f;
-        _collisionController = collisionController;
+        _reloadTime = 1f;
         _bulletSystem = bulletSystem; 
-        _dx2D = dx2D;
         _parent = parent;
+        _bulletFactory = bulletFactory;
     }
 
     public void Attack(Vector2 direction)
@@ -50,17 +49,13 @@ public class FirearmBase : GameObject, IWeapon
 
     protected virtual BulletBase GetBullet(Vector2 direction)
     {
-        var bullet = new DefaultBullet(new List<IComponent>
-        {
-            new Transform(),
-            new SpriteRenderer(_dx2D, "defaultBullet.png")
-        });
-        
+        var bullet = _bulletFactory.Create();
         bullet.SetParent(this);
-        var rigidBody = new RigidBody2D();
-        bullet.AddComponent(new BoxCollider2D(_collisionController, bullet, new System.Drawing.Size(1, 1)));
-        rigidBody.Speed = direction;
-        bullet.AddComponent(rigidBody);
+        if (bullet.TryTakeComponent(out RigidBody2D rigidBody2D))
+        {
+            rigidBody2D.Speed = direction;
+        }
+        
         return bullet;
     }
 }

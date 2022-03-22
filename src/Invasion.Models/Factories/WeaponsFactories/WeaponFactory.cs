@@ -4,11 +4,13 @@ using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Models.Collisions;
+using Invasion.Models.Factories.BulletFactories;
 using Invasion.Models.Systems;
+using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Melee;
 
-namespace Invasion.Models.Weapons.Factory;
+namespace Invasion.Models.Factories.WeaponsFactories;
 
 public class WeaponFactory
 {
@@ -41,11 +43,15 @@ public class WeaponFactory
         }
         else if (typeof(T) == typeof(Pistol))
         {
-            return new Pistol(_collisionController, _dx2D, _bulletSystem, new List<IComponent>
+            Pistol pistol = new Pistol(new DefaultBulletFactory(_dx2D, _collisionController), _bulletSystem, new List<IComponent>
             {
                 new Transform(),
                 new SpriteRenderer(_dx2D, _pistolSprite),
             }, parent);
+
+            var collider = new BoxCollider2D(_collisionController, pistol, new Size(2, 2));
+            pistol.AddComponent(collider);
+            return pistol;
         }
         else
         {

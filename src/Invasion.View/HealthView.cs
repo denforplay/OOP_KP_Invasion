@@ -5,7 +5,7 @@ using SharpDX;
 using SharpDX.Direct2D1;
 using Transform = Invasion.Engine.Components.Transform;
 
-namespace Invasion.View.Factories;
+namespace Invasion.View;
 
 public class HealthView : IView
 {
