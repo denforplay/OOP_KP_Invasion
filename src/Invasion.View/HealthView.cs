@@ -30,7 +30,7 @@ public class HealthView : IView
 
     public void Update()
     {
-        _healthText.SetPosition(new RectangleF(_parent.Position.X / 45f * 1600 - 50, 900 - _parent.Position.Y / 25f * 900 - 30, 100, 100));
+        _healthText.SetPosition(new RectangleF(_parent.Position.X / 45f * Screen.Width - 50, Screen.Height - _parent.Position.Y / 25f * Screen.Height - 30, 100, 100));
         _healthText.Update();
     }
 

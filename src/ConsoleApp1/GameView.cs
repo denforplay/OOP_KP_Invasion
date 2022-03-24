@@ -22,7 +22,7 @@ namespace UIApp
         {
             Time.Start();
             RenderForm = new RenderForm("Direct2D Application");
-            RenderForm.ClientSize = new System.Drawing.Size(1600, 900);
+            RenderForm.ClientSize = new System.Drawing.Size(Screen.Width, Screen.Height);
             RenderForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             DX2D = new DX2D(RenderForm, window);
             _clientRect.Width = RenderForm.ClientSize.Width;

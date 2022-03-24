@@ -42,7 +42,7 @@ namespace Invasion.Engine
             HwndRenderTargetProperties winProp = new HwndRenderTargetProperties()
             {
                 Hwnd = form.Handle,
-                PixelSize = new Size2((int)1600/*window.ActualWidth*/, (int)900/*window.ActualHeight*/),
+                PixelSize = new Size2((int)Screen.Width/*window.ActualWidth*/, (int)Screen.Height/*window.ActualHeight*/),
                 PresentOptions = PresentOptions.None                                      // Immediately // None - vSync
             };
             _renderTarget = new WindowRenderTarget(_factory, renderProp, winProp);
