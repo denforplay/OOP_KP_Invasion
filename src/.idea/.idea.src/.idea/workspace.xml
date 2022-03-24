@@ -35,15 +35,18 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/32ca50429b143dd4887097bb82be4132c75a91b0668a93f8b139b74d4274757c/NativeWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/338b9e01eb0340078ee3f18af2f53b4543600/e7/28885f96/Result.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/62/f0e52fcb/TextFormat.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1926840e96445bab6594dc7af963ba4b400/40/77637170/RenderForm.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/39e0ed74079db8bb6a6acfd0ebb549cd71ce662e2e6a7a5133b9aae8fc/Size.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/CollisionsCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8fe5b9fa0d07425ba30fafd53baa5a7ea23880/d0/c1b28d55/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/31/6fddc5fa/TextRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/Decorator/FasterWeaponDecorator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/0f/b60d42fc/WindowRenderTarget.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/198a6261cebc324728dcc4c178edc5f2894123f711722c80e8557cbfd27651/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/Decorator/WeaponDecorator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/62/f0e52fcb/TextFormat.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/WeaponBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1926840e96445bab6594dc7af963ba4b400/40/77637170/RenderForm.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/CollisionsCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/621535fd6ec34e749cb727358be3e64a79000/31/6fddc5fa/TextRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -59,9 +62,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.16489361" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.07712766" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="sshConsole" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Project.ConsoleApp1">
@@ -152,6 +155,12 @@
       <workItem from="1647951021506" duration="1358000" />
       <workItem from="1647966863903" duration="6626000" />
       <workItem from="1647975753745" duration="8975000" />
+      <workItem from="1647989142149" duration="199000" />
+      <workItem from="1647989404486" duration="11000" />
+      <workItem from="1648035928214" duration="4589000" />
+      <workItem from="1648048139742" duration="672000" />
+      <workItem from="1648048914799" duration="3644000" />
+      <workItem from="1648059473322" duration="5836000" />
     </task>
     <servers />
   </component>
@@ -194,17 +203,17 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Invasion.Models/Modificators/Bonuses/SpeedBonus.cs</url>
-          <line>18</line>
-          <properties documentPath="F:\Git\OOP_KP_Invasion\src\Invasion.Models\Modificators\Bonuses\SpeedBonus.cs" initialLine="18" containingFunctionPresentation="method 'Apply'">
+          <url>file://$PROJECT_DIR$/Invasion.Models/CollisionRecords.cs</url>
+          <line>48</line>
+          <properties documentPath="F:\Git\OOP_KP_Invasion\src\Invasion.Models\CollisionRecords.cs" initialLine="47" containingFunctionPresentation="lambda expression inside method 'StartCollideValues'">
             <startOffsets>
-              <option value="529" />
+              <option value="1772" />
             </startOffsets>
             <endOffsets>
-              <option value="553" />
+              <option value="1805" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -212,6 +221,7 @@
       <pinned-members>
         <PinnedItemInfo parentTag="Type#Invasion.Engine.Components.Colliders.ColliderBase" memberName="ColliderObject" />
         <PinnedItemInfo parentTag="Frame#Invasion.Engine.Components.Colliders.ColliderBase.TryCollide" memberName="other" />
+        <PinnedItemInfo parentTag="Type#Invasion.Models.Weapons.Decorator.WeaponBaseDecorator" memberName="ReloadTime" />
         <PinnedItemInfo parentTag="Type#Invasion.Core.Entity`1" memberName="_entity" />
       </pinned-members>
     </pin-to-top-manager>

@@ -5,25 +5,24 @@ using SharpDX;
 
 namespace Invasion.Models.Weapons.Melee;
 
-public class MeleeBase : GameObject, IWeapon
+public class MeleeBase : WeaponBase
 {
-    public void GiveDamage(IHealthable healthable)
+    public override void GiveDamage(IHealthable healthable)
     {
         healthable.TakeDamage(_damage);
     }
 
-    public float ReloadTime { get; set; }
     private Transform _transform;
     private GameObject _parent;
     private Transform _parentTransform;
     private bool _canAttack;
     private int _damage;
+    public override float ReloadTime => 0.5f;
 
     public bool IsAttack => !_canAttack;
 
     public MeleeBase(GameObject parent, List<IComponent> components = null) : base(components, Layer.Weapon)
     {
-        ReloadTime = 0.5f;
         _damage = 1;
         TryTakeComponent(out _transform);
         parent.TryTakeComponent(out _parentTransform);
@@ -31,19 +30,19 @@ public class MeleeBase : GameObject, IWeapon
     }
 
 
-    public async void Attack(Vector2 direction)
+    public override async void Attack(Vector2 direction)
     {
         if (_canAttack)
         {
             direction = direction * 10;
             _canAttack = false;
             _transform.Position = new Vector3(_transform.Position.X + direction.X, _transform.Position.Y + direction.Y, _transform.Position.Z);
-            await Task.Delay(50);
+            await Task.Delay(150);
             _canAttack = true;
         }
     }
 
-    public void Update()
+    public override void Update()
     {
         if (_canAttack)
         {

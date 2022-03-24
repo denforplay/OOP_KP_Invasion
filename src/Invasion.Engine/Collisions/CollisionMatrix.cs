@@ -11,6 +11,7 @@
             new CollisionRow {Layer1 = Layer.Weapon, Layer2 = Layer.Enemy, IsCollide = false},
             new CollisionRow {Layer1 = Layer.Modificator, Layer2 = Layer.Player, IsCollide = false},
             new CollisionRow {Layer1 = Layer.Modificator, Layer2 = Layer.Weapon, IsCollide = false},
+            new CollisionRow {Layer1 = Layer.Weapon, Layer2 = Layer.Enemy, IsCollide = false},
         };
 
         public static bool IsCollided(Layer layer1, Layer layer2) => CollisionTable.Find(x =>

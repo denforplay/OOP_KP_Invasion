@@ -1,5 +1,6 @@
 ﻿using Invasion.Core.Interfaces;
 using Invasion.Engine;
+using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Decorator;
 
@@ -11,11 +12,14 @@ public class SpeedBonus : BonusBase
     {
     }
 
-    protected async override void Apply(IWeapon weapon)
+    protected async override void Apply(WeaponBase weaponBase)
     {
-        var previousWeapon = weapon;
-        weapon = new FasterWeaponDecorator(weapon);
-        await Task.Delay(3000);
-        weapon = previousWeapon;
+        if (weaponBase is WeaponBaseDecorator decorator)
+        {
+            var previousWeapon = decorator.Weapon;
+            decorator.SetWeapon(new FasterWeaponBaseDecorator(decorator.Weapon, decorator.Weapon.Components));
+            await Task.Delay(3000);
+            decorator.SetWeapon(previousWeapon);
+        }
     }
 }

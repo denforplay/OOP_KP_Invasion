@@ -8,21 +8,22 @@ using SharpDX;
 
 namespace Invasion.Models.Weapons.Firearms.Base;
 
-public class FirearmBase : GameObject, IWeapon
+public class FirearmBase : WeaponBase
 {
     private float _reloadTime;
     
-    public void GiveDamage(IHealthable healthable)
+    public override void GiveDamage(IHealthable healthable)
     {
         healthable.TakeDamage(_damage);
     }
 
-    public float ReloadTime => _reloadTime;
     private GameObject _parent;
     private BulletSystem _bulletSystem;
     private int _damage;
     private IModelFactory<BulletBase> _bulletFactory;
     public GameObject Parent => _parent;
+    public override float ReloadTime => _reloadTime;
+
     public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, List<IComponent> components, GameObject parent) : base(components, Layer.Weapon)
     {
         _damage = 1;
@@ -32,13 +33,13 @@ public class FirearmBase : GameObject, IWeapon
         _bulletFactory = bulletFactory;
     }
 
-    public void Attack(Vector2 direction)
+    public override void Attack(Vector2 direction)
     {
         var bullet = GetBullet(direction);
         _bulletSystem.Work(bullet);
     }
 
-    public void Update()
+    public override void Update()
     {
         if (TryTakeComponent(out Transform transform) && _parent.TryTakeComponent(out Transform parentTransform))
         {

@@ -8,6 +8,7 @@ namespace Invasion.Engine
         public Layer Layer { get; private set; }
         private List<IComponent> _components;
         public List<IComponent> Components => _components;
+        
         public GameObject(List<IComponent> components, Layer layer = Layer.Default)
         {
             Layer = layer;

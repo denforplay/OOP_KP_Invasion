@@ -10,7 +10,7 @@ namespace Invasion.Controller.Controllers;
 
 public class EnemyController : IController
 {
-    private IWeapon _weapon;
+    private WeaponBase _weaponBase;
     private EnemyBase _enemy;
     private Transform _enemyTransform;
     private RigidBody2D _enemyPhysics;
@@ -25,23 +25,23 @@ public class EnemyController : IController
         _enemy.TryTakeComponent(out _enemyTransform);
     }
     
-    public void BindGun(IWeapon weapon)
+    public void BindGun(WeaponBase weaponBase)
     {
-        _weapon = weapon;
-        _weapon.Update();
+        _weaponBase = weaponBase;
+        _weaponBase.Update();
     }
     public void Update()
     {
         var closestPlayer = FindClosestPlayer();
         Transform playerTransform;
-        _weapon.Update();
+        _weaponBase.Update();
         closestPlayer.TryTakeComponent(out playerTransform);
         var direction = Vector3.Normalize(Vector3.Subtract(playerTransform.Position, _enemyTransform.Position))/25;
         _enemyPhysics.Speed = new Vector2(direction.X, direction.Y);
-        if (_weapon is not null && _shootTime >= _weapon.ReloadTime)
+        if (_weaponBase is not null && _shootTime >= _weaponBase.ReloadTime)
         {
             _shootTime = 0;
-            _weapon.Attack(new Vector2(direction.X, direction.Y) * 5);
+            _weaponBase.Attack(new Vector2(direction.X, direction.Y) * 5);
         }
         Transform transform;
         _enemy.TryTakeComponent(out transform);

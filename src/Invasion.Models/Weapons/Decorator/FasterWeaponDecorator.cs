@@ -1,10 +1,13 @@
-﻿namespace Invasion.Models.Weapons.Decorator;
+﻿using Invasion.Core.Interfaces;
+using Invasion.Engine;
 
-public class FasterWeaponDecorator : WeaponDecorator
+namespace Invasion.Models.Weapons.Decorator;
+
+public class FasterWeaponBaseDecorator : WeaponBaseDecorator
 {
-    public override float ReloadTime { get => base.ReloadTime/100f; }
+    public override float ReloadTime => DecoratedWeaponBase.ReloadTime/100f;
 
-    public FasterWeaponDecorator(IWeapon decoratedWeapon) : base(decoratedWeapon)
+    public FasterWeaponBaseDecorator(WeaponBase weaponBase, List<IComponent> components, Layer layer = Layer.Weapon) : base(weaponBase, components, layer)
     {
     }
 }

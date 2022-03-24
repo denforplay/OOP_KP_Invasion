@@ -22,7 +22,7 @@ public class ModificationSpawner
         _variants = new Func<ModificatorBase>[]
         {
             new SpeedBonusFactory(_dx2D, controller).Create,
-            new SlowTrapFactory(_dx2D, controller).Create,
+          //  new SlowTrapFactory(_dx2D, controller).Create,
         };
     }
     

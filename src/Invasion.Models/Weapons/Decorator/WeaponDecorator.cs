@@ -1,39 +1,36 @@
 ﻿using Invasion.Core.Interfaces;
+using Invasion.Engine;
 using SharpDX;
 
 namespace Invasion.Models.Weapons.Decorator;
 
-public class WeaponDecorator : IWeapon
+public class WeaponBaseDecorator : WeaponBase
 {
-    public WeaponDecorator(IWeapon decoratedWeapon)
+    public void SetWeapon(WeaponBase weaponBase)
     {
-        _decoratedWeapon = decoratedWeapon;
+        DecoratedWeaponBase = weaponBase;
     }
 
-    public void SetWeapon(IWeapon weapon)
+    public override float ReloadTime { get => DecoratedWeaponBase.ReloadTime; }
+    protected WeaponBase DecoratedWeaponBase;
+    public WeaponBase Weapon => DecoratedWeaponBase;
+    public override void GiveDamage(IHealthable healthable)
     {
-        _decoratedWeapon = weapon;
+        DecoratedWeaponBase.GiveDamage(healthable);
     }
 
-    public virtual float ReloadTime
+    public override void Attack(Vector2 direction)
     {
-        get => _decoratedWeapon.ReloadTime;
+        DecoratedWeaponBase.Attack(direction);
     }
 
-    protected IWeapon _decoratedWeapon;
-    
-    public void GiveDamage(IHealthable healthable)
+    public override void Update()
     {
-        _decoratedWeapon.GiveDamage(healthable);
+        DecoratedWeaponBase.Update();
     }
 
-    public void Attack(Vector2 direction)
+    public WeaponBaseDecorator(WeaponBase weaponBase, List<IComponent> components, Layer layer = Layer.Weapon) : base(components, layer)
     {
-        _decoratedWeapon.Attack(direction);
-    }
-
-    public void Update()
-    {
-        _decoratedWeapon.Update();
+        DecoratedWeaponBase = weaponBase;
     }
 }

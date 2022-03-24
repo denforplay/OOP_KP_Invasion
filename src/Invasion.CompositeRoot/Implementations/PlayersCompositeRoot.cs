@@ -8,9 +8,11 @@ using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
 using Invasion.Models;
 using Invasion.Models.Configurations;
+using Invasion.Models.Decorator;
 using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
+using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using Invasion.Models.Weapons.Melee;
@@ -33,7 +35,7 @@ public class HeroCompositeRoot : ICompositeRoot
     private Scene _gameScene;
     private Dictionary<string, Player> _players = new Dictionary<string, Player>();
     private Dictionary<Player, (PlayerController, GameObjectView)> _playersData = new Dictionary<Player, (PlayerController, GameObjectView)>();
-    private Dictionary<IWeapon, (GameObject, GameObjectView)> _weaponData = new Dictionary<IWeapon, (GameObject, GameObjectView)>();
+    private Dictionary<WeaponBase, (GameObject, GameObjectView)> _weaponData = new Dictionary<WeaponBase, (GameObject, GameObjectView)>();
     private GameObjectViewFactoryBase<BulletBase> _bulletFactory;
     private BulletSystem _bulletSystem;
     private PlayerConfiguration _playerConfiguration;
@@ -72,14 +74,15 @@ public class HeroCompositeRoot : ICompositeRoot
             new SpriteRenderer(_dx2D, sprite),
             new RigidBody2D()
         }, _playerConfiguration, Layer.Player);
-        player.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, player, colliderSize));
-        var playerView = new GameObjectView(player, _clientRect.Height / 25f, _clientRect.Height);
-        var playerController = new PlayerController(player, inputs);
-        var healthView = new HealthView(player, _dx2D.RenderTarget);
-        _gameScene.Add(player, playerView, playerController);
+        var playerDecorator = new PlayerDecorator(player, player.Components, _playerConfiguration);
+        playerDecorator.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, playerDecorator, colliderSize));
+        var playerView = new GameObjectView(playerDecorator, _clientRect.Height / 25f, _clientRect.Height);
+        var playerController = new PlayerController(playerDecorator, inputs);
+        var healthView = new HealthView(playerDecorator, _dx2D.RenderTarget);
+        _gameScene.Add(playerDecorator, playerView, playerController);
         _gameScene.AddGameObjectView(healthView);
-        _players.Add(playerTag, player);
-        _playersData.Add(player, (playerController, playerView));
+        _players.Add(playerTag, playerDecorator);
+        _playersData.Add(playerDecorator, (playerController, playerView));
     }
     
     private void InitializeWeapons()
@@ -88,16 +91,18 @@ public class HeroCompositeRoot : ICompositeRoot
         CreateWeapon<Knife>(_players["secondPlayer"], new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter));
     }
     
-    private void CreateWeapon<T>(Player owner, WeaponInput weaponInput) where T: IWeapon
+    private void CreateWeapon<T>(Player owner, WeaponInput weaponInput) where T: WeaponBase
     {
-        IWeapon weapon = _weaponFactory.Create<T>(owner);
-            
+        var weaponModel = _weaponFactory.Create<T>(owner);
+        WeaponBase weaponBase = new WeaponBaseDecorator(weaponModel, (weaponModel as GameObject).Components);
+        var collider = new BoxCollider2D(_collisionsRoot.Controller, weaponBase, new Size(2, 2));
+        weaponBase.AddComponent(collider);
         var weaponView =
-            new GameObjectView(weapon as GameObject, _clientRect.Height / 25F, _clientRect.Height);
+            new GameObjectView(weaponBase, _clientRect.Height / 25F, _clientRect.Height);
             
-        _gameScene.AddGameObject(weapon as GameObject);
+        _gameScene.AddGameObject(weaponBase);
         _gameScene.AddGameObjectView(weaponView);
-        _playersData[owner].Item1.BindGun(weapon, weaponInput);
+        _playersData[owner].Item1.BindGun(weaponBase, weaponInput);
     }
     
     private void SpawnBullet(Entity<BulletBase> bullet)

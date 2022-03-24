@@ -27,7 +27,7 @@ public class WeaponFactory
         _dx2D = dx2D;
     }
     
-    public IWeapon Create<T>(GameObject parent) where T : IWeapon
+    public WeaponBase Create<T>(GameObject parent) where T : WeaponBase
     {
         if (typeof(T) == typeof(Knife))
         {
@@ -37,8 +37,6 @@ public class WeaponFactory
                 new SpriteRenderer(_dx2D, _knifeSprite),
             });
 
-            var collider = new BoxCollider2D(_collisionController, knife, new Size(2, 1));
-            knife.AddComponent(collider);
             return knife;
         }
         else if (typeof(T) == typeof(Pistol))
@@ -49,8 +47,7 @@ public class WeaponFactory
                 new SpriteRenderer(_dx2D, _pistolSprite),
             }, parent);
 
-            var collider = new BoxCollider2D(_collisionController, pistol, new Size(2, 2));
-            pistol.AddComponent(collider);
+
             return pistol;
         }
         else

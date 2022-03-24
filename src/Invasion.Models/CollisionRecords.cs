@@ -3,7 +3,10 @@ using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Models.Enemies;
 using Invasion.Models.Modificators;
+using Invasion.Models.Modificators.Bonuses;
 using Invasion.Models.Systems;
+using Invasion.Models.Weapons;
+using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using Invasion.Models.Weapons.Melee;
 
@@ -52,17 +55,22 @@ namespace Invasion.Models
                 _bulletSystem.StopWork(bullet);
             });
             
-            yield return IfCollided<MeleeBase, EnemyBase>((meleeWeapon, enemy) =>
+            //wtf do with that????
+            yield return IfCollided<WeaponBaseDecorator, EnemyBase>((weaponDecorator, enemy) =>
             {
-                if (meleeWeapon.IsAttack)
+                if (weaponDecorator.Weapon is MeleeBase meleeWeapon)
                 {
-                    meleeWeapon.GiveDamage(enemy);
+                    if (meleeWeapon.IsAttack)
+                    {
+                        meleeWeapon.GiveDamage(enemy);
+                    }
+                    if (enemy.CurrentHealthPoints <= 0)
+                        _enemySystem.StopWork(enemy);
                 }
-                if (enemy.CurrentHealthPoints <= 0)
-                    _enemySystem.StopWork(enemy);
+                
             });
             
-            yield return IfCollided<ModificatorBase, GameObject>((modificator, modificatedObject) =>
+            yield return IfCollided<BonusBase, WeaponBase>((modificator, modificatedObject) =>
             {
                 modificator.Apply(modificatedObject);
                 if (modificator.IsApplied)
