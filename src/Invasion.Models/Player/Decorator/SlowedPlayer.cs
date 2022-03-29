@@ -8,7 +8,7 @@ public class SlowedPlayer : PlayerDecorator
 {
     public override float Speed { get => _player.Speed/2f; }
 
-    public SlowedPlayer(Player player, List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Default) : base(player, components, playerConfig, layer)
+    public SlowedPlayer(Player player, List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(player, components, playerConfig, layer)
     {
     }
 }

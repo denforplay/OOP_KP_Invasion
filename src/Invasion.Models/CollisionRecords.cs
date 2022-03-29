@@ -4,6 +4,7 @@ using Invasion.Engine;
 using Invasion.Models.Enemies;
 using Invasion.Models.Modificators;
 using Invasion.Models.Modificators.Bonuses;
+using Invasion.Models.Modificators.Traps;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Decorator;
@@ -58,7 +59,14 @@ namespace Invasion.Models
             //wtf do with that????
             yield return IfCollided<WeaponBaseDecorator, EnemyBase>((weaponDecorator, enemy) =>
             {
-                if (weaponDecorator.Weapon is MeleeBase meleeWeapon)
+                var weapon = weaponDecorator.Weapon;
+                
+                while(weapon is WeaponBaseDecorator otherDecorator)
+                {
+                    weapon = otherDecorator.Weapon;
+                }
+
+                if (weapon is MeleeBase meleeWeapon)
                 {
                     if (meleeWeapon.IsAttack)
                     {
@@ -77,6 +85,12 @@ namespace Invasion.Models
                 {
                     _modificatorSystem.StopWork(modificator);
                 }
+            });
+
+            yield return IfCollided<TrapBase, Player>((modificator, player) =>
+            {
+                modificator.Apply(player);
+                _modificatorSystem.StopWork(modificator);
             });
         }
 

@@ -11,7 +11,7 @@ public class Player : GameObject, IHealthable
     public int CurrentHealthPoints { get; set; }
     public virtual float Speed { get; set; }
     
-    public Player(List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Default) : base(components, layer)
+    public Player(List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(components, layer)
     {
         Speed = 1f;
         CurrentHealthPoints = playerConfig.MaxHealth;

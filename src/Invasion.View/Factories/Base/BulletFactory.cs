@@ -2,7 +2,7 @@
 
 namespace Invasion.View.Factories.Base;
 
-public class DefaultBulletFactory : GameObjectViewFactoryBase<BulletBase>
+public class BulletFactory : GameObjectViewFactoryBase<BulletBase>
 {
     
 }

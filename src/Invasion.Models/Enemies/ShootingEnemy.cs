@@ -6,7 +6,7 @@ namespace Invasion.Models.Enemies;
 
 public class ShootingEnemy : EnemyBase
 {
-    public ShootingEnemy(List<IComponent> components, EnemyConfiguration enemyConfiguration, Layer layer = Layer.Default) : base(components, enemyConfiguration, layer)
+    public ShootingEnemy(List<IComponent> components, EnemyConfiguration enemyConfiguration, Layer layer = Layer.Enemy) : base(components, enemyConfiguration, layer)
     {
     }
 }

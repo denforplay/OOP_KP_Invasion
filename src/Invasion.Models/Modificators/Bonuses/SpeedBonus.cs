@@ -17,7 +17,7 @@ public class SpeedBonus : BonusBase
         if (weaponBase is WeaponBaseDecorator decorator)
         {
             var previousWeapon = decorator.Weapon;
-            decorator.SetWeapon(new FasterWeaponBaseDecorator(decorator.Weapon, decorator.Weapon.Components));
+            decorator.SetWeapon(new FasterWeaponBaseDecorator(previousWeapon, previousWeapon.Components));
             await Task.Delay(3000);
             decorator.SetWeapon(previousWeapon);
         }

@@ -49,7 +49,7 @@ public class HeroCompositeRoot : ICompositeRoot
         _collisionsRoot = collisionsRoot;
         _clientRect = clientRect;
         _gameScene = gameScene;
-        _bulletFactory = new DefaultBulletFactory();
+        _bulletFactory = new BulletFactory();
         _playerConfiguration = new PlayerConfiguration(1, 5);
         _bulletSystem.OnStart += SpawnBullet;
         _bulletSystem.OnEnd += DeleteBullet;
@@ -74,7 +74,7 @@ public class HeroCompositeRoot : ICompositeRoot
             new SpriteRenderer(_dx2D, sprite),
             new RigidBody2D()
         }, _playerConfiguration, Layer.Player);
-        var playerDecorator = new PlayerDecorator(player, player.Components, _playerConfiguration);
+        var playerDecorator = new PlayerDecorator(player, new List<IComponent>(player.Components), _playerConfiguration);
         playerDecorator.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, playerDecorator, colliderSize));
         var playerView = new GameObjectView(playerDecorator, _clientRect.Height / 25f, _clientRect.Height);
         var playerController = new PlayerController(playerDecorator, inputs);
@@ -94,7 +94,7 @@ public class HeroCompositeRoot : ICompositeRoot
     private void CreateWeapon<T>(Player owner, WeaponInput weaponInput) where T: WeaponBase
     {
         var weaponModel = _weaponFactory.Create<T>(owner);
-        WeaponBase weaponBase = new WeaponBaseDecorator(weaponModel, (weaponModel as GameObject).Components);
+        WeaponBase weaponBase = new WeaponBaseDecorator(weaponModel, new List<IComponent>(weaponModel.Components));
         var collider = new BoxCollider2D(_collisionsRoot.Controller, weaponBase, new Size(2, 2));
         weaponBase.AddComponent(collider);
         var weaponView =

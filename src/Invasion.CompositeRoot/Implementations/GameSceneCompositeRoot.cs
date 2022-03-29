@@ -50,6 +50,8 @@ namespace Invastion.CompositeRoot.Implementations
             _dx2d.LoadBitmap("shootingEnemy.png");
             _dx2d.LoadBitmap("speedBonus.png");
             _dx2d.LoadBitmap("slowTrap.png");
+            _dx2d.LoadBitmap("kamikadzeEnemy.png");
+            _dx2d.LoadBitmap("beatingEnemy.png");
             _background = new Image(_dx2d, "background.bmp");
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _clientRect, _gameScene);

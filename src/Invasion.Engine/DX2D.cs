@@ -4,6 +4,7 @@ using SharpDX.DirectWrite;
 using SharpDX.WIC;
 using SharpDX.Windows;
 using System.Windows;
+using System.Windows.Interop;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace Invasion.Engine
@@ -24,15 +25,15 @@ namespace Invasion.Engine
         private Dictionary<string, SharpDX.Direct2D1.Bitmap> _bitmaps;
         public Dictionary<string, SharpDX.Direct2D1.Bitmap> Bitmaps { get => _bitmaps; }
 
-        public DX2D(RenderForm form, Window window)
+        public DX2D(RenderForm form)
         {
             _bitmaps = new Dictionary<string, Bitmap>();
             _factory = new SharpDX.Direct2D1.Factory();
             _writeFactory = new SharpDX.DirectWrite.Factory();
             RenderTargetProperties renderProp = new RenderTargetProperties()
             {
-                DpiX = 96,
-                DpiY = 96,
+                DpiX = 0,
+                DpiY = 0,
                 MinLevel = FeatureLevel.Level_DEFAULT,
                 PixelFormat = new SharpDX.Direct2D1.PixelFormat(SharpDX.DXGI.Format.B8G8R8A8_UNorm, AlphaMode.Premultiplied),
                 Type = RenderTargetType.Default,
@@ -42,7 +43,7 @@ namespace Invasion.Engine
             HwndRenderTargetProperties winProp = new HwndRenderTargetProperties()
             {
                 Hwnd = form.Handle,
-                PixelSize = new Size2((int)Screen.Width/*window.ActualWidth*/, (int)Screen.Height/*window.ActualHeight*/),
+                PixelSize = new Size2((int)Screen.Width, (int)Screen.Height),
                 PresentOptions = PresentOptions.None                                      // Immediately // None - vSync
             };
             _renderTarget = new WindowRenderTarget(_factory, renderProp, winProp);

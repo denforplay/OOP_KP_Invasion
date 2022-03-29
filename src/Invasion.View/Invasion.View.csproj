@@ -22,9 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="background.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="dash.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

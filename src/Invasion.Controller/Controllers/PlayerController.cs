@@ -53,7 +53,7 @@ namespace Invasion.Controller.Controllers
             {
                 _player.TryTakeComponent(out Transform transform);
                 var direction = _weaponInput.ReadValue();
-                var angle = Math.Tan(45) * direction.X / 10;
+                var angle = Math.Tan(45) * direction.X / 25;
                 transform.Rotation = new Vector3(transform.Rotation.X + (float) angle, transform.Rotation.Y,
                     transform.Rotation.Z);
             }

@@ -5,16 +5,16 @@ namespace Invasion.Models.Modificators.Traps;
 
 public abstract class TrapBase : ModificatorBase
 {
-    protected TrapBase(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
+    protected TrapBase(List<IComponent> components, Layer layer = Layer.Modificator) : base(components, layer)
     {
     }
 
     public sealed override void Apply(GameObject gameObject)
     {
-        if (gameObject is Player player)
+        if (gameObject is Player player && !IsApplied)
         {
-            Apply(player);
             IsApplied = true;
+            Apply(player);
         }
     }
 

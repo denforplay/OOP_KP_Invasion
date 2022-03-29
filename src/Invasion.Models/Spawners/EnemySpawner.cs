@@ -6,6 +6,7 @@ using Invasion.Engine.Components.Colliders;
 using Invasion.Models.Collisions;
 using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
+using Invasion.Models.Factories.EnemiesFactories;
 using Invasion.Models.Systems;
 using SharpDX;
 
@@ -26,7 +27,9 @@ public class EnemySpawner
         _enemySystem = enemySystem;
         _variants = new Func<EnemyBase>[]
         {
-            CreateShootingEnemy
+            new ShootingEnemyFactory(_dx2D, _collisionController).Create,
+            new BeatingEnemyFactory(_dx2D, _collisionController).Create,
+            new KamikadzeEnemyFactory(_dx2D, _collisionController).Create,
         };
         _spawnPositions = new[]
         {
@@ -43,26 +46,16 @@ public class EnemySpawner
         {
             if (_enemySystem.Entities.Count() <= 50)
             {
-                var randomEnemy = _variants[_random.Next(0, _variants.Length)];
-                _enemySystem.Work(randomEnemy.Invoke());
+                var randomEnemy = _variants[_random.Next(0, _variants.Length)].Invoke();
+                var randomPosition = _spawnPositions[_random.Next(0, _spawnPositions.Length)];
+                if (randomEnemy.TryTakeComponent(out Transform transform))
+                {
+                    transform.Position = randomPosition;
+                }
+
+                _enemySystem.Work(randomEnemy);
             }
             await Task.Delay(3000);
         }
-    }
-
-    private ShootingEnemy CreateShootingEnemy()
-    {
-        var position = _spawnPositions[_random.Next(0, _spawnPositions.Length)];
-        ShootingEnemy enemy = new ShootingEnemy(new List<IComponent>
-        {
-            new Transform
-            {
-                Position = position
-            },
-            new RigidBody2D()
-        }, new EnemyConfiguration(2, 1), Layer.Enemy);
-        enemy.AddComponent(new SpriteRenderer(_dx2D, "shootingEnemy.png"));
-        enemy.AddComponent(new BoxCollider2D(_collisionController, enemy, new Size(2, 2)));
-        return enemy;
     }
 }

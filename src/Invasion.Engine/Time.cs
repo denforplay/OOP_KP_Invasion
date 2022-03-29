@@ -7,7 +7,6 @@ namespace Invasion.Engine
         public static float DeltaTime;
         public static float TimeScale = 1;
 
-
         private static Stopwatch _watch;
         private static long _previousTicks;
 

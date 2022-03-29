@@ -22,7 +22,7 @@ public class ModificationSpawner
         _variants = new Func<ModificatorBase>[]
         {
             new SpeedBonusFactory(_dx2D, controller).Create,
-          //  new SlowTrapFactory(_dx2D, controller).Create,
+            new SlowTrapFactory(_dx2D, controller).Create,
         };
     }
     
@@ -43,8 +43,6 @@ public class ModificationSpawner
                 await Task.Delay(_random.Next(3000, 6000));
                 _modificatorSystem.StopWork(randomBonus);
             }
-            
-            await Task.Delay(_random.Next(3000, 6000));
         }
     }
 }
