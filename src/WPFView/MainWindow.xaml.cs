@@ -21,6 +21,9 @@ namespace WPFView
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GameView _gameView;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,9 +31,17 @@ namespace WPFView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GameView gameView = new GameView();
-            formPlacement.Child = gameView.RenderForm;
-            gameView.Run();
+            if (_gameView is null)
+            {
+                _gameView = new GameView();
+                formPlacement.Child = _gameView.RenderForm;
+                _gameView.Run();
+                startGameButton.IsEnabled = false;
+            }
+        }
+
+        public void EndGame()
+        {
         }
     }
 }

@@ -1,15 +1,19 @@
 ﻿using System.Drawing;
+using Invasion.Core;
+using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
 using Invasion.Models;
+using Invasion.Models.Enemies;
 using Invasion.Models.Systems;
 using Invasion.View;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
 using Image = Invasion.Engine.Components.Image;
 using RectangleF = SharpDX.RectangleF;
+using Size = System.Drawing.Size;
 
 namespace Invastion.CompositeRoot.Implementations
 {
@@ -27,6 +31,8 @@ namespace Invastion.CompositeRoot.Implementations
         private readonly DInput _dInput;
         private RectangleF _clientRect;
         private Image _background;
+        private ScoreSystem _scoreSystem;
+        
         public GameSceneCompositeRoot(DX2D dX2D, DInput dInput, RectangleF clientRect)
         {
             _clientRect = clientRect;
@@ -62,7 +68,16 @@ namespace Invastion.CompositeRoot.Implementations
             _modificatorsCompositeRoot =
                 new ModificatorsCompositeRoot(_dx2d, _collisionsRoot.Controller, _gameScene, _clientRect, _modificatorSystem);
             _modificatorsCompositeRoot.Compose();
+            _scoreSystem = new ScoreSystem();
+            var scoreView = new ScoreView(_scoreSystem, _dx2d.RenderTarget);
+            _gameScene.AddGameObjectView(scoreView);
+            _enemySystem.OnEnd += UpdateScoreSystem;
             GenerateBorders();
+        }
+
+        private void UpdateScoreSystem(Entity<EnemyBase> enemy)
+        {
+            _scoreSystem.AddScores(enemy.GetEntity.Cost);
         }
 
         private void GenerateBorders()
@@ -75,7 +90,7 @@ namespace Invastion.CompositeRoot.Implementations
 
         private void GenerateBorder(string spriteName, Vector3 position, Vector3 rotation, Size size)
         {
-            var border = new Border(new List<Invasion.Core.Interfaces.IComponent>
+            var border = new Border(new List<IComponent>
             {
                 new Transform
                 {
@@ -100,8 +115,8 @@ namespace Invastion.CompositeRoot.Implementations
         {
             _collisionsRoot.Update();
             _background.DrawBackground(1, _clientRect.Height / 25f, 25f/1080, _clientRect.Height);
-            _gameScene.Update();
             _gameScene.FixedUpdate();
+            _gameScene.Update();
         }
     }
 }

@@ -9,7 +9,7 @@
         Title="MainWindow" Width="1920" Height="1080" WindowState="Maximized"  WindowStyle="None">
     <Grid>
         <WindowsFormsHost x:Name="formPlacement"/>
-        <Button Content="Button" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="62" Width="328" Click="Button_Click"/>
+        <Button x:Name="startGameButton" Content="Button" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="62" Width="328" Click="Button_Click"/>
         <Label Content="Player 1" HorizontalAlignment="Left" Margin="125,68,0,0" VerticalAlignment="Top" Height="68" Width="179" FontSize="50"/>
         <Label Content="Player 2" HorizontalAlignment="Left" Margin="1565,77,0,0" VerticalAlignment="Top" Height="68" Width="179" FontSize="50"/>
         <ComboBox ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedString}" HorizontalAlignment="Left" Margin="125,287,0,0" VerticalAlignment="Top" Width="120"/>

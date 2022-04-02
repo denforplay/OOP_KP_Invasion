@@ -27,7 +27,7 @@ namespace Invasion.Models.Factories.EnemiesFactories
             {
                 new Transform(),
                 new RigidBody2D()
-            }, new EnemyConfiguration(2, 1), Layer.Enemy);
+            }, new EnemyConfiguration(2, 1, 1), Layer.Enemy);
             enemy.AddComponent(new SpriteRenderer(_dx2D, _spriteFileName));
             enemy.AddComponent(new BoxCollider2D(_collisionController, enemy, new Size(2, 2)));
             return enemy;
