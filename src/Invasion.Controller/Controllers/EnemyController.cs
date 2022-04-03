@@ -36,7 +36,7 @@ public class EnemyController : IController
         Transform playerTransform;
         _weaponBase.Update();
         closestPlayer.TryTakeComponent(out playerTransform);
-        var direction = Vector3.Normalize(Vector3.Subtract(playerTransform.Position, _enemyTransform.Position))/25;
+        var direction = Vector3.Normalize(Vector3.Subtract(playerTransform.Position, _enemyTransform.Position))/25 * Time.TimeScale;
         _enemyPhysics.Speed = new Vector2(direction.X, direction.Y);
         if (_weaponBase is not null && _shootTime >= _weaponBase.ReloadTime)
         {

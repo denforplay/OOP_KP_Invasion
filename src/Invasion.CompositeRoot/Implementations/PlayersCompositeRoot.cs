@@ -1,6 +1,7 @@
 ﻿using Invasion.Controller.Controllers;
 using Invasion.Controller.Inputs;
 using Invasion.Core;
+using Invasion.Core.EventBus;
 using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
@@ -9,6 +10,7 @@ using Invasion.Engine.InputSystem;
 using Invasion.Models;
 using Invasion.Models.Configurations;
 using Invasion.Models.Decorator;
+using Invasion.Models.Events;
 using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
@@ -40,9 +42,12 @@ public class HeroCompositeRoot : ICompositeRoot
     private BulletSystem _bulletSystem;
     private PlayerConfiguration _playerConfiguration;
     private WeaponFactory _weaponFactory;
+    Dictionary<string, Type> _playerWeapons;
+
     public List<Player> Players => _players.Values.ToList();
-    public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene)
+    public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
+        _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
         _dInput = dInput;
         _dx2D = dx2D;
@@ -58,8 +63,8 @@ public class HeroCompositeRoot : ICompositeRoot
 
     public void Compose()
     {
-       CreatePlayer("firstPlayer", "dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.W, Key.S, Key.D, Key.A));
-       CreatePlayer("secondPlayer", "dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4));
+       CreatePlayer("Player1", @"Sources\dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.W, Key.S, Key.D, Key.A));
+       CreatePlayer("Player2", @"Sources\dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4));
        InitializeWeapons();
     }
     
@@ -79,6 +84,10 @@ public class HeroCompositeRoot : ICompositeRoot
         var playerView = new GameObjectView(playerDecorator, _clientRect.Height / 25f, _clientRect.Height);
         var playerController = new PlayerController(playerDecorator, inputs);
         var healthView = new HealthView(playerDecorator, _dx2D.RenderTarget);
+        playerDecorator.OnDestroyed += () =>
+        {
+            SingletonEventBus.GetInstance.Invoke(new GameLoseEvent());
+        };
         _gameScene.Add(playerDecorator, playerView, playerController);
         _gameScene.AddGameObjectView(healthView);
         _players.Add(playerTag, playerDecorator);
@@ -87,13 +96,13 @@ public class HeroCompositeRoot : ICompositeRoot
     
     private void InitializeWeapons()
     {
-        CreateWeapon<Pistol>(_players["firstPlayer"], new WeaponInput(_dInput, Key.Q, Key.E, Key.Space));
-        CreateWeapon<Knife>(_players["secondPlayer"], new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter));
+        CreateWeapon(_players["Player1"], new WeaponInput(_dInput, Key.Q, Key.E, Key.Space), _playerWeapons["Player1"]);
+        CreateWeapon(_players["Player2"], new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter), _playerWeapons["Player2"]);
     }
     
-    private void CreateWeapon<T>(Player owner, WeaponInput weaponInput) where T: WeaponBase
+    private void CreateWeapon(Player owner, WeaponInput weaponInput, Type type)
     {
-        var weaponModel = _weaponFactory.Create<T>(owner);
+        var weaponModel = _weaponFactory.Create(owner, type);
         WeaponBase weaponBase = new WeaponBaseDecorator(weaponModel, new List<IComponent>(weaponModel.Components));
         var collider = new BoxCollider2D(_collisionsRoot.Controller, weaponBase, new Size(2, 2));
         weaponBase.AddComponent(collider);

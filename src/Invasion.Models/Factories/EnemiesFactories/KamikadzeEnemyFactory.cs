@@ -11,7 +11,7 @@ namespace Invasion.Models.Factories.EnemiesFactories
 {
     public class KamikadzeEnemyFactory : IModelFactory<KamikadzeEnemy>
     {
-        private string _spriteFileName = "kamikadzeEnemy.png";
+        private string _spriteFileName = @"Sources\kamikadzeEnemy.png";
         private DX2D _dx2D;
         private CollisionController _collisionController;
 

@@ -14,8 +14,8 @@ namespace Invasion.Models.Factories.WeaponsFactories;
 
 public class WeaponFactory
 {
-    private string _knifeSprite = "knife.png";
-    private string _pistolSprite = "pistol.png";
+    private string _knifeSprite = @"Sources\knife.png";
+    private string _pistolSprite = @"Sources\pistol.png";
     private CollisionController _collisionController;
     private BulletSystem _bulletSystem;
     private DX2D _dx2D;
@@ -27,9 +27,9 @@ public class WeaponFactory
         _dx2D = dx2D;
     }
     
-    public WeaponBase Create<T>(GameObject parent) where T : WeaponBase
+    public WeaponBase Create(GameObject parent, Type type)
     {
-        if (typeof(T) == typeof(Knife))
+        if (type == typeof(Knife))
         {
             Knife knife = new Knife(parent, new List<IComponent>
             {
@@ -39,7 +39,7 @@ public class WeaponFactory
 
             return knife;
         }
-        else if (typeof(T) == typeof(Pistol))
+        else if (type == typeof(Pistol))
         {
             Pistol pistol = new Pistol(new DefaultBulletFactory(_dx2D, _collisionController), _bulletSystem, new List<IComponent>
             {
@@ -54,5 +54,10 @@ public class WeaponFactory
         {
             throw new NotImplementedException();
         }
+    }
+
+    public WeaponBase Create<T>(GameObject parent) where T : WeaponBase
+    {
+        return Create(parent, typeof(T));
     }
 }

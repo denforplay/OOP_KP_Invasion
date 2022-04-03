@@ -10,7 +10,7 @@ namespace Invasion.Models.Factories.ModificatorFactories;
 
 public class SpeedBonusFactory : IModelFactory<SpeedBonus>
 {
-    private string _spriteFileName = "speedBonus.png";
+    private string _spriteFileName = @"Sources\speedBonus.png";
     private DX2D _dx2D;
     private CollisionController _collisionController;
     

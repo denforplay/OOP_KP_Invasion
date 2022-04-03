@@ -1,10 +1,6 @@
-﻿using System.Drawing;
-using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
-using Invasion.Engine.Components.Colliders;
 using Invasion.Models.Collisions;
-using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
 using Invasion.Models.Factories.EnemiesFactories;
 using Invasion.Models.Systems;
@@ -20,6 +16,7 @@ public class EnemySpawner
     private readonly CollisionController _collisionController;
     private Vector3[] _spawnPositions;
     private DX2D _dx2D;
+    private bool _isSpawning = true;
     public EnemySpawner(EnemySystem enemySystem, CollisionController controller, DX2D dx2D)
     {
         _dx2D = dx2D;
@@ -42,7 +39,7 @@ public class EnemySpawner
     
     public async void Spawn()
     {
-        while (true)
+        while (_isSpawning)
         {
             if (_enemySystem.Entities.Count() <= 50)
             {
@@ -57,5 +54,10 @@ public class EnemySpawner
             }
             await Task.Delay(3000);
         }
+    }
+
+    public void StopSpawn()
+    {
+        _isSpawning = false;
     }
 }

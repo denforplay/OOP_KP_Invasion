@@ -6,7 +6,7 @@ namespace Invasion.Engine.Components
 {
     public class SpriteRenderer : IComponent
     {
-        private static readonly float _pu = 1.0f / 16.0f;
+        private readonly float _pu = 1.0f / 16.0f;
 
         private DX2D _dx2d;
         private Transform _transform = new Transform();

@@ -22,6 +22,10 @@ public class Player : GameObject, IHealthable
     {
         CurrentHealthPoints -= damage;
         OnHealthChanged?.Invoke(CurrentHealthPoints);
+        if (CurrentHealthPoints <= 0)
+        {
+            OnDestroy();
+        }
     }
 
     public void SetHealth(int health)

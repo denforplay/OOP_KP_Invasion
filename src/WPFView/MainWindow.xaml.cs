@@ -1,18 +1,11 @@
-﻿using System;
+﻿using Invasion.Core.EventBus;
+using Invasion.Models.Events;
+using Invasion.Models.Weapons.Firearms;
+using Invasion.Models.Weapons.Melee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFView
 {
@@ -21,27 +14,81 @@ namespace WPFView
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Dictionary<string, Type> _weaponTypes;
         private GameView _gameView;
-
-
         public MainWindow()
         {
             InitializeComponent();
+            _weaponTypes = new Dictionary<string, Type>
+            {
+                {"Knife", typeof(Knife)},
+                {"Pistol", typeof(Pistol)},
+            };
+
+            player1Choose.ItemsSource = _weaponTypes.Keys.ToList();
+            player1Choose.SelectedIndex = 0;
+
+            player2Choose.ItemsSource = _weaponTypes.Keys.ToList();
+            player2Choose.SelectedIndex = 0;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (_gameView is null)
+            if (formPlacement.Child is null)
             {
-                _gameView = new GameView();
-                formPlacement.Child = _gameView.RenderForm;
-                _gameView.Run();
-                startGameButton.IsEnabled = false;
+                StartGame();
             }
         }
 
-        public void EndGame()
+        private void StartGame()
         {
+            Subscribe();
+            Invasion.Engine.Screen.Width = (int)viewBox.DesiredSize.Width;
+            Invasion.Engine.Screen.Height = (int)viewBox.DesiredSize.Height;
+
+            _gameView = new GameView(new Invasion.Models.Configurations.GameConfiguration(3), new Dictionary<string, Type>
+                {
+                    { "Player1", _weaponTypes[player1Choose.SelectedItem.ToString()] },
+                    { "Player2", _weaponTypes[player2Choose.SelectedItem.ToString()] },
+                });
+            formPlacement.Child = _gameView.RenderForm;
+            _gameView.Run();
+        }
+
+        public void LoseGame(GameLoseEvent loseEvent)
+        {
+            LoseWindow loseWindow = new LoseWindow();
+            loseWindow.Show();
+            loseWindow.OnRestart += StartGame;
+            loseWindow.OnExit += CloseGame;
+            UnSubscribe();
+        }
+
+        public void CloseGame()
+        {
+            _gameView.Dispose();
+            formPlacement.Child = null;
+        }
+
+        private void Subscribe()
+        {
+            SingletonEventBus.GetInstance.Subscribe<GameLoseEvent>(LoseGame);
+            SingletonEventBus.GetInstance.Subscribe<GameWinEvent>(WinGame);
+        }
+        
+        private void UnSubscribe()
+        {
+            SingletonEventBus.GetInstance.Unsubscribe<GameLoseEvent>(LoseGame);
+            SingletonEventBus.GetInstance.Unsubscribe<GameWinEvent>(WinGame);
+        }
+
+        public void WinGame(GameWinEvent gameWinEvent)
+        {
+            WinWindow winWindow = new WinWindow(gameWinEvent.Score);
+            winWindow.Show();
+            winWindow.OnRestart += StartGame;
+            winWindow.OnExit += CloseGame;
+            UnSubscribe();
         }
     }
 }

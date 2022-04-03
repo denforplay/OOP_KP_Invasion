@@ -80,4 +80,9 @@ public class EnemyCompositeRoot : ICompositeRoot
         enemy.GetEntity.OnDestroy();
         _enemyFactory.Destroy(enemy);
     }
+
+    public void Dispose()
+    {
+        _enemySpawner.StopSpawn();
+    }
 }

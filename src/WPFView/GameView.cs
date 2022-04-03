@@ -1,17 +1,17 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.InputSystem;
+using Invasion.Models.Configurations;
 using Invastion.CompositeRoot.Implementations;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Windows;
 using System;
-using System.Windows;
+using System.Collections.Generic;
 
 namespace WPFView
 {
     public class GameView
     {
-
         public RenderForm RenderForm { get; private set; }
         public DX2D DX2D { get; private set; }
 
@@ -20,7 +20,7 @@ namespace WPFView
         private DInput _dInput;
         private RectangleF _clientRect;
 
-        public GameView()
+        public GameView(GameConfiguration gameConfiguration, Dictionary<string, Type> playerWeapons)
         {
             Time.Start();
             RenderForm = new RenderForm("Direct2D Application");
@@ -31,7 +31,7 @@ namespace WPFView
             _clientRect.Width = RenderForm.ClientSize.Width;
             _clientRect.Height = RenderForm.ClientSize.Height;
             _dInput = new DInput(RenderForm);
-            _game = new GameSceneCompositeRoot(DX2D, _dInput, _clientRect);
+            _game = new GameSceneCompositeRoot(DX2D, _dInput, _clientRect, playerWeapons, gameConfiguration);
             RenderForm_Resize(this, null);
         }
 
@@ -68,6 +68,7 @@ namespace WPFView
 
         public void Dispose()
         {
+            _game.Dispose();
             _dInput.Dispose();
             DX2D.Dispose();
             RenderForm.Dispose();

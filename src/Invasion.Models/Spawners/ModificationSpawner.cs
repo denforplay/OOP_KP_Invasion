@@ -14,6 +14,7 @@ public class ModificationSpawner
     private readonly Func<ModificatorBase>[] _variants;
     private readonly Random _random = new Random();
     private DX2D _dx2D;
+    private bool _isSpawning = true;
     
     public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, DX2D dx2D)
     {
@@ -28,7 +29,7 @@ public class ModificationSpawner
     
     public async void Spawn()
     {
-        while (true)
+        while (_isSpawning)
         {
             if (_modificatorSystem.Entities.Count() <= 5)
             {
@@ -44,5 +45,10 @@ public class ModificationSpawner
                 _modificatorSystem.StopWork(randomBonus);
             }
         }
+    }
+    
+    public void StopSpawn()
+    {
+        _isSpawning = false;
     }
 }

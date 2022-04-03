@@ -9,7 +9,7 @@ namespace Invasion.Models.Factories.BulletFactories;
 
 public class DefaultBulletFactory : IModelFactory<DefaultBullet>
 {
-    private string _spriteFileName = "defaultBullet.png";
+    private string _spriteFileName = @"Sources\defaultBullet.png";
     private DX2D _dx2D;
     private CollisionController _collisionController;
 

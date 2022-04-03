@@ -19,37 +19,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="background.bmp">
+    <None Update="Sources\background.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="beatingEnemy.png">
+    <None Update="Sources\beatingEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="dash.bmp">
+    <None Update="Sources\dash.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="defaultBullet.png">
+    <None Update="Sources\defaultBullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="kamikadzeEnemy.png">
+    <None Update="Sources\kamikadzeEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="knife.png">
+    <None Update="Sources\knife.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="pistol.png">
+    <None Update="Sources\pistol.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="shootingEnemy.png">
+    <None Update="Sources\shootingEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="slowTrap.png">
+    <None Update="Sources\slowTrap.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="speedBonus.png">
+    <None Update="Sources\speedBonus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="topdownwall.png">
+    <None Update="Sources\topdownwall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

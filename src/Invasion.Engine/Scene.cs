@@ -114,5 +114,13 @@ namespace Invasion.Engine
                 });
             });
         }
+
+        public void Dispose()
+        {
+            _colliders.Clear();
+            _gameObjects.Clear();
+            _controllers.Clear();
+            _views.Clear();
+        }
     }
 }

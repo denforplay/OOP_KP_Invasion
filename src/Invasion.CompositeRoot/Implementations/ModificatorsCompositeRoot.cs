@@ -54,4 +54,9 @@ public class ModificatorsCompositeRoot : ICompositeRoot
         modificator.GetEntity.OnDestroy();
         _viewFactory.Destroy(modificator);
     }
+
+    public void Dispose()
+    {
+        _modificationSpawner.StopSpawn();
+    }
 }
