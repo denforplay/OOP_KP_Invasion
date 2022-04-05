@@ -1,4 +1,4 @@
-﻿using Invasion.Core.Interfaces;
+﻿using Invasion.Engine.Interfaces;
 using SharpDX;
 
 namespace Invasion.Engine.Components

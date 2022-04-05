@@ -1,7 +1,7 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;

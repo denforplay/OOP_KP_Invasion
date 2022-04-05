@@ -1,5 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Decorator;
 
 namespace Invasion.Models.Modificators.Traps;

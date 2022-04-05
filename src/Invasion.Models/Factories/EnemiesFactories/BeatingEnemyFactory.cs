@@ -1,16 +1,11 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Invasion.Models.Factories.EnemiesFactories
 {

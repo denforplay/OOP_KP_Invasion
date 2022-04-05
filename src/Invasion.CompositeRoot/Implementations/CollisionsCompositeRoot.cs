@@ -32,5 +32,9 @@ namespace Invastion.CompositeRoot.Implementations
         {
             _controller.Update();
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

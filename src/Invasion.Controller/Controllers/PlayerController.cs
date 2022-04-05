@@ -1,8 +1,7 @@
 ﻿using Invasion.Controller.Inputs;
-using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
-using Invasion.Models;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Decorator;
 using Invasion.Models.Weapons;
 using SharpDX;

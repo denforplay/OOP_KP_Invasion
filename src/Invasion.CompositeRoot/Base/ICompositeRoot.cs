@@ -3,5 +3,6 @@
     public interface ICompositeRoot
     {
         void Compose();
+        void Dispose();
     }
 }

@@ -1,6 +1,5 @@
-﻿using Invasion.Core;
-using Invasion.Core.Abstracts;
-using Invasion.Models.Enemies;
+﻿using Invasion.Models.Enemies;
+using Invasion.Models.System.Base;
 
 namespace Invasion.Models.Systems;
 

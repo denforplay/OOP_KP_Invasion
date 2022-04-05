@@ -1,7 +1,6 @@
-﻿using System;
-using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using SharpDX;
 using SharpDX.Direct2D1;

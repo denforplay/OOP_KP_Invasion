@@ -1,5 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 
 namespace Invasion.Models.Modificators;
 

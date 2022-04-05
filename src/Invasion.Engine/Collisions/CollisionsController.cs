@@ -1,4 +1,5 @@
-﻿using Invasion.Core.Interfaces;
+﻿
+using Invasion.Engine.Interfaces;
 
 namespace Invasion.Models.Collisions
 {

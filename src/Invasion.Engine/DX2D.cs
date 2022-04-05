@@ -22,8 +22,8 @@ namespace Invasion.Engine
         private ImagingFactory _imagingFactory;
         public ImagingFactory ImagingFactory { get => _imagingFactory; }
 
-        private Dictionary<string, SharpDX.Direct2D1.Bitmap> _bitmaps;
-        public Dictionary<string, SharpDX.Direct2D1.Bitmap> Bitmaps { get => _bitmaps; }
+        private Dictionary<string, Bitmap> _bitmaps;
+        public Dictionary<string, Bitmap> Bitmaps { get => _bitmaps; }
 
         public DX2D(RenderForm form)
         {

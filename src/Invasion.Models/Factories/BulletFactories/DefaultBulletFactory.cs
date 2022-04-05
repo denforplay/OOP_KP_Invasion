@@ -1,9 +1,10 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Weapons.Firearms.Bullets;
+using System.Drawing;
 
 namespace Invasion.Models.Factories.BulletFactories;
 
@@ -28,7 +29,7 @@ public class DefaultBulletFactory : IModelFactory<DefaultBullet>
         });
         
         var rigidBody = new RigidBody2D();
-        bullet.AddComponent(new BoxCollider2D(_collisionController, bullet, new System.Drawing.Size(1, 1)));
+        bullet.AddComponent(new BoxCollider2D(_collisionController, bullet, new Size(1, 1)));
         bullet.AddComponent(rigidBody);
         return bullet;
     }

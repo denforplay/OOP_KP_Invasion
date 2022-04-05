@@ -1,11 +1,11 @@
-﻿using Invasion.Core.Interfaces;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.DirectWrite;
 using SharpDX.Direct2D1;
 using Brush = SharpDX.Direct2D1.Brush;
 using Color = SharpDX.Color;
 using Factory = SharpDX.DirectWrite.Factory;
 using RectangleF = SharpDX.RectangleF;
+using Invasion.Engine.Interfaces;
 
 namespace Invasion.Engine.Components;
 

@@ -1,4 +1,4 @@
-﻿using Invasion.Core.Interfaces;
+﻿using Invasion.Engine.Interfaces;
 using SharpDX;
 using SharpDX.Direct2D1;
 
@@ -11,8 +11,8 @@ namespace Invasion.Engine.Components
         private DX2D _dx2d;
         private Transform _transform = new Transform();
         public Transform Transform => _transform;
-        public Core.Size Size => _bitmapSize;
-        private Core.Size _bitmapSize;
+        public Size Size => _bitmapSize;
+        private Size _bitmapSize;
         private Vector2 _bitmapCenter;
         private Vector2 _translation;
         private Matrix3x2 _matrix;
@@ -23,7 +23,7 @@ namespace Invasion.Engine.Components
             _dx2d = dx2d;
             Transform.Scale = new Vector3(1, 1, 1);
             SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[spriteFileName];
-            _bitmapSize = new Core.Size(bitmap.Size.Width, bitmap.Size.Height);
+            _bitmapSize = new Size((int)bitmap.Size.Width, (int)bitmap.Size.Height);
             _bitmapCenter.X = _bitmapSize.Width / 2.0f;
             _bitmapCenter.Y = _bitmapSize.Height / 2.0f;
         }

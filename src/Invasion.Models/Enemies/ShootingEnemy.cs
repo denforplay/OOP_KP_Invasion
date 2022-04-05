@@ -1,5 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Configurations;
 
 namespace Invasion.Models.Enemies;

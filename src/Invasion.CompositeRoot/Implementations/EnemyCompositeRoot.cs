@@ -1,13 +1,17 @@
 ﻿using Invasion.Controller.Controllers;
-using Invasion.Core;
 using Invasion.Engine;
+using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Collisions;
 using Invasion.Models.Enemies;
 using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Spawners;
 using Invasion.Models.Systems;
+using Invasion.Models.Weapons;
+using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms;
+using Invasion.Models.Weapons.Melee;
 using Invasion.View;
 using Invasion.View.Factories;
 using Invastion.CompositeRoot.Base;
@@ -26,6 +30,12 @@ public class EnemyCompositeRoot : ICompositeRoot
     private RectangleF _rectangle;
     private DX2D _dx2D;
     private WeaponFactory _weaponFactory;
+    private Dictionary<Type, Type> _enemyWeapons = new Dictionary<Type, Type>
+    {
+        { typeof(ShootingEnemy), typeof(Pistol) },
+        { typeof(BeatingEnemy), typeof(Knife) },
+        {typeof(KamikadzeEnemy),typeof(EmptyWeapon) },
+    };
 
     public EnemyCompositeRoot(DX2D dx2D, BulletSystem bulletSystem, EnemySystem enemySystem, RectangleF rectangle,
         CollisionController collisionController, Scene gameScene, List<Player> players)
@@ -51,11 +61,13 @@ public class EnemyCompositeRoot : ICompositeRoot
     private void SpawnEnemy(Entity<EnemyBase> enemy)
     {
         var enemyView = _enemyFactory.Create(enemy, _rectangle.Height / 25f, _rectangle.Height);
-        var enemyWeapon = _weaponFactory.Create<Pistol>(enemy.GetEntity);
-
+        var enemyWeapon = _weaponFactory.Create(enemy.GetEntity, _enemyWeapons[enemy.GetEntity.GetType()]);
+        enemyWeapon = new WeaponBaseDecorator(enemyWeapon, new List<IComponent>(enemyWeapon.Components));
+        var collider = new BoxCollider2D(_collisionController, enemyWeapon, new System.Drawing.Size(2, 2));
+        enemyWeapon.AddComponent(collider);
         var weaponView =
-            new GameObjectView(enemyWeapon as GameObject, _rectangle.Height / 25F, _rectangle.Height);
-        _gameScene.AddGameObject(enemyWeapon as GameObject);
+            new GameObjectView(enemyWeapon, _rectangle.Height / 25F, _rectangle.Height);
+        _gameScene.AddGameObject(enemyWeapon);
         _gameScene.AddGameObjectView(weaponView);
         var controller = new EnemyController(enemy.GetEntity, _players);
         controller.BindGun(enemyWeapon);
@@ -70,7 +82,7 @@ public class EnemyCompositeRoot : ICompositeRoot
             _gameScene.RemoveGameObjectView(enemyView);
             _gameScene.RemoveGameObjectView(healthView);
             _gameScene.RemoveGameObject(enemy.GetEntity);
-            _gameScene.RemoveGameObject(enemyWeapon as GameObject);
+            _gameScene.RemoveGameObject(enemyWeapon);
             _gameScene.RemoveGameObjectView(weaponView);
         };
     }

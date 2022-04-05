@@ -1,10 +1,9 @@
-﻿using Invasion.Core;
-using Invasion.Core.EventBus;
-using Invasion.Core.Interfaces;
+﻿using Invasion.Core.EventBus;
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
+using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
@@ -67,6 +66,7 @@ namespace Invastion.CompositeRoot.Implementations
             _dx2d.LoadBitmap(@"Sources\beatingEnemy.png");
             _background = new Image(_dx2d, @"Sources\background.bmp");
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
+            _collisionsRoot.Compose();
             _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _clientRect, _gameScene, _playerWeapons);
             _heroCompositeRoot.Compose();
             _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _enemySystem, _clientRect, 

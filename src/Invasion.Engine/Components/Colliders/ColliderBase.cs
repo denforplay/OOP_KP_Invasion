@@ -1,5 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine.Collisions;
+﻿using Invasion.Engine.Collisions;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using SharpDX;
 

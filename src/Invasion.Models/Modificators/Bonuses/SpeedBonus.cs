@@ -1,6 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
-using Invasion.Models.Factories.WeaponsFactories;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Decorator;
 

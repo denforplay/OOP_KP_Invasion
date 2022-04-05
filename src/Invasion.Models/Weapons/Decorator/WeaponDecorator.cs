@@ -1,5 +1,6 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
+using Invasion.Models.Interfaces;
 using SharpDX;
 
 namespace Invasion.Models.Weapons.Decorator;
@@ -14,6 +15,9 @@ public class WeaponBaseDecorator : WeaponBase
     public override float ReloadTime { get => DecoratedWeaponBase.ReloadTime; }
     protected WeaponBase DecoratedWeaponBase;
     public WeaponBase Weapon => DecoratedWeaponBase;
+
+    public override GameObject Parent => Weapon.Parent;
+
     public override void GiveDamage(IHealthable healthable)
     {
         DecoratedWeaponBase.GiveDamage(healthable);

@@ -1,12 +1,11 @@
 ﻿using Invasion.Controller.Controllers;
 using Invasion.Controller.Inputs;
-using Invasion.Core;
 using Invasion.Core.EventBus;
-using Invasion.Core.Interfaces;
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.InputSystem;
+using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Configurations;
 using Invasion.Models.Decorator;
@@ -15,11 +14,8 @@ using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Decorator;
-using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Firearms.Bullets;
-using Invasion.Models.Weapons.Melee;
 using Invasion.View;
-using Invasion.View.Factories;
 using Invasion.View.Factories.Base;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
@@ -130,5 +126,9 @@ public class HeroCompositeRoot : ICompositeRoot
     {
         bullet.GetEntity.OnDestroy();
         _bulletFactory.Destroy(bullet);
+    }
+
+    public void Dispose()
+    {
     }
 }

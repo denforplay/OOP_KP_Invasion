@@ -1,7 +1,5 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
-using Invasion.Engine.Components;
-using Invasion.Models.Collisions;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Factories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Base;

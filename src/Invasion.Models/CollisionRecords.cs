@@ -1,8 +1,6 @@
 ﻿using Invasion.Core;
-using Invasion.Core.Interfaces;
-using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Enemies;
-using Invasion.Models.Modificators;
 using Invasion.Models.Modificators.Bonuses;
 using Invasion.Models.Modificators.Traps;
 using Invasion.Models.Systems;
@@ -32,7 +30,6 @@ namespace Invasion.Models
             {
                 if (bullet.Parent.Parent is Player && !bullet.IsUsed)
                 {
-                    Console.WriteLine("Damage" + enemy);
                     bullet.Parent.GiveDamage(enemy);
                     _bulletSystem.StopWork(bullet);
                     bullet.IsUsed = true;
@@ -59,25 +56,49 @@ namespace Invasion.Models
             //wtf do with that????
             yield return IfCollided<WeaponBaseDecorator, EnemyBase>((weaponDecorator, enemy) =>
             {
-                var weapon = weaponDecorator.Weapon;
-                
-                while(weapon is WeaponBaseDecorator otherDecorator)
+                if (weaponDecorator.Parent is Player)
                 {
-                    weapon = otherDecorator.Weapon;
-                }
+                    var weapon = weaponDecorator.Weapon;
 
-                if (weapon is MeleeBase meleeWeapon)
-                {
-                    if (meleeWeapon.IsAttack)
+                    while (weapon is WeaponBaseDecorator otherDecorator)
                     {
-                        meleeWeapon.GiveDamage(enemy);
+                        weapon = otherDecorator.Weapon;
                     }
-                    if (enemy.CurrentHealthPoints <= 0)
-                        _enemySystem.StopWork(enemy);
+
+                    if (weapon is MeleeBase meleeWeapon)
+                    {
+                        if (meleeWeapon.IsAttack)
+                        {
+                            meleeWeapon.GiveDamage(enemy);
+                        }
+                        if (enemy.CurrentHealthPoints <= 0)
+                            _enemySystem.StopWork(enemy);
+                    }
                 }
-                
             });
-            
+
+            yield return IfCollided<WeaponBaseDecorator, Player>((weaponDecorator, player) =>
+            {
+                if (weaponDecorator.Parent is EnemyBase)
+                {
+                    var weapon = weaponDecorator.Weapon;
+
+                    while (weapon is WeaponBaseDecorator otherDecorator)
+                    {
+                        weapon = otherDecorator.Weapon;
+                    }
+
+                    if (weapon is MeleeBase meleeWeapon)
+                    {
+                        if (meleeWeapon.IsAttack)
+                        {
+                            meleeWeapon.GiveDamage(player);
+                        }
+
+                    }
+                }
+            });
+
             yield return IfCollided<BonusBase, WeaponBase>((modificator, modificatedObject) =>
             {
                 modificator.Apply(modificatedObject);

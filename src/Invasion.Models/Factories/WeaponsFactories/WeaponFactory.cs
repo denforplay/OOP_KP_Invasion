@@ -1,8 +1,6 @@
-﻿using System.Drawing;
-using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
-using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.BulletFactories;
 using Invasion.Models.Systems;
@@ -52,7 +50,10 @@ public class WeaponFactory
         }
         else
         {
-            throw new NotImplementedException();
+            return new EmptyWeapon(new List<IComponent>()
+            {
+                new Transform()
+            });
         }
     }
 

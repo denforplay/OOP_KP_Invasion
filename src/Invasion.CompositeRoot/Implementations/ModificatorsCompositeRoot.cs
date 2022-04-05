@@ -1,5 +1,5 @@
-﻿using Invasion.Core;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Models;
 using Invasion.Models.Collisions;
 using Invasion.Models.Modificators;
 using Invasion.Models.Spawners;

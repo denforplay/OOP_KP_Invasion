@@ -1,7 +1,8 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Factories;
+using Invasion.Models.Interfaces;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
 using SharpDX;
@@ -21,8 +22,9 @@ public class FirearmBase : WeaponBase
     private BulletSystem _bulletSystem;
     private int _damage;
     private IModelFactory<BulletBase> _bulletFactory;
-    public GameObject Parent => _parent;
     public override float ReloadTime => _reloadTime;
+
+    public override GameObject Parent => _parent;
 
     public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, List<IComponent> components, GameObject parent) : base(components, Layer.Weapon)
     {

@@ -2,7 +2,6 @@
 using Invasion.Engine.InputSystem.InputComponents;
 using SharpDX;
 using SharpDX.DirectInput;
-using SharpDX.Windows;
 
 namespace Invasion.Controller.Inputs;
 

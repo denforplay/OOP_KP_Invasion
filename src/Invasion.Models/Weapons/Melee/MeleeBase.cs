@@ -1,6 +1,7 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Interfaces;
+using Invasion.Models.Interfaces;
 using SharpDX;
 
 namespace Invasion.Models.Weapons.Melee;
@@ -21,8 +22,11 @@ public class MeleeBase : WeaponBase
 
     public bool IsAttack => !_canAttack;
 
+    public override GameObject Parent => _parent;
+
     public MeleeBase(GameObject parent, List<IComponent> components = null) : base(components, Layer.Weapon)
     {
+        _parent = parent;
         _damage = 1;
         TryTakeComponent(out _transform);
         parent.TryTakeComponent(out _parentTransform);

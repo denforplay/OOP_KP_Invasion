@@ -1,8 +1,6 @@
-﻿using Invasion.Core;
-using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
-using SharpDX;
+using Invasion.Engine.Interfaces;
 
 namespace Invasion.View
 {
@@ -25,10 +23,10 @@ namespace Invasion.View
 
         public void Update()
         {
-            _sprite.Transform.Rotation = _transform.Rotation;
-            _sprite.Transform.Scale = _transform.Scale;
-            _sprite.Transform.Position = _transform.Position;
-            _sprite.Draw(1, _scale, _height);
+                _sprite.Transform.Rotation = _transform.Rotation;
+                _sprite.Transform.Scale = _transform.Scale;
+                _sprite.Transform.Position = _transform.Position;
+                _sprite.Draw(1, _scale, _height);
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Interfaces;
+using Invasion.Models.Interfaces;
 using SharpDX;
 using SharpDX.Direct2D1;
 using Transform = Invasion.Engine.Components.Transform;

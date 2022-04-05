@@ -1,6 +1,7 @@
-﻿using Invasion.Core.Interfaces;
-using Invasion.Engine;
+﻿using Invasion.Engine;
+using Invasion.Engine.Interfaces;
 using Invasion.Models.Configurations;
+using Invasion.Models.Interfaces;
 
 namespace Invasion.Models;
 

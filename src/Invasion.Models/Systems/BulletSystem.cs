@@ -1,7 +1,6 @@
 ﻿using Invasion.Core;
-using Invasion.Core.Abstracts;
+using Invasion.Models.System.Base;
 using Invasion.Models.Weapons.Firearms.Bullets;
-using SharpDX;
 
 namespace Invasion.Models.Systems;
 

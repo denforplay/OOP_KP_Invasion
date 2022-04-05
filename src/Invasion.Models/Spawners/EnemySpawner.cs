@@ -26,7 +26,6 @@ public class EnemySpawner
         {
             new ShootingEnemyFactory(_dx2D, _collisionController).Create,
             new BeatingEnemyFactory(_dx2D, _collisionController).Create,
-            new KamikadzeEnemyFactory(_dx2D, _collisionController).Create,
         };
         _spawnPositions = new[]
         {
