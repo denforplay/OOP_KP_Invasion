@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using Invasion.Engine.Graphics;
+using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.WIC;
@@ -9,7 +10,7 @@ using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace Invasion.Engine
 {
-    public class DX2D
+    public class DX2D : IGraphicProvider
     {
         private SharpDX.Direct2D1.Factory _factory;
         public SharpDX.Direct2D1.Factory Factory { get => _factory; }
@@ -50,22 +51,6 @@ namespace Invasion.Engine
             _imagingFactory = new ImagingFactory();
         }
 
-        public int LoadBitmap(string imageFileName)
-        {
-            BitmapDecoder decoder = new BitmapDecoder(_imagingFactory, imageFileName, DecodeOptions.CacheOnDemand);
-            BitmapFrameDecode frame = decoder.GetFrame(0);
-            FormatConverter converter = new FormatConverter(_imagingFactory);
-            converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppPRGBA, BitmapDitherType.Ordered4x4, null, 0.0, BitmapPaletteType.Custom);
-            SharpDX.Direct2D1.Bitmap bitmap = SharpDX.Direct2D1.Bitmap.FromWicBitmap(_renderTarget, converter);
-
-            Utilities.Dispose(ref converter);
-            Utilities.Dispose(ref frame);
-            Utilities.Dispose(ref decoder);
-
-            _bitmaps.Add(imageFileName, bitmap);
-            return _bitmaps.Count - 1;
-        }
-
         public void Dispose()
         {
             foreach (var value in _bitmaps.Values)
@@ -77,6 +62,21 @@ namespace Invasion.Engine
             Utilities.Dispose(ref _imagingFactory);
             Utilities.Dispose(ref _renderTarget);
             Utilities.Dispose(ref _factory);
+        }
+
+        public void LoadBitmap(string filePath)
+        {
+            BitmapDecoder decoder = new BitmapDecoder(_imagingFactory, filePath, DecodeOptions.CacheOnDemand);
+            BitmapFrameDecode frame = decoder.GetFrame(0);
+            FormatConverter converter = new FormatConverter(_imagingFactory);
+            converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppPRGBA, BitmapDitherType.Ordered4x4, null, 0.0, BitmapPaletteType.Custom);
+            SharpDX.Direct2D1.Bitmap bitmap = SharpDX.Direct2D1.Bitmap.FromWicBitmap(_renderTarget, converter);
+
+            Utilities.Dispose(ref converter);
+            Utilities.Dispose(ref frame);
+            Utilities.Dispose(ref decoder);
+
+            _bitmaps.Add(filePath, bitmap);
         }
     }
 }

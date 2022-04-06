@@ -3,6 +3,7 @@ using Invasion.Engine.Components;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.ModificatorFactories;
 using Invasion.Models.Modificators;
+using Invasion.Models.Modificators.Bonuses;
 using Invasion.Models.Systems;
 using SharpDX;
 
@@ -35,16 +36,23 @@ public class ModificationSpawner
             {
                 var randomX = _random.NextFloat(2f, 43f);
                 var randomY = _random.NextFloat(2f, 23f);
-                var randomBonus = _variants[_random.Next(0, _variants.Length)].Invoke();
-                if (randomBonus.TryTakeComponent(out Transform transform))
-                {
-                    transform.Position = new Vector3(randomX, randomY, 0);
-                }
-                _modificatorSystem.Work(randomBonus);
-                await Task.Delay(_random.Next(3000, 6000));
-                _modificatorSystem.StopWork(randomBonus);
+                SpawnModificator(new Vector3(randomX, randomY, 0));
+                await Task.Delay(1000);
             }
         }
+    }
+
+    public async void SpawnModificator(Vector3 position)
+    {
+        ModificatorBase randomModificator = _variants[_random.Next(0, _variants.Length)].Invoke();
+        if (randomModificator.TryTakeComponent(out Transform transform))
+        {
+            transform.Position = position;
+        }
+
+        _modificatorSystem.Work(randomModificator);
+        await Task.Delay(_random.Next(3000, 6000));
+        _modificatorSystem.StopWork(randomModificator);
     }
     
     public void StopSpawn()

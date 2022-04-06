@@ -26,7 +26,8 @@ public class SlowTrapFactory : IModelFactory<SlowTrap>
         {
             new Transform(),
             new SpriteRenderer(_dx2D, _spriteFileName),
-        });
+        }, 
+        new Configurations.ModificatorConfiguration(1000));
 
         var boxCollider = new BoxCollider2D(_collisionController, slowTrap, new Size(2, 2));
         slowTrap.AddComponent(boxCollider);

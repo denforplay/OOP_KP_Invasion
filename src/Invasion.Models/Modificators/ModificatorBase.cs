@@ -1,12 +1,16 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Interfaces;
+using Invasion.Models.Configurations;
 
 namespace Invasion.Models.Modificators;
 
 public abstract class ModificatorBase : GameObject, IAppliable
 {
-    public ModificatorBase(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
+    protected ModificatorConfiguration _configuration;
+
+    public ModificatorBase(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, layer)
     {
+        _configuration = configuration;
     }
 
     public bool IsApplied { get; set; }

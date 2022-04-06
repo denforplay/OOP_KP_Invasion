@@ -16,6 +16,8 @@ namespace Invasion.Controller.Controllers
         private WeaponBase _weaponBase;
         private WeaponInput _weaponInput;
         private float _shootTime;
+
+
         public PlayerController(PlayerDecorator player, PlayerInput input)
         {
             _player = player;

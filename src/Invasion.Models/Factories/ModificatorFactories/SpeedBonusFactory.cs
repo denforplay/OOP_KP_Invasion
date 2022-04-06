@@ -26,7 +26,7 @@ public class SpeedBonusFactory : IModelFactory<SpeedBonus>
         {
             new Transform(),
             new SpriteRenderer(_dx2D, _spriteFileName),
-        });
+        }, new Configurations.ModificatorConfiguration(1000));
 
         var boxCollider = new BoxCollider2D(_collisionController, speedBonus, new Size(2, 2));
         speedBonus.AddComponent(boxCollider);
