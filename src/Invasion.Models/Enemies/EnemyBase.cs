@@ -10,12 +10,14 @@ public abstract class EnemyBase : GameObject, IHealthable, ICostable
     public event Action<int>? OnHealthChanged;
     public int MaxHealthPoint { get; set; }
     public int CurrentHealthPoints { get; set; }
+    public float Speed { get; set; }
     
     public EnemyBase(List<IComponent> components, EnemyConfiguration enemyConfiguration, Layer layer = Layer.Default) : base(components, layer)
     {
         Cost = enemyConfiguration.Cost;
         MaxHealthPoint = enemyConfiguration.MaxHealth;
         CurrentHealthPoints = enemyConfiguration.MaxHealth;
+        Speed = enemyConfiguration.Speed;
     }
 
     public void TakeDamage(int damage)

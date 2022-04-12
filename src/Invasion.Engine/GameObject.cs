@@ -39,7 +39,7 @@ namespace Invasion.Engine
 
         public bool TryTakeComponent<T>(out T component) where T : IComponent
         {
-            component = (T)_components.Find(component => component.GetType() == typeof(T) || component.GetType().BaseType == typeof(T));
+            component = (T)_components.Find(c => c is T);
             return component is not null;
         }
     }

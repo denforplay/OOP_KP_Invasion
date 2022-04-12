@@ -1,32 +1,27 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Components.Interfaces;
 using Invasion.Engine.Interfaces;
 
 namespace Invasion.View
 {
     public class GameObjectView : IView
     {
+        private IRenderer _renderer;
         private Transform _transform;
-        private SpriteRenderer _sprite;
         private GameObject _gameObject;
-        private float _scale;
-        private float _height;
 
-        public GameObjectView(GameObject gameObject, float scale, float height)
+        public GameObjectView(GameObject gameObject)
         {
-            _scale = scale;
-            _height = height;
             _gameObject = gameObject;
             _gameObject.TryTakeComponent(out _transform);
-            _gameObject.TryTakeComponent(out _sprite);
+            _gameObject.TryTakeComponent(out _renderer);
+            _renderer?.SetTransform(_transform);
         }
 
         public void Update()
         {
-                _sprite.Transform.Rotation = _transform.Rotation;
-                _sprite.Transform.Scale = _transform.Scale;
-                _sprite.Transform.Position = _transform.Position;
-                _sprite.Draw(1, _scale, _height);
+            _renderer?.Draw();
         }
     }
 }

@@ -36,8 +36,8 @@ public class EnemyController : IController
         Transform playerTransform;
         _weaponBase.Update();
         closestPlayer.TryTakeComponent(out playerTransform);
-        var direction = Vector3.Normalize(Vector3.Subtract(playerTransform.Position, _enemyTransform.Position))/25 * Time.TimeScale;
-        _enemyPhysics.Speed = new Vector2(direction.X, direction.Y);
+        var direction = Vector3.Normalize(Vector3.Subtract(playerTransform.Position, _enemyTransform.Position))/15 * Time.TimeScale;
+        _enemyPhysics.Speed = new Vector2(direction.X, direction.Y) * _enemy.Speed;
         if (_weaponBase is not null && _shootTime >= _weaponBase.ReloadTime)
         {
             _shootTime = 0;
@@ -52,7 +52,7 @@ public class EnemyController : IController
         }
 
         transform.Rotation = new Vector3(-(float) angle, transform.Rotation.Y, transform.Rotation.Z);
-        _shootTime += Time.DeltaTime;
+        _shootTime += Time.FixedDeltaTime * Time.TimeScale;
     }
 
     private Player FindClosestPlayer()

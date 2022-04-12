@@ -113,6 +113,11 @@ namespace Invasion.Models
                 modificator.Apply(player);
                 _modificatorSystem.StopWork(modificator);
             });
+
+            yield return IfCollided<EnemyBase, Player>((enemy, player) =>
+            {
+                player.OnDestroy();
+            });
         }
 
         private IRecord IfCollided<T1, T2>(Action<T1, T2> action)

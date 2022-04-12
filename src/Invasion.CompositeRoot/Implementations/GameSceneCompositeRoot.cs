@@ -67,13 +67,13 @@ namespace Invastion.CompositeRoot.Implementations
             _background = new Image(_dx2d, @"Sources\background.bmp");
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _collisionsRoot.Compose();
-            _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _clientRect, _gameScene, _playerWeapons);
+            _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
             _heroCompositeRoot.Compose();
-            _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _enemySystem, _clientRect, 
+            _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _enemySystem,
                 _collisionsRoot.Controller, _gameScene, _heroCompositeRoot.Players);
             _enemyCompositeRoot.Compose();
             _modificatorsCompositeRoot =
-                new ModificatorsCompositeRoot(_dx2d, _collisionsRoot.Controller, _gameScene, _clientRect, _modificatorSystem);
+                new ModificatorsCompositeRoot(_dx2d, _collisionsRoot.Controller, _gameScene, _modificatorSystem);
             _modificatorsCompositeRoot.Compose();
             _scoreSystem = new ScoreSystem();
             var scoreView = new ScoreView(_scoreSystem, _dx2d.RenderTarget);
@@ -115,7 +115,7 @@ namespace Invastion.CompositeRoot.Implementations
             });
 
             border.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, border, size));
-            var borderView = new GameObjectView(border, _clientRect.Height / 25f, _clientRect.Height);
+            var borderView = new GameObjectView(border);
             _gameScene.AddGameObject(border);
             _gameScene.AddGameObjectView(borderView);
         }

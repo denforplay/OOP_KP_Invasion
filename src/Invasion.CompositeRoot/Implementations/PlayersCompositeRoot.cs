@@ -20,7 +20,7 @@ using Invasion.View.Factories.Base;
 using Invastion.CompositeRoot.Base;
 using SharpDX;
 using SharpDX.DirectInput;
-using Size = System.Drawing.Size;
+using System.Drawing;
 
 namespace Invastion.CompositeRoot.Implementations;
 
@@ -29,7 +29,6 @@ public class HeroCompositeRoot : ICompositeRoot
     private DInput _dInput;
     private DX2D _dx2D;
     private CollisionsCompositeRoot _collisionsRoot;
-    private RectangleF _clientRect;
     private Scene _gameScene;
     private Dictionary<string, Player> _players = new Dictionary<string, Player>();
     private Dictionary<Player, (PlayerController, GameObjectView)> _playersData = new Dictionary<Player, (PlayerController, GameObjectView)>();
@@ -41,14 +40,13 @@ public class HeroCompositeRoot : ICompositeRoot
     Dictionary<string, Type> _playerWeapons;
 
     public List<Player> Players => _players.Values.ToList();
-    public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot, RectangleF clientRect, Scene gameScene, Dictionary<string, Type> playerWeapons)
+    public HeroCompositeRoot(DInput dInput, DX2D dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
         _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
         _dInput = dInput;
         _dx2D = dx2D;
         _collisionsRoot = collisionsRoot;
-        _clientRect = clientRect;
         _gameScene = gameScene;
         _bulletFactory = new BulletFactory();
         _playerConfiguration = new PlayerConfiguration(1, 5);
@@ -77,7 +75,7 @@ public class HeroCompositeRoot : ICompositeRoot
         }, _playerConfiguration, Layer.Player);
         var playerDecorator = new PlayerDecorator(player, new List<IComponent>(player.Components), _playerConfiguration);
         playerDecorator.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, playerDecorator, colliderSize));
-        var playerView = new GameObjectView(playerDecorator, _clientRect.Height / 25f, _clientRect.Height);
+        var playerView = new GameObjectView(playerDecorator);
         var playerController = new PlayerController(playerDecorator, inputs);
         var healthView = new HealthView(playerDecorator, _dx2D.RenderTarget);
         playerDecorator.OnDestroyed += () =>
@@ -103,7 +101,7 @@ public class HeroCompositeRoot : ICompositeRoot
         var collider = new BoxCollider2D(_collisionsRoot.Controller, weaponBase, new Size(2, 2));
         weaponBase.AddComponent(collider);
         var weaponView =
-            new GameObjectView(weaponBase, _clientRect.Height / 25F, _clientRect.Height);
+            new GameObjectView(weaponBase);
             
         _gameScene.AddGameObject(weaponBase);
         _gameScene.AddGameObjectView(weaponView);
@@ -112,7 +110,7 @@ public class HeroCompositeRoot : ICompositeRoot
     
     private void SpawnBullet(Entity<BulletBase> bullet)
     {
-        var bulletView = _bulletFactory.Create(bullet, _clientRect.Height / 25f, _clientRect.Height);
+        var bulletView = _bulletFactory.Create(bullet);
         _gameScene.AddGameObjectView(bulletView);
         _gameScene.AddGameObject(bullet.GetEntity);
         bullet.GetEntity.OnDestroyed += () =>

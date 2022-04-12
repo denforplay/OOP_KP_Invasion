@@ -15,7 +15,6 @@ using Invasion.Models.Weapons.Melee;
 using Invasion.View;
 using Invasion.View.Factories;
 using Invastion.CompositeRoot.Base;
-using SharpDX;
 
 namespace Invastion.CompositeRoot.Implementations;
 
@@ -27,7 +26,6 @@ public class EnemyCompositeRoot : ICompositeRoot
     private CollisionController _collisionController;
     private Scene _gameScene;
     private List<Player> _players;
-    private RectangleF _rectangle;
     private DX2D _dx2D;
     private WeaponFactory _weaponFactory;
     private Dictionary<Type, Type> _enemyWeapons = new Dictionary<Type, Type>
@@ -37,12 +35,11 @@ public class EnemyCompositeRoot : ICompositeRoot
         {typeof(KamikadzeEnemy),typeof(EmptyWeapon) },
     };
 
-    public EnemyCompositeRoot(DX2D dx2D, BulletSystem bulletSystem, EnemySystem enemySystem, RectangleF rectangle,
+    public EnemyCompositeRoot(DX2D dx2D, BulletSystem bulletSystem, EnemySystem enemySystem,
         CollisionController collisionController, Scene gameScene, List<Player> players)
     {
         _enemySystem = enemySystem;
         _players = players;
-        _rectangle = rectangle;
         _gameScene = gameScene;
         _collisionController = collisionController;
         _dx2D = dx2D;
@@ -60,13 +57,13 @@ public class EnemyCompositeRoot : ICompositeRoot
 
     private void SpawnEnemy(Entity<EnemyBase> enemy)
     {
-        var enemyView = _enemyFactory.Create(enemy, _rectangle.Height / 25f, _rectangle.Height);
+        var enemyView = _enemyFactory.Create(enemy);
         var enemyWeapon = _weaponFactory.Create(enemy.GetEntity, _enemyWeapons[enemy.GetEntity.GetType()]);
         enemyWeapon = new WeaponBaseDecorator(enemyWeapon, new List<IComponent>(enemyWeapon.Components));
         var collider = new BoxCollider2D(_collisionController, enemyWeapon, new System.Drawing.Size(2, 2));
         enemyWeapon.AddComponent(collider);
         var weaponView =
-            new GameObjectView(enemyWeapon, _rectangle.Height / 25F, _rectangle.Height);
+            new GameObjectView(enemyWeapon);
         _gameScene.AddGameObject(enemyWeapon);
         _gameScene.AddGameObjectView(weaponView);
         var controller = new EnemyController(enemy.GetEntity, _players);

@@ -6,7 +6,6 @@ namespace Invasion.Engine.Components.Colliders
     public class BoxCollider2D : ColliderBase
     {
         private Size _size;
-
         public Size Size => _size;
         public BoxCollider2D(CollisionController collisions, GameObject colliderObject, Size size) : base(collisions, colliderObject)
         {

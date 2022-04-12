@@ -3,12 +3,13 @@ using Invasion.Engine.Components;
 using Invasion.Models.Collisions;
 using Invasion.Models.Enemies;
 using Invasion.Models.Factories.EnemiesFactories;
+using Invasion.Models.Interfaces;
 using Invasion.Models.Systems;
 using SharpDX;
 
 namespace Invasion.Models.Spawners;
 
-public class EnemySpawner
+public class EnemySpawner : ISpawner
 {
     private EnemySystem _enemySystem;
     private readonly Func<EnemyBase>[] _variants;
@@ -26,6 +27,7 @@ public class EnemySpawner
         {
             new ShootingEnemyFactory(_dx2D, _collisionController).Create,
             new BeatingEnemyFactory(_dx2D, _collisionController).Create,
+            new KamikadzeEnemyFactory(_dx2D, _collisionController).Create
         };
         _spawnPositions = new[]
         {
@@ -38,7 +40,7 @@ public class EnemySpawner
     
     public async void Spawn()
     {
-        while (_isSpawning)
+        while (_isSpawning && Time.TimeScale != 0)
         {
             if (_enemySystem.Entities.Count() <= 50)
             {

@@ -1,4 +1,5 @@
 ﻿using Invasion.Core.EventBus;
+using Invasion.Engine;
 using Invasion.Models.Events;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Melee;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace WPFView
 {
@@ -42,9 +44,10 @@ namespace WPFView
 
         private void StartGame()
         {
+            Time.TimeScale = 1;
             Subscribe();
-            Invasion.Engine.Screen.Width = (int)viewBox.DesiredSize.Width;
-            Invasion.Engine.Screen.Height = (int)viewBox.DesiredSize.Height;
+            Screen.Width = (int)viewBox.DesiredSize.Width;
+            Screen.Height = (int)viewBox.DesiredSize.Height;
 
             _gameView = new GameView(new Invasion.Models.Configurations.GameConfiguration(3), new Dictionary<string, Type>
                 {
@@ -57,6 +60,7 @@ namespace WPFView
 
         public void LoseGame(GameLoseEvent loseEvent)
         {
+            Time.TimeScale = 0;
             LoseWindow loseWindow = new LoseWindow();
             loseWindow.Show();
             loseWindow.OnRestart += StartGame;
@@ -89,6 +93,22 @@ namespace WPFView
             winWindow.OnRestart += StartGame;
             winWindow.OnExit += CloseGame;
             UnSubscribe();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (formPlacement.Child is null)
+                {
+                    Close();
+                }
+                else
+                {
+                    UnSubscribe();
+                    CloseGame();
+                }
+            }
         }
     }
 }

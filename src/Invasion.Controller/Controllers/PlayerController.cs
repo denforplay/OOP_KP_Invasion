@@ -37,7 +37,7 @@ namespace Invasion.Controller.Controllers
             _weaponBase?.Update();
             Vector2 inputVector = _input.ReadValue() / 10;
             _rigidBody.Speed = inputVector * _player.Speed;
-            _shootTime += Time.DeltaTime;
+            _shootTime += Time.FixedDeltaTime;
             Rotate();
             if (_weaponBase is not null && _weaponInput.ReadShoot() && _shootTime >= _weaponBase.ReloadTime)
             {

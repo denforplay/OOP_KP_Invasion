@@ -2,14 +2,14 @@
 using Invasion.Engine.Components;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.ModificatorFactories;
+using Invasion.Models.Interfaces;
 using Invasion.Models.Modificators;
-using Invasion.Models.Modificators.Bonuses;
 using Invasion.Models.Systems;
 using SharpDX;
 
 namespace Invasion.Models.Spawners;
 
-public class ModificationSpawner
+public class ModificationSpawner : ISpawner
 {
     private ModificatorSystem _modificatorSystem;
     private readonly Func<ModificatorBase>[] _variants;
@@ -30,7 +30,7 @@ public class ModificationSpawner
     
     public async void Spawn()
     {
-        while (_isSpawning)
+        while (_isSpawning && Time.TimeScale != 0)
         {
             if (_modificatorSystem.Entities.Count() <= 5)
             {

@@ -7,9 +7,9 @@ public abstract class GameObjectViewFactoryBase<T> where T : GameObject
 {
     private Queue<GameObjectView> _entitiesViews = new Queue<GameObjectView>();
 
-    public GameObjectView Create(Entity<T> entity, float scale, float height)
+    public GameObjectView Create(Entity<T> entity)
     {
-        GameObjectView view = new GameObjectView(entity.GetEntity, scale, height);
+        GameObjectView view = new GameObjectView(entity.GetEntity);
         _entitiesViews.Enqueue(view);
         return view;
     }

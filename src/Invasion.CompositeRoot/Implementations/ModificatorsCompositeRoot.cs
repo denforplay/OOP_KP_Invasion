@@ -6,7 +6,6 @@ using Invasion.Models.Spawners;
 using Invasion.Models.Systems;
 using Invasion.View.Factories.Base;
 using Invastion.CompositeRoot.Base;
-using SharpDX;
 
 namespace Invastion.CompositeRoot.Implementations;
 
@@ -16,13 +15,11 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     private ModificatorSystem _modificatorSystem;
     private ModificationSpawner _modificationSpawner;
     private ModificatorFactory _viewFactory;
-    private RectangleF _clientRectangle;
     private Scene _gameScene;
 
-    public ModificatorsCompositeRoot(DX2D dx2D, CollisionController collisionController, Scene gameScene, RectangleF clientRectangle, ModificatorSystem modificatorSystem)
+    public ModificatorsCompositeRoot(DX2D dx2D, CollisionController collisionController, Scene gameScene, ModificatorSystem modificatorSystem)
     {
         _modificatorSystem = modificatorSystem;
-        _clientRectangle = clientRectangle;
         _gameScene = gameScene;
         _dx2D = dx2D;
         _modificationSpawner = new ModificationSpawner(_modificatorSystem, collisionController, _dx2D);
@@ -39,7 +36,7 @@ public class ModificatorsCompositeRoot : ICompositeRoot
 
     private void SpawnModificator(Entity<ModificatorBase> modificator)
     {
-        var modificatorView = _viewFactory.Create(modificator, _clientRectangle.Height / 25f, _clientRectangle.Height);
+        var modificatorView = _viewFactory.Create(modificator);
         _gameScene.AddGameObject(modificator.GetEntity);
         _gameScene.AddGameObjectView(modificatorView);
         modificator.GetEntity.OnDestroyed += () =>

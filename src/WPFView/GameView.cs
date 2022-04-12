@@ -12,6 +12,7 @@ namespace WPFView
 {
     public class GameView
     {
+        private float _fps = 60;
         public RenderForm RenderForm { get; private set; }
         public DX2D DX2D { get; private set; }
 
@@ -37,17 +38,19 @@ namespace WPFView
 
         private void RenderCallback()
         {
-            Time.Update();
-            _dInput.UpdateKeyboardState();
-            WindowRenderTarget target = DX2D.RenderTarget;
-            Size2F targetSize = target.Size;
-            _clientRect.Width = targetSize.Width;
-            _clientRect.Height = targetSize.Height;
-            target.BeginDraw();
-            target.Clear(Color.Black);
-            _game.Update(_scale);
-            target.Transform = Matrix3x2.Identity;
-            target.EndDraw();
+            if (Time.Update())
+            {
+                _dInput.UpdateKeyboardState();
+                WindowRenderTarget target = DX2D.RenderTarget;
+                Size2F targetSize = target.Size;
+                _clientRect.Width = targetSize.Width;
+                _clientRect.Height = targetSize.Height;
+                target.BeginDraw();
+                target.Clear(Color.Black);
+                _game.Update(_scale);
+                target.Transform = Matrix3x2.Identity;
+                target.EndDraw();
+            }
         }
 
         private void RenderForm_Resize(object sender, EventArgs e)
