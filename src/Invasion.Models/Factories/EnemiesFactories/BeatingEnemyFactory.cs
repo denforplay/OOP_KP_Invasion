@@ -12,10 +12,10 @@ namespace Invasion.Models.Factories.EnemiesFactories
     public class BeatingEnemyFactory : IModelFactory<BeatingEnemy>
     {
         private string _spriteFileName = @"Sources\beatingEnemy.png";
-        private DX2D _dx2D;
+        private DirectXGraphicsProvider _dx2D;
         private CollisionController _collisionController;
 
-        public BeatingEnemyFactory(DX2D dx2D, CollisionController collisionController)
+        public BeatingEnemyFactory(DirectXGraphicsProvider dx2D, CollisionController collisionController)
         {
             _collisionController = collisionController;
             _dx2D = dx2D;

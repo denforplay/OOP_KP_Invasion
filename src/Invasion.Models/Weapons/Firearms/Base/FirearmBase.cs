@@ -5,7 +5,7 @@ using Invasion.Models.Factories;
 using Invasion.Models.Interfaces;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Models.Weapons.Firearms.Base;
 

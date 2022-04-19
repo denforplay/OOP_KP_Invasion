@@ -14,7 +14,7 @@ namespace WPFView
     {
         private float _fps = 60;
         public RenderForm RenderForm { get; private set; }
-        public DX2D DX2D { get; private set; }
+        public DirectXGraphicsProvider DX2D { get; private set; }
 
         private GameSceneCompositeRoot _game;
         private float _scale;
@@ -23,12 +23,12 @@ namespace WPFView
 
         public GameView(GameConfiguration gameConfiguration, Dictionary<string, Type> playerWeapons)
         {
-            Time.Start();
+            Time.Start(_fps);
             RenderForm = new RenderForm("Direct2D Application");
             RenderForm.ClientSize = new System.Drawing.Size(Screen.Width, Screen.Height);
             RenderForm.TopLevel = false;
             RenderForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            DX2D = new DX2D(RenderForm);
+            DX2D = new DirectXGraphicsProvider(RenderForm);
             _clientRect.Width = RenderForm.ClientSize.Width;
             _clientRect.Height = RenderForm.ClientSize.Height;
             _dInput = new DInput(RenderForm);

@@ -16,9 +16,9 @@ public class WeaponFactory
     private string _pistolSprite = @"Sources\pistol.png";
     private CollisionController _collisionController;
     private BulletSystem _bulletSystem;
-    private DX2D _dx2D;
+    private DirectXGraphicsProvider _dx2D;
 
-    public WeaponFactory(CollisionController collisionController, BulletSystem bulletSystem, DX2D dx2D)
+    public WeaponFactory(CollisionController collisionController, BulletSystem bulletSystem, DirectXGraphicsProvider dx2D)
     {
         _collisionController = collisionController;
         _bulletSystem = bulletSystem;

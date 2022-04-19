@@ -9,10 +9,11 @@ namespace Invasion.Engine
 
         private static Stopwatch _watch;
         private static long _previousTicks;
-        public static float FixedDeltaTime = 1/60f;
+        public static float FixedDeltaTime;
 
-        public static void Start()
+        public static void Start(float fps)
         {
+            FixedDeltaTime = 1 / fps;
             _watch = new Stopwatch();
             _watch.Start();
             _previousTicks = _watch.Elapsed.Ticks;
@@ -20,13 +21,16 @@ namespace Invasion.Engine
 
         public static bool Update()
         {
-            long ticks = _watch.Elapsed.Ticks;
-            DeltaTime += (float)(ticks - _previousTicks) / TimeSpan.TicksPerSecond;
-            _previousTicks = ticks;
-            if (DeltaTime > FixedDeltaTime)
+            if (TimeScale != 0)
             {
-                DeltaTime -= FixedDeltaTime;
-                return true;
+                long ticks = _watch.Elapsed.Ticks;
+                DeltaTime += (float)(ticks - _previousTicks) / TimeSpan.TicksPerSecond;
+                _previousTicks = ticks;
+                if (DeltaTime > FixedDeltaTime)
+                {
+                    DeltaTime -= FixedDeltaTime;
+                    return true;
+                }
             }
 
             return false;

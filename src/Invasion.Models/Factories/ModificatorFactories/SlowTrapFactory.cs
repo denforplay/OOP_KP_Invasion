@@ -11,10 +11,10 @@ namespace Invasion.Models.Factories.ModificatorFactories;
 public class SlowTrapFactory : IModelFactory<SlowTrap>
 {
     private string _spriteFileName = @"Sources\slowTrap.png";
-    private DX2D _dx2D;
+    private DirectXGraphicsProvider _dx2D;
     private CollisionController _collisionController;
     
-    public SlowTrapFactory(DX2D dx2D, CollisionController collisionController)
+    public SlowTrapFactory(DirectXGraphicsProvider dx2D, CollisionController collisionController)
     {
         _collisionController = collisionController;
         _dx2D = dx2D;

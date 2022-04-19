@@ -2,7 +2,7 @@
 using Invasion.Engine.Components;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Interfaces;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Models.Weapons.Melee;
 

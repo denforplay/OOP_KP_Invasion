@@ -1,30 +1,43 @@
 ﻿using Invasion.Controller.Inputs;
 using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.InputSystem.Interfaces;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Decorator;
 using Invasion.Models.Weapons;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Controller.Controllers
 {
+    /// <summary>
+    /// Player controller
+    /// </summary>
     public class PlayerController : IController
     {
         private PlayerDecorator _player;
-        private PlayerInput _input;
+        private IInputComponent<Vector2> _playerInput;
         private RigidBody2D _rigidBody;
         private WeaponBase _weaponBase;
         private WeaponInput _weaponInput;
         private float _shootTime;
 
-
-        public PlayerController(PlayerDecorator player, PlayerInput input)
+        /// <summary>
+        /// Player controller constructor
+        /// </summary>
+        /// <param name="player">Controlled player</param>
+        /// <param name="playerInput">Player controls</param>
+        public PlayerController(PlayerDecorator player, IInputComponent<Vector2> playerInput)
         {
             _player = player;
-            _input = input;
+            _playerInput = playerInput;
             player.TryTakeComponent(out _rigidBody);
         }
 
+        /// <summary>
+        /// Give gun to a player
+        /// </summary>
+        /// <param name="weaponBase">Binded weapon</param>
+        /// <param name="weaponInput">Weapon controls</param>
         public void BindGun(WeaponBase weaponBase, WeaponInput weaponInput)
         {
             _weaponInput = weaponInput;
@@ -35,7 +48,7 @@ namespace Invasion.Controller.Controllers
         public void Update()
         {
             _weaponBase?.Update();
-            Vector2 inputVector = _input.ReadValue() / 10;
+            Vector2 inputVector = _playerInput.ReadValue() / 10;
             _rigidBody.Speed = inputVector * _player.Speed;
             _shootTime += Time.FixedDeltaTime;
             Rotate();
@@ -48,6 +61,9 @@ namespace Invasion.Controller.Controllers
             }
         }
 
+        /// <summary>
+        /// Rotate player method
+        /// </summary>
         private void Rotate()
         {
             if (_weaponBase is not null)

@@ -18,6 +18,9 @@ using Invastion.CompositeRoot.Base;
 
 namespace Invastion.CompositeRoot.Implementations;
 
+/// <summary>
+/// Compose enemies
+/// </summary>
 public class EnemyCompositeRoot : ICompositeRoot
 {
     private EnemySystem _enemySystem;
@@ -26,7 +29,7 @@ public class EnemyCompositeRoot : ICompositeRoot
     private CollisionController _collisionController;
     private Scene _gameScene;
     private List<Player> _players;
-    private DX2D _dx2D;
+    private DirectXGraphicsProvider _dx2D;
     private WeaponFactory _weaponFactory;
     private Dictionary<Type, Type> _enemyWeapons = new Dictionary<Type, Type>
     {
@@ -35,7 +38,7 @@ public class EnemyCompositeRoot : ICompositeRoot
         {typeof(KamikadzeEnemy),typeof(EmptyWeapon) },
     };
 
-    public EnemyCompositeRoot(DX2D dx2D, BulletSystem bulletSystem, EnemySystem enemySystem,
+    public EnemyCompositeRoot(DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, EnemySystem enemySystem,
         CollisionController collisionController, Scene gameScene, List<Player> players)
     {
         _enemySystem = enemySystem;
@@ -55,6 +58,10 @@ public class EnemyCompositeRoot : ICompositeRoot
         _enemySpawner.Spawn();
     }
 
+    /// <summary>
+    /// Spawn enemy
+    /// </summary>
+    /// <param name="enemy">Enemy entity</param>
     private void SpawnEnemy(Entity<EnemyBase> enemy)
     {
         var enemyView = _enemyFactory.Create(enemy);
@@ -84,6 +91,10 @@ public class EnemyCompositeRoot : ICompositeRoot
         };
     }
 
+    /// <summary>
+    /// Delete enemy
+    /// </summary>
+    /// <param name="enemy">Enemy entity</param>
     private void DeleteEnemy(Entity<EnemyBase> enemy)
     {
         enemy.GetEntity.OnDestroy();

@@ -1,11 +1,12 @@
 ﻿using Invasion.Engine.InputSystem;
 using Invasion.Engine.InputSystem.InputComponents;
+using Invasion.Engine.InputSystem.Interfaces;
 using SharpDX;
 using SharpDX.DirectInput;
 
 namespace Invasion.Controller.Inputs;
 
-public class WeaponInput
+public class WeaponInput : IInputComponent<Vector2>
 {
     private DInput _dInput;
     private KeyButton _leftButton;

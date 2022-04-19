@@ -4,10 +4,13 @@ using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Enemies;
 using Invasion.Models.Weapons;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Controller.Controllers;
 
+/// <summary>
+/// Enemy controller
+/// </summary>
 public class EnemyController : IController
 {
     private WeaponBase _weaponBase;
@@ -17,6 +20,11 @@ public class EnemyController : IController
     private float _shootTime;
     private List<Player> _players;
 
+    /// <summary>
+    /// Enemy controller
+    /// </summary>
+    /// <param name="enemy">Enemy</param>
+    /// <param name="players">Current game players</param>
     public EnemyController(EnemyBase enemy, List<Player> players)
     {
         _enemy = enemy;
@@ -25,11 +33,17 @@ public class EnemyController : IController
         _enemy.TryTakeComponent(out _enemyTransform);
     }
     
+
+    /// <summary>
+    /// Bind weapon to an enemy
+    /// </summary>
+    /// <param name="weaponBase">Binded weapon</param>
     public void BindGun(WeaponBase weaponBase)
     {
         _weaponBase = weaponBase;
         _weaponBase.Update();
     }
+
     public void Update()
     {
         var closestPlayer = FindClosestPlayer();
@@ -55,6 +69,10 @@ public class EnemyController : IController
         _shootTime += Time.FixedDeltaTime * Time.TimeScale;
     }
 
+    /// <summary>
+    /// Find closes to enemy player
+    /// </summary>
+    /// <returns>Closest player</returns>
     private Player FindClosestPlayer()
     {
         Dictionary<Player, float> _distancesToPlayer = new Dictionary<Player, float>();

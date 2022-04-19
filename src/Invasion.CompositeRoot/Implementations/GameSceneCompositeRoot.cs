@@ -11,16 +11,18 @@ using Invasion.Models.Events;
 using Invasion.Models.Systems;
 using Invasion.View;
 using Invastion.CompositeRoot.Base;
-using SharpDX;
-using Image = Invasion.Engine.Components.Image;
+using System.Numerics;
 using RectangleF = SharpDX.RectangleF;
 using Size = System.Drawing.Size;
 
 namespace Invastion.CompositeRoot.Implementations
 {
+    /// <summary>
+    /// Game scene composite root
+    /// </summary>
     public class GameSceneCompositeRoot : ICompositeRoot
     {
-        bool _isDisposed;
+        private bool _isDisposed;
         private CollisionsCompositeRoot _collisionsRoot;
         private HeroCompositeRoot _heroCompositeRoot;
         private EnemyCompositeRoot _enemyCompositeRoot;
@@ -29,7 +31,7 @@ namespace Invastion.CompositeRoot.Implementations
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
-        private DX2D _dx2d;
+        private DirectXGraphicsProvider _dx2d;
         private readonly DInput _dInput;
         private RectangleF _clientRect;
         private Image _background;
@@ -37,7 +39,15 @@ namespace Invastion.CompositeRoot.Implementations
         private Dictionary<string, Type> _playerWeapons;
         private GameConfiguration _gameConfiguration;
         
-        public GameSceneCompositeRoot(DX2D dX2D, DInput dInput, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
+        /// <summary>
+        /// Game scene composite root constructor
+        /// </summary>
+        /// <param name="dX2D">Graphic provider</param>
+        /// <param name="dInput">Input helper</param>
+        /// <param name="clientRect">Client rectangle</param>
+        /// <param name="playerWeapons">Player weapons</param>
+        /// <param name="gameConfiguration">Game configuration</param>
+        public GameSceneCompositeRoot(DirectXGraphicsProvider dX2D, DInput dInput, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
         {
             _playerWeapons = playerWeapons;
             _clientRect = clientRect;
@@ -82,6 +92,10 @@ namespace Invastion.CompositeRoot.Implementations
             GenerateBorders();
         }
 
+        /// <summary>
+        /// Update score system
+        /// </summary>
+        /// <param name="enemy">Enemy entity</param>
         private void UpdateScoreSystem(Entity<EnemyBase> enemy)
         {
             _scoreSystem.AddScores(enemy.GetEntity.Cost);
@@ -91,6 +105,9 @@ namespace Invastion.CompositeRoot.Implementations
             }
         }
 
+        /// <summary>
+        /// Generate borders
+        /// </summary>
         private void GenerateBorders()
         {
             GenerateBorder(@"Sources\topdownwall.png", new Vector3(20, 0.8f, 0), Vector3.Zero, new Size(1920, 2));
@@ -99,6 +116,13 @@ namespace Invastion.CompositeRoot.Implementations
             GenerateBorder(@"Sources\topdownwall.png", new Vector3(44.5f, 15f, 0), new Vector3((float)Math.PI/2, 0, 0), new Size(2, 1080));
         }
 
+        /// <summary>
+        /// Generate border from sprite on position with rotation and size
+        /// </summary>
+        /// <param name="spriteName">Sprite name</param>
+        /// <param name="position">Position</param>
+        /// <param name="rotation">Rotation</param>
+        /// <param name="size">Size</param>
         private void GenerateBorder(string spriteName, Vector3 position, Vector3 rotation, Size size)
         {
             var border = new Border(new List<IComponent>
@@ -120,6 +144,10 @@ namespace Invastion.CompositeRoot.Implementations
             _gameScene.AddGameObjectView(borderView);
         }
 
+        /// <summary>
+        /// Update game
+        /// </summary>
+        /// <param name="scale">Scale (useful)</param>
         public void Update(float scale)
         {
             if (!_isDisposed)

@@ -1,7 +1,7 @@
 ﻿using Invasion.Engine.Interfaces;
 using SharpDX;
 using SharpDX.Direct2D1;
-
+using Vector3 = System.Numerics.Vector3;
 namespace Invasion.Engine.Components
 {
     public class Image : IComponent
@@ -9,13 +9,13 @@ namespace Invasion.Engine.Components
         private Vector2 _translation;
         private Matrix3x2 _matrix;
         private Vector2 _bitmapCenter;
-        private DX2D _dx2d;
+        private DirectXGraphicsProvider _dx2d;
         private string _imageFileName;
 
         private Transform _transform = new Transform();
         public Transform Transform => _transform;
 
-        public Image(DX2D dx2d, string imageFileName)
+        public Image(DirectXGraphicsProvider dx2d, string imageFileName)
         {
             _dx2d = dx2d;
             _imageFileName = imageFileName;

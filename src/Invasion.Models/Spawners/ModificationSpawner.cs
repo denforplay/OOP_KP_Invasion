@@ -5,7 +5,7 @@ using Invasion.Models.Factories.ModificatorFactories;
 using Invasion.Models.Interfaces;
 using Invasion.Models.Modificators;
 using Invasion.Models.Systems;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Models.Spawners;
 
@@ -14,10 +14,10 @@ public class ModificationSpawner : ISpawner
     private ModificatorSystem _modificatorSystem;
     private readonly Func<ModificatorBase>[] _variants;
     private readonly Random _random = new Random();
-    private DX2D _dx2D;
+    private DirectXGraphicsProvider _dx2D;
     private bool _isSpawning = true;
     
-    public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, DX2D dx2D)
+    public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, DirectXGraphicsProvider dx2D)
     {
         _dx2D = dx2D;
         _modificatorSystem = modificatorSystem;
@@ -34,8 +34,8 @@ public class ModificationSpawner : ISpawner
         {
             if (_modificatorSystem.Entities.Count() <= 5)
             {
-                var randomX = _random.NextFloat(2f, 43f);
-                var randomY = _random.NextFloat(2f, 23f);
+                var randomX = (float)(_random.NextDouble() * (43f-2f)) + 2f;
+                var randomY = (float)(_random.NextDouble() * (23f - 2f)) + 2f;
                 SpawnModificator(new Vector3(randomX, randomY, 0));
                 await Task.Delay(1000);
             }

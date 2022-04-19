@@ -5,6 +5,9 @@ using Invastion.CompositeRoot.Base;
 
 namespace Invastion.CompositeRoot.Implementations
 {
+    /// <summary>
+    /// Composite root for collisions
+    /// </summary>
     public class CollisionsCompositeRoot : ICompositeRoot
     {
         private CollisionController _controller;
@@ -14,6 +17,12 @@ namespace Invastion.CompositeRoot.Implementations
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
 
+        /// <summary>
+        /// Collisions composite root controller
+        /// </summary>
+        /// <param name="bulletSystem">Bullet system</param>
+        /// <param name="enemySystem">Enemy system</param>
+        /// <param name="modificatorSystem">Modificator system</param>
         public CollisionsCompositeRoot(BulletSystem bulletSystem, EnemySystem enemySystem, ModificatorSystem modificatorSystem)
         {
             _modificatorSystem = modificatorSystem;
@@ -28,6 +37,9 @@ namespace Invastion.CompositeRoot.Implementations
             _controller = new CollisionController(_records.StartCollideValues);
         }
 
+        /// <summary>
+        /// Update collisions
+        /// </summary>
         public void Update()
         {
             _controller.Update();

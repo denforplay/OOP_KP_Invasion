@@ -23,10 +23,14 @@
                 <ColumnDefinition Width="470*"/>
                 <ColumnDefinition Width="169*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle HorizontalAlignment="Center" Height="746" Stroke="Black" VerticalAlignment="Center" Width="1128" Fill="White" Grid.Column="1" Grid.Row="1"/>
-            <TextBlock HorizontalAlignment="Center" Margin="0,56,0,0" TextWrapping="Wrap" Text="You lose" VerticalAlignment="Top" Height="155" Width="1108" TextAlignment="Center" FontSize="50" Grid.Column="1" Grid.Row="1"/>
+            <Rectangle HorizontalAlignment="Center" Height="746" Stroke="Black" VerticalAlignment="Center" Width="1128" Grid.Column="1" Grid.Row="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/04.jpg" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock HorizontalAlignment="Center" Margin="0,56,0,0" TextWrapping="Wrap" Text="You lose" VerticalAlignment="Top" Height="155" Width="1108" TextAlignment="Center" FontSize="50" Grid.Column="1" Grid.Row="1" Foreground="White"/>
             <Button x:Name="restartButton" Grid.Column="1" Content="Restart" HorizontalAlignment="Center" Margin="0,138,0,0" Grid.Row="1" VerticalAlignment="Top" Height="122" Width="570" FontSize="30" Click="restartButton_Click"/>
-            <Button x:Name="exitButton" Grid.Column="1" Content="Exit" HorizontalAlignment="Center" Margin="0,359,0,0" Grid.Row="1" VerticalAlignment="Top" Height="122" Width="570" FontSize="30" Click="exitButton_Click"/>
+            <Button x:Name="exitButton" Grid.Column="1" Content="Exit" HorizontalAlignment="Center" Margin="0,293,0,0" Grid.Row="1" VerticalAlignment="Top" Height="122" Width="570" FontSize="30" Click="exitButton_Click"/>
         </Grid>
     </Viewbox>
 </Window>

@@ -1,7 +1,7 @@
 ﻿using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.Interfaces;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Engine
 {

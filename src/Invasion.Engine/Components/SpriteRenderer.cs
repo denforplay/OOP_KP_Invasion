@@ -9,7 +9,7 @@ namespace Invasion.Engine.Components
     {
         private readonly float _pu = 1.0f / 16.0f;
 
-        private DX2D _dx2d;
+        private DirectXGraphicsProvider _dx2d;
         private Transform _transform;
         public Size Size => _bitmapSize;
         private Size _bitmapSize;
@@ -17,7 +17,7 @@ namespace Invasion.Engine.Components
         private Vector2 _translation;
         private Matrix3x2 _matrix;
         private string _spriteFileName;
-        public SpriteRenderer(DX2D dx2d, string spriteFileName)
+        public SpriteRenderer(DirectXGraphicsProvider dx2d, string spriteFileName)
         {
             _spriteFileName = spriteFileName;
             _dx2d = dx2d;

@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="04.jpg" />
+    <None Remove="background.bmp" />
+    <None Remove="images.jfif" />
+    <None Remove="topdownwall.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
     <PackageReference Include="SharpDX.DXGI" Version="4.2.0" />
@@ -16,6 +23,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Invasion.CompositeRoot\Invasion.CompositeRoot.csproj" />
     <ProjectReference Include="..\Invasion.Engine\Invasion.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="04.jpg" />
+    <Resource Include="background.bmp" />
+    <Resource Include="images.jfif" />
+    <Resource Include="topdownwall.png" />
   </ItemGroup>
 
   <ItemGroup>

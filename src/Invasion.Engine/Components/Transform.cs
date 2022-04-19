@@ -1,5 +1,5 @@
 ﻿using Invasion.Engine.Interfaces;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Engine.Components
 {

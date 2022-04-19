@@ -1,5 +1,5 @@
 ﻿using Invasion.Models.Collisions;
-using SharpDX;
+using System.Numerics;
 
 namespace Invasion.Engine.Components.Colliders
 {
