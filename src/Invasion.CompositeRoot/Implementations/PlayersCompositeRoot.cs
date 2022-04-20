@@ -56,11 +56,11 @@ public class HeroCompositeRoot : ICompositeRoot
     /// <param name="collisionsRoot">Collision composite root</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="playerWeapons">Player choosed weapons</param>
-    public HeroCompositeRoot(DirectXInputProvider dInput, DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
+    public HeroCompositeRoot(IInputProvider inputProvider, DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
         _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
-        _inputProvider = dInput;
+        _inputProvider = inputProvider;
         _dx2D = dx2D;
         _collisionsRoot = collisionsRoot;
         _gameScene = gameScene;

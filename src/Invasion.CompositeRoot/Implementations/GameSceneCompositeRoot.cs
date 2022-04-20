@@ -31,8 +31,8 @@ namespace Invastion.CompositeRoot.Implementations
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
-        private DirectXGraphicsProvider _dx2d;
-        private readonly DirectXInputProvider _dInput;
+        private IInputProvider _inputProvider;
+        private DirectXGraphicsProvider _graphicsProvider;
         private RectangleF _clientRect;
         private Image _background;
         private ScoreSystem _scoreSystem;
@@ -43,16 +43,16 @@ namespace Invastion.CompositeRoot.Implementations
         /// Game scene composite root constructor
         /// </summary>
         /// <param name="dX2D">Graphic provider</param>
-        /// <param name="dInput">Input helper</param>
+        /// <param name="inputProvider">Input helper</param>
         /// <param name="clientRect">Client rectangle</param>
         /// <param name="playerWeapons">Player weapons</param>
         /// <param name="gameConfiguration">Game configuration</param>
-        public GameSceneCompositeRoot(DirectXGraphicsProvider dX2D, DirectXInputProvider dInput, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
+        public GameSceneCompositeRoot(DirectXGraphicsProvider graphicsProvider, IInputProvider inputProvider, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
         {
             _playerWeapons = playerWeapons;
             _clientRect = clientRect;
-            _dInput = dInput;
-            _dx2d = dX2D;
+            _inputProvider = inputProvider;
+            _graphicsProvider = graphicsProvider;
             _gameScene = new Scene();
             _bulletSystem = new BulletSystem();
             _enemySystem = new EnemySystem();
@@ -63,30 +63,30 @@ namespace Invastion.CompositeRoot.Implementations
 
         public void Compose()
         {
-            _dx2d.LoadBitmap(@"Sources\background.bmp");
-            _dx2d.LoadBitmap(@"Sources\dash.bmp");
-            _dx2d.LoadBitmap(@"Sources\topdownwall.png");
-            _dx2d.LoadBitmap(@"Sources\pistol.png");
-            _dx2d.LoadBitmap(@"Sources\knife.png");
-            _dx2d.LoadBitmap(@"Sources\defaultBullet.png");
-            _dx2d.LoadBitmap(@"Sources\shootingEnemy.png");
-            _dx2d.LoadBitmap(@"Sources\speedBonus.png");
-            _dx2d.LoadBitmap(@"Sources\slowTrap.png");
-            _dx2d.LoadBitmap(@"Sources\kamikadzeEnemy.png");
-            _dx2d.LoadBitmap(@"Sources\beatingEnemy.png");
-            _background = new Image(_dx2d, @"Sources\background.bmp");
+            _graphicsProvider.LoadBitmap(@"Sources\background.bmp");
+            _graphicsProvider.LoadBitmap(@"Sources\dash.bmp");
+            _graphicsProvider.LoadBitmap(@"Sources\topdownwall.png");
+            _graphicsProvider.LoadBitmap(@"Sources\pistol.png");
+            _graphicsProvider.LoadBitmap(@"Sources\knife.png");
+            _graphicsProvider.LoadBitmap(@"Sources\defaultBullet.png");
+            _graphicsProvider.LoadBitmap(@"Sources\shootingEnemy.png");
+            _graphicsProvider.LoadBitmap(@"Sources\speedBonus.png");
+            _graphicsProvider.LoadBitmap(@"Sources\slowTrap.png");
+            _graphicsProvider.LoadBitmap(@"Sources\kamikadzeEnemy.png");
+            _graphicsProvider.LoadBitmap(@"Sources\beatingEnemy.png");
+            _background = new Image(_graphicsProvider, @"Sources\background.bmp");
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _collisionsRoot.Compose();
-            _heroCompositeRoot = new HeroCompositeRoot(_dInput, _dx2d, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
+            _heroCompositeRoot = new HeroCompositeRoot(_inputProvider, _graphicsProvider, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
             _heroCompositeRoot.Compose();
-            _enemyCompositeRoot = new EnemyCompositeRoot(_dx2d, _bulletSystem, _enemySystem,
+            _enemyCompositeRoot = new EnemyCompositeRoot(_graphicsProvider, _bulletSystem, _enemySystem,
                 _collisionsRoot.Controller, _gameScene, _heroCompositeRoot.Players);
             _enemyCompositeRoot.Compose();
             _modificatorsCompositeRoot =
-                new ModificatorsCompositeRoot(_dx2d, _collisionsRoot.Controller, _gameScene, _modificatorSystem);
+                new ModificatorsCompositeRoot(_graphicsProvider, _collisionsRoot.Controller, _gameScene, _modificatorSystem);
             _modificatorsCompositeRoot.Compose();
             _scoreSystem = new ScoreSystem();
-            var scoreView = new ScoreView(_scoreSystem, _dx2d.RenderTarget);
+            var scoreView = new ScoreView(_scoreSystem, _graphicsProvider.RenderTarget);
             _gameScene.AddGameObjectView(scoreView);
             _enemySystem.OnEnd += UpdateScoreSystem;
             GenerateBorders();
@@ -135,7 +135,7 @@ namespace Invastion.CompositeRoot.Implementations
                 new RigidBody2D
                 {
                 },
-                new SpriteRenderer(_dx2d, spriteName),
+                new SpriteRenderer(_graphicsProvider, spriteName),
             });
 
             border.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, border, size));
