@@ -1,24 +1,27 @@
-﻿using SharpDX;
+﻿using Invasion.Engine.Interfaces;
+using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.Windows;
+using System.Windows.Input;
 
 namespace Invasion.Engine.InputSystem
 {
-    public class DInput
+    /// <summary>
+    /// Represents directX input provider
+    /// </summary>
+    public class DirectXInputProvider : IInputProvider
     {
         private DirectInput _directInput;
-        private Keyboard _keyboard;
+        private SharpDX.DirectInput.Keyboard _keyboard;
         private KeyboardState _keyboardState;
-        public KeyboardState KeyboardState { get => _keyboardState; }
         private bool _keyboardUpdated;
-        public bool KeyboardUpdated { get => _keyboardUpdated; }
         private bool _keyboardAcquired;
 
-        public DInput(RenderForm renderForm)
+        public DirectXInputProvider(RenderForm renderForm)
         {
             _directInput = new DirectInput();
 
-            _keyboard = new Keyboard(_directInput);
+            _keyboard = new SharpDX.DirectInput.Keyboard(_directInput);
             _keyboard.Properties.BufferSize = 16;
             AcquireKeyboard();
             _keyboardState = new KeyboardState();
@@ -38,7 +41,6 @@ namespace Invasion.Engine.InputSystem
             }
         }
 
-       
         public void UpdateKeyboardState()
         {
             if (!_keyboardAcquired) AcquireKeyboard();
@@ -62,6 +64,18 @@ namespace Invasion.Engine.InputSystem
         {
             Utilities.Dispose(ref _keyboard);
             Utilities.Dispose(ref _directInput);
+        }
+
+        public bool CheckKey(System.Windows.Input.Key key)
+        {
+            if (_keyboardUpdated)
+            {
+                var sharpDxKey = Enum.Parse<SharpDX.DirectInput.Key>(key.ToString());
+                if (_keyboard.GetCurrentState().IsPressed(sharpDxKey))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

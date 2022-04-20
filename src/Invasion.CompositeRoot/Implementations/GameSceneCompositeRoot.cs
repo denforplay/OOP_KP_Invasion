@@ -32,7 +32,7 @@ namespace Invastion.CompositeRoot.Implementations
         private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
         private DirectXGraphicsProvider _dx2d;
-        private readonly DInput _dInput;
+        private readonly DirectXInputProvider _dInput;
         private RectangleF _clientRect;
         private Image _background;
         private ScoreSystem _scoreSystem;
@@ -47,7 +47,7 @@ namespace Invastion.CompositeRoot.Implementations
         /// <param name="clientRect">Client rectangle</param>
         /// <param name="playerWeapons">Player weapons</param>
         /// <param name="gameConfiguration">Game configuration</param>
-        public GameSceneCompositeRoot(DirectXGraphicsProvider dX2D, DInput dInput, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
+        public GameSceneCompositeRoot(DirectXGraphicsProvider dX2D, DirectXInputProvider dInput, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
         {
             _playerWeapons = playerWeapons;
             _clientRect = clientRect;

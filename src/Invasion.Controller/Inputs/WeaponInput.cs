@@ -1,25 +1,25 @@
-﻿using Invasion.Engine.InputSystem;
-using Invasion.Engine.InputSystem.InputComponents;
+﻿using Invasion.Engine.InputSystem.InputComponents;
 using Invasion.Engine.InputSystem.Interfaces;
-using SharpDX;
-using SharpDX.DirectInput;
+using Invasion.Engine.Interfaces;
+using System.Numerics;
+using System.Windows.Input;
 
 namespace Invasion.Controller.Inputs;
 
 public class WeaponInput : IInputComponent<Vector2>
 {
-    private DInput _dInput;
+    private IInputProvider _inputProvider;
     private KeyButton _leftButton;
     private KeyButton _rightButton;
     private KeyButton _shootKey;
 
-    public DInput DInput => _dInput;
-    public WeaponInput(DInput input, Key leftKey, Key rightKey, Key shootKey)
+    public IInputProvider DInput => _inputProvider;
+    public WeaponInput(IInputProvider inputProvider, Key leftKey, Key rightKey, Key shootKey)
     {
-        _dInput = input;
-        _leftButton = new KeyButton(input, leftKey);
-        _rightButton = new KeyButton(input, rightKey);
-        _shootKey = new KeyButton(input, shootKey);
+        _inputProvider = inputProvider;
+        _leftButton = new KeyButton(inputProvider, leftKey);
+        _rightButton = new KeyButton(inputProvider, rightKey);
+        _shootKey = new KeyButton(inputProvider, shootKey);
     }
 
     public bool ReadShoot() => _shootKey.ReadValue();

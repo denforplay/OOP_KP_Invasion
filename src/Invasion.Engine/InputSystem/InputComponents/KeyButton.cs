@@ -1,27 +1,23 @@
 ﻿using Invasion.Engine.InputSystem.Interfaces;
-using SharpDX.DirectInput;
+using Invasion.Engine.Interfaces;
+using System.Windows.Input;
 
 namespace Invasion.Engine.InputSystem.InputComponents
 {
     public class KeyButton : IInputComponent<bool>
     {
-        private DInput _input;
+        private IInputProvider _inputProvider;
         private Key _key;
 
-        public KeyButton(DInput input, Key key)
+        public KeyButton(IInputProvider inputProvider, Key key)
         {
-            _input = input;
+            _inputProvider = inputProvider;
             _key = key;
         }
 
         public bool ReadValue()
         {
-            if (_input.KeyboardUpdated)
-            {
-                return _input.KeyboardState.IsPressed(_key);
-            }
-
-            return false;
+            return _inputProvider.CheckKey(_key);
         }
     }
 }

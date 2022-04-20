@@ -2,6 +2,9 @@
 
 namespace Invasion.Core.EventBus
 {
+    /// <summary>
+    /// Represent event bus
+    /// </summary>
     public class EventBus : IEventBus
     {
         private readonly IDictionary<Type, object> _eventDictionary = new Dictionary<Type, object>();
@@ -28,7 +31,7 @@ namespace Invasion.Core.EventBus
             action?.AddSubscriber(subscriber);
         }
 
-        public void Unsubscibe<T>(Action<T> subscriber) where T : IEvent
+        public void Unsubscribe<T>(Action<T> subscriber) where T : IEvent
         {
             if (!_eventDictionary.ContainsKey(typeof(T)))
             {

@@ -1,5 +1,8 @@
 ﻿namespace Invasion.Engine.Interfaces
 {
+    /// <summary>
+    /// Describes live object
+    /// </summary>
     public interface ILiveObject
     {
         void OnInvoke();

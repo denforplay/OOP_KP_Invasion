@@ -18,7 +18,7 @@ namespace WPFView
 
         private GameSceneCompositeRoot _game;
         private float _scale;
-        private DInput _dInput;
+        private DirectXInputProvider _dInput;
         private RectangleF _clientRect;
 
         public GameView(GameConfiguration gameConfiguration, Dictionary<string, Type> playerWeapons)
@@ -31,7 +31,7 @@ namespace WPFView
             DX2D = new DirectXGraphicsProvider(RenderForm);
             _clientRect.Width = RenderForm.ClientSize.Width;
             _clientRect.Height = RenderForm.ClientSize.Height;
-            _dInput = new DInput(RenderForm);
+            _dInput = new DirectXInputProvider(RenderForm);
             _game = new GameSceneCompositeRoot(DX2D, _dInput, _clientRect, playerWeapons, gameConfiguration);
             RenderForm_Resize(this, null);
         }

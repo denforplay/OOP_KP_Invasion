@@ -1,5 +1,8 @@
 ﻿namespace Invasion.Models.Collisions
 {
+    /// <summary>
+    /// Represents list of collisions
+    /// </summary>
     public class Collisions
     {
         private readonly List<(object, object)> _collisionPairs = new List<(object, object)>();

@@ -18,9 +18,9 @@ using Invasion.Models.Weapons.Firearms.Bullets;
 using Invasion.View;
 using Invasion.View.Factories.Base;
 using Invastion.CompositeRoot.Base;
-using SharpDX.DirectInput;
 using System.Drawing;
 using System.Numerics;
+using System.Windows.Input;
 
 namespace Invastion.CompositeRoot.Implementations;
 
@@ -29,7 +29,7 @@ namespace Invastion.CompositeRoot.Implementations;
 /// </summary>
 public class HeroCompositeRoot : ICompositeRoot
 {
-    private DInput _dInput;
+    private IInputProvider _inputProvider;
     private DirectXGraphicsProvider _dx2D;
     private CollisionsCompositeRoot _collisionsRoot;
     private Scene _gameScene;
@@ -56,11 +56,11 @@ public class HeroCompositeRoot : ICompositeRoot
     /// <param name="collisionsRoot">Collision composite root</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="playerWeapons">Player choosed weapons</param>
-    public HeroCompositeRoot(DInput dInput, DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
+    public HeroCompositeRoot(DirectXInputProvider dInput, DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
         _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
-        _dInput = dInput;
+        _inputProvider = dInput;
         _dx2D = dx2D;
         _collisionsRoot = collisionsRoot;
         _gameScene = gameScene;
@@ -73,8 +73,8 @@ public class HeroCompositeRoot : ICompositeRoot
 
     public void Compose()
     {
-       CreatePlayer("Player1", @"Sources\dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.W, Key.S, Key.D, Key.A));
-       CreatePlayer("Player2", @"Sources\dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_dInput, Key.NumberPad8, Key.NumberPad2, Key.NumberPad6, Key.NumberPad4));
+       CreatePlayer("Player1", @"Sources\dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.W, Key.S, Key.D, Key.A));
+       CreatePlayer("Player2", @"Sources\dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.I, Key.K, Key.J, Key.L));
        InitializeWeapons();
     }
     
@@ -118,8 +118,8 @@ public class HeroCompositeRoot : ICompositeRoot
     /// </summary>
     private void InitializeWeapons()
     {
-        CreateWeapon(_players["Player1"], new WeaponInput(_dInput, Key.Q, Key.E, Key.Space), _playerWeapons["Player1"]);
-        CreateWeapon(_players["Player2"], new WeaponInput(_dInput, Key.NumberPad7, Key.NumberPad9, Key.NumberPadEnter), _playerWeapons["Player2"]);
+        CreateWeapon(_players["Player1"], new WeaponInput(_inputProvider, Key.Q, Key.E, Key.Space), _playerWeapons["Player1"]);
+        CreateWeapon(_players["Player2"], new WeaponInput(_inputProvider, Key.U, Key.O, Key.Enter), _playerWeapons["Player2"]);
     }
     
     /// <summary>

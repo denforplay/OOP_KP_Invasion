@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Invasion.Core.EventBus
 {
+    /// <summary>
+    /// Represent singleton event bus
+    /// </summary>
     public class SingletonEventBus : Singleton<SingletonEventBus>
     {
         private IEventBus _eventBus = new EventBus();
@@ -19,7 +22,7 @@ namespace Invasion.Core.EventBus
 
         public void Unsubscribe<T>(Action<T> subscriber) where T : IEvent
         {
-            GetInstance._eventBus.Unsubscibe<T>(subscriber);
+            GetInstance._eventBus.Unsubscribe<T>(subscriber);
         }
 
         public void Invoke<T>(T invokator) where T : IEvent
