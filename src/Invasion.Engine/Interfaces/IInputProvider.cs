@@ -5,5 +5,6 @@ namespace Invasion.Engine.Interfaces
     public interface IInputProvider
     {
         bool CheckKey(Key key);
+        void Update();
     }
 }

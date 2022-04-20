@@ -2,7 +2,7 @@
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
-using Invasion.Engine.InputSystem;
+using Invasion.Engine.Components.Interfaces;
 using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Configurations;
@@ -12,7 +12,6 @@ using Invasion.Models.Systems;
 using Invasion.View;
 using Invastion.CompositeRoot.Base;
 using System.Numerics;
-using RectangleF = SharpDX.RectangleF;
 using Size = System.Drawing.Size;
 
 namespace Invastion.CompositeRoot.Implementations
@@ -31,8 +30,7 @@ namespace Invastion.CompositeRoot.Implementations
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
-        private RectangleF _clientRect;
-        private Image _background;
+        private IRenderer _background;
         private ScoreSystem _scoreSystem;
         private Dictionary<string, Type> _playerWeapons;
         private GameConfiguration _gameConfiguration;
@@ -44,13 +42,11 @@ namespace Invastion.CompositeRoot.Implementations
         /// </summary>
         /// <param name="dX2D">Graphic provider</param>
         /// <param name="inputProvider">Input helper</param>
-        /// <param name="clientRect">Client rectangle</param>
         /// <param name="playerWeapons">Player weapons</param>
         /// <param name="gameConfiguration">Game configuration</param>
-        public GameSceneCompositeRoot(DirectXGraphicsProvider graphicsProvider, IInputProvider inputProvider, RectangleF clientRect, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
+        public GameSceneCompositeRoot(DirectXGraphicsProvider graphicsProvider, IInputProvider inputProvider, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
         {
             _playerWeapons = playerWeapons;
-            _clientRect = clientRect;
             _inputProvider = inputProvider;
             _graphicsProvider = graphicsProvider;
             _gameScene = new Scene();
@@ -74,7 +70,7 @@ namespace Invastion.CompositeRoot.Implementations
             _graphicsProvider.LoadBitmap(@"Sources\slowTrap.png");
             _graphicsProvider.LoadBitmap(@"Sources\kamikadzeEnemy.png");
             _graphicsProvider.LoadBitmap(@"Sources\beatingEnemy.png");
-            _background = new Image(_graphicsProvider, @"Sources\background.bmp");
+            _background = new SpriteRenderer(_graphicsProvider, @"Sources\background.bmp", Invasion.Engine.Graphics.RendererMode.Static);
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _collisionsRoot.Compose();
             _heroCompositeRoot = new HeroCompositeRoot(_inputProvider, _graphicsProvider, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
@@ -153,7 +149,7 @@ namespace Invastion.CompositeRoot.Implementations
             if (!_isDisposed)
             {
                 _collisionsRoot.Update();
-                _background.DrawBackground(1, _clientRect.Height / 25f, 25f / 1080, _clientRect.Height);
+                _background.Draw();
                 _gameScene.FixedUpdate();
                 _gameScene.Update();
             }

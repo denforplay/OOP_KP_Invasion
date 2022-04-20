@@ -14,7 +14,7 @@ namespace Invastion.CompositeRoot.Implementations;
 /// </summary>
 public class ModificatorsCompositeRoot : ICompositeRoot
 {
-    private DirectXGraphicsProvider _dx2D;
+    private DirectXGraphicsProvider _graphicsProvider;
     private ModificatorSystem _modificatorSystem;
     private ModificationSpawner _modificationSpawner;
     private ModificatorFactory _viewFactory;
@@ -23,16 +23,16 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     /// <summary>
     /// Modificators composite root constructor
     /// </summary>
-    /// <param name="dx2D">Graphic provider</param>
+    /// <param name="graphicsProvider">Graphic provider</param>
     /// <param name="collisionController">Collision controller</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="modificatorSystem">Modificator system</param>
-    public ModificatorsCompositeRoot(DirectXGraphicsProvider dx2D, CollisionController collisionController, Scene gameScene, ModificatorSystem modificatorSystem)
+    public ModificatorsCompositeRoot(DirectXGraphicsProvider graphicsProvider, CollisionController collisionController, Scene gameScene, ModificatorSystem modificatorSystem)
     {
         _modificatorSystem = modificatorSystem;
         _gameScene = gameScene;
-        _dx2D = dx2D;
-        _modificationSpawner = new ModificationSpawner(_modificatorSystem, collisionController, _dx2D);
+        _graphicsProvider = graphicsProvider;
+        _modificationSpawner = new ModificationSpawner(_modificatorSystem, collisionController, _graphicsProvider);
         _viewFactory = new ModificatorFactory();
 
     }

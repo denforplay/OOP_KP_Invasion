@@ -1,4 +1,5 @@
 ﻿using Invasion.Engine.Components.Interfaces;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -17,8 +18,13 @@ namespace Invasion.Engine.Components
         private Vector2 _translation;
         private Matrix3x2 _matrix;
         private string _spriteFileName;
-        public SpriteRenderer(DirectXGraphicsProvider dx2d, string spriteFileName)
+        private RendererMode _mode;
+
+        public SpriteRenderer(DirectXGraphicsProvider dx2d, string spriteFileName, RendererMode rendererMode = RendererMode.Dynamic)
         {
+            _transform = new Transform();
+            _mode = rendererMode;
+            _transform.Scale = new System.Numerics.Vector3(1, 1, 1);
             _spriteFileName = spriteFileName;
             _dx2d = dx2d;
             SharpDX.Direct2D1.Bitmap bitmap = _dx2d.Bitmaps[spriteFileName];
@@ -27,12 +33,14 @@ namespace Invasion.Engine.Components
             _bitmapCenter.Y = _bitmapSize.Height / 2.0f;
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             float height = Screen.Height;
             float scale = Screen.Height / Screen.UnitsPerHeight;
             _translation.X = (-_bitmapCenter.X * _pu + _transform.Position.X) * scale;
             _translation.Y = height - (-_bitmapCenter.Y * _pu + _transform.Position.Y + 1) * scale;
+            if (_mode == RendererMode.Static)
+                _translation = Vector2.Zero;
             _matrix =
                 Matrix3x2.Rotation(_transform.Rotation.X, _bitmapCenter)*
                 Matrix3x2.Scaling(scale * _pu, scale * _pu, Vector2.Zero) *

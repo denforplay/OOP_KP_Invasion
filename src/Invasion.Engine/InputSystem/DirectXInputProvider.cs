@@ -77,5 +77,10 @@ namespace Invasion.Engine.InputSystem
 
             return false;
         }
+
+        public void Update()
+        {
+            UpdateKeyboardState();
+        }
     }
 }
