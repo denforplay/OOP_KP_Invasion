@@ -31,14 +31,14 @@ namespace Invastion.CompositeRoot.Implementations
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
         private Scene _gameScene;
-        private IInputProvider _inputProvider;
-        private DirectXGraphicsProvider _graphicsProvider;
         private RectangleF _clientRect;
         private Image _background;
         private ScoreSystem _scoreSystem;
         private Dictionary<string, Type> _playerWeapons;
         private GameConfiguration _gameConfiguration;
-        
+        private IInputProvider _inputProvider;
+        private DirectXGraphicsProvider _graphicsProvider;
+
         /// <summary>
         /// Game scene composite root constructor
         /// </summary>

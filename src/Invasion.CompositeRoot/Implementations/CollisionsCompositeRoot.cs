@@ -12,10 +12,15 @@ namespace Invastion.CompositeRoot.Implementations
     {
         private CollisionController _controller;
         private CollisionRecords _records;
-        public CollisionController Controller => _controller;
         private BulletSystem _bulletSystem;
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
+
+        /// <summary>
+        /// Collision controller
+        /// </summary>
+        public CollisionController Controller => _controller;
+
 
         /// <summary>
         /// Collisions composite root controller

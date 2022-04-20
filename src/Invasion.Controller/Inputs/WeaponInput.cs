@@ -13,7 +13,6 @@ public class WeaponInput : IInputComponent<Vector2>
     private KeyButton _rightButton;
     private KeyButton _shootKey;
 
-    public IInputProvider DInput => _inputProvider;
     public WeaponInput(IInputProvider inputProvider, Key leftKey, Key rightKey, Key shootKey)
     {
         _inputProvider = inputProvider;

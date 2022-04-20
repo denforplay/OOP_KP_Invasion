@@ -3,10 +3,24 @@ using System.Numerics;
 
 namespace Invasion.Engine.Components.Colliders
 {
+    /// <summary>
+    /// Represents 2d box collider to interact with other colliders
+    /// </summary>
     public class BoxCollider2D : ColliderBase
     {
         private Size _size;
+
+        /// <summary>
+        /// ColliderSize
+        /// </summary>
         public Size Size => _size;
+
+        /// <summary>
+        /// Box collider 2d constructor
+        /// </summary>
+        /// <param name="collisions">Collisions controller</param>
+        /// <param name="colliderObject">Collider object</param>
+        /// <param name="size">Collider size</param>
         public BoxCollider2D(CollisionController collisions, GameObject colliderObject, Size size) : base(collisions, colliderObject)
         {
             _size = size;

@@ -6,6 +6,9 @@ using System.Windows.Input;
 
 namespace Invasion.Controller.Inputs
 {
+    /// <summary>
+    /// Represents player input
+    /// </summary>
     public class PlayerInput : IInputComponent<Vector2>
     {
         private IInputProvider _inputProvider;
@@ -14,7 +17,14 @@ namespace Invasion.Controller.Inputs
         private KeyButton _leftButton;
         private KeyButton _rightButton;
 
-        public IInputProvider InputProvider => _inputProvider;
+        /// <summary>
+        /// Player input constructor
+        /// </summary>
+        /// <param name="inputProvider">Input provider</param>
+        /// <param name="upKey">Up movement key</param>
+        /// <param name="downKey">Down movement key</param>
+        /// <param name="rightKey">Right movement key</param>
+        /// <param name="leftKey">Left movement key</param>
         public PlayerInput(IInputProvider inputProvider, Key upKey, Key downKey, Key rightKey, Key leftKey)
         {
             _inputProvider = inputProvider;
