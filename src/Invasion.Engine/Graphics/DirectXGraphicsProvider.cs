@@ -1,4 +1,5 @@
 ﻿using Invasion.Engine.Graphics;
+using Invasion.Engine.Graphics.GraphicTargets;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.WIC;
@@ -19,13 +20,12 @@ namespace Invasion.Engine
 
         private ImagingFactory _imagingFactory;
         public ImagingFactory ImagingFactory { get => _imagingFactory; }
-
-        private Dictionary<string, Bitmap> _bitmaps;
-        public Dictionary<string, Bitmap> Bitmaps { get => _bitmaps; }
+        public Dictionary<string, System.Drawing.Bitmap> BitmapsConfiguration { get; set; }
+        public IGraphicTarget GraphicTarget { get; set; }
 
         public DirectXGraphicsProvider(RenderForm form)
         {
-            _bitmaps = new Dictionary<string, Bitmap>();
+            BitmapsConfiguration = new Dictionary<string, System.Drawing.Bitmap>();
             _factory = new Factory();
             _writeFactory = new SharpDX.DirectWrite.Factory();
             RenderTargetProperties renderProp = new RenderTargetProperties()
@@ -41,21 +41,15 @@ namespace Invasion.Engine
             HwndRenderTargetProperties winProp = new HwndRenderTargetProperties()
             {
                 Hwnd = form.Handle,
-                PixelSize = new Size2((int)Screen.Width, (int)Screen.Height),
-                PresentOptions = PresentOptions.None                                      // Immediately // None - vSync
+                PixelSize = new Size2(Screen.Width, Screen.Height),
+                PresentOptions = PresentOptions.None
             };
-            _renderTarget = new WindowRenderTarget(_factory, renderProp, winProp);
+            GraphicTarget = new SharpDXTarget(new WindowRenderTarget(_factory, renderProp, winProp));
             _imagingFactory = new ImagingFactory();
         }
 
         public void Dispose()
         {
-            foreach (var value in _bitmaps.Values)
-            {
-                Bitmap bitmap = value;
-                Utilities.Dispose(ref bitmap);
-            }
-                
             Utilities.Dispose(ref _imagingFactory);
             Utilities.Dispose(ref _renderTarget);
             Utilities.Dispose(ref _factory);
@@ -63,15 +57,8 @@ namespace Invasion.Engine
 
         public void LoadBitmap(string filePath)
         {
-            BitmapDecoder decoder = new BitmapDecoder(_imagingFactory, filePath, DecodeOptions.CacheOnDemand);
-            BitmapFrameDecode frame = decoder.GetFrame(0);
-            FormatConverter converter = new FormatConverter(_imagingFactory);
-            converter.Initialize(frame, SharpDX.WIC.PixelFormat.Format32bppPRGBA, BitmapDitherType.Ordered4x4, null, 0.0, BitmapPaletteType.Custom);
-            Bitmap bitmap = Bitmap.FromWicBitmap(_renderTarget, converter);
-            Utilities.Dispose(ref converter);
-            Utilities.Dispose(ref frame);
-            Utilities.Dispose(ref decoder);
-            _bitmaps.Add(filePath, bitmap);
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(filePath);
+            BitmapsConfiguration.Add(filePath, bitmap);
         }
     }
 }

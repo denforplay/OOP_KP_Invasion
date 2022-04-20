@@ -1,4 +1,5 @@
 ﻿using Invasion.Engine;
+using Invasion.Engine.Graphics;
 using Invasion.Models;
 using Invasion.Models.Collisions;
 using Invasion.Models.Modificators;
@@ -14,7 +15,7 @@ namespace Invastion.CompositeRoot.Implementations;
 /// </summary>
 public class ModificatorsCompositeRoot : ICompositeRoot
 {
-    private DirectXGraphicsProvider _graphicsProvider;
+    private IGraphicProvider _graphicsProvider;
     private ModificatorSystem _modificatorSystem;
     private ModificationSpawner _modificationSpawner;
     private ModificatorFactory _viewFactory;
@@ -27,7 +28,7 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     /// <param name="collisionController">Collision controller</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="modificatorSystem">Modificator system</param>
-    public ModificatorsCompositeRoot(DirectXGraphicsProvider graphicsProvider, CollisionController collisionController, Scene gameScene, ModificatorSystem modificatorSystem)
+    public ModificatorsCompositeRoot(IGraphicProvider graphicsProvider, CollisionController collisionController, Scene gameScene, ModificatorSystem modificatorSystem)
     {
         _modificatorSystem = modificatorSystem;
         _gameScene = gameScene;

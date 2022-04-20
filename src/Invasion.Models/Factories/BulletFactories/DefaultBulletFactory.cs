@@ -1,6 +1,7 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Weapons.Firearms.Bullets;
@@ -11,12 +12,12 @@ namespace Invasion.Models.Factories.BulletFactories;
 public class DefaultBulletFactory : IModelFactory<DefaultBullet>
 {
     private string _spriteFileName = @"Sources\defaultBullet.png";
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
 
-    public DefaultBulletFactory(DirectXGraphicsProvider dx2D, CollisionController collisionController)
+    public DefaultBulletFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
         _collisionController = collisionController;
     }
     
@@ -25,7 +26,7 @@ public class DefaultBulletFactory : IModelFactory<DefaultBullet>
         var bullet = new DefaultBullet(new List<IComponent>
         {
             new Transform(),
-            new SpriteRenderer(_dx2D, _spriteFileName)
+            new SpriteRenderer(_graphicProvider, _spriteFileName)
         });
         
         var rigidBody = new RigidBody2D();

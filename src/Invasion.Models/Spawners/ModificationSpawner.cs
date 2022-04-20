@@ -1,5 +1,6 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Graphics;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.ModificatorFactories;
 using Invasion.Models.Interfaces;
@@ -14,17 +15,17 @@ public class ModificationSpawner : ISpawner
     private ModificatorSystem _modificatorSystem;
     private readonly Func<ModificatorBase>[] _variants;
     private readonly Random _random = new Random();
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
     private bool _isSpawning = true;
     
-    public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, DirectXGraphicsProvider dx2D)
+    public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, IGraphicProvider graphicProvider)
     {
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
         _modificatorSystem = modificatorSystem;
         _variants = new Func<ModificatorBase>[]
         {
-            new SpeedBonusFactory(_dx2D, controller).Create,
-            new SlowTrapFactory(_dx2D, controller).Create,
+            new SpeedBonusFactory(_graphicProvider, controller).Create,
+            new SlowTrapFactory(_graphicProvider, controller).Create,
         };
     }
     

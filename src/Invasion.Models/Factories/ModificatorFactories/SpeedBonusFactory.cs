@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Modificators.Bonuses;
@@ -11,13 +11,13 @@ namespace Invasion.Models.Factories.ModificatorFactories;
 public class SpeedBonusFactory : IModelFactory<SpeedBonus>
 {
     private string _spriteFileName = @"Sources\speedBonus.png";
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
     
-    public SpeedBonusFactory(DirectXGraphicsProvider dx2D, CollisionController collisionController)
+    public SpeedBonusFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
         _collisionController = collisionController;
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
     }
     
     public SpeedBonus Create()
@@ -25,7 +25,7 @@ public class SpeedBonusFactory : IModelFactory<SpeedBonus>
         var speedBonus = new SpeedBonus(new List<IComponent>
         {
             new Transform(),
-            new SpriteRenderer(_dx2D, _spriteFileName),
+            new SpriteRenderer(_graphicProvider, _spriteFileName),
         }, new Configurations.ModificatorConfiguration(1000));
 
         var boxCollider = new BoxCollider2D(_collisionController, speedBonus, new Size(2, 2));

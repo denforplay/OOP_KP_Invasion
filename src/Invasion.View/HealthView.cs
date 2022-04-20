@@ -1,9 +1,9 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Graphics.GraphicTargets;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Interfaces;
 using SharpDX;
-using SharpDX.Direct2D1;
 using Transform = Invasion.Engine.Components.Transform;
 
 namespace Invasion.View;
@@ -15,7 +15,7 @@ public class HealthView : IView
     private IHealthable _healthable;
     private TextRenderer _healthText;
 
-    public HealthView(GameObject healthableObject, WindowRenderTarget renderTarget)
+    public HealthView(GameObject healthableObject, IGraphicTarget renderTarget)
     {
         _healthable = healthableObject as IHealthable;
         if (_healthable is null)
@@ -24,7 +24,7 @@ public class HealthView : IView
         }
 
         healthableObject.TryTakeComponent(out _parent);
-        _healthText = new TextRenderer(renderTarget, new RectangleF());
+        _healthText = new TextRenderer(renderTarget.Target, new RectangleF());
         _healthText.SetText($"{_healthable.CurrentHealthPoints}/{_healthable.MaxHealthPoint} HP");
         _healthable.OnHealthChanged += ChangeText;
     }

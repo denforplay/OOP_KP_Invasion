@@ -4,6 +4,7 @@ using Invasion.Core.EventBus;
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.InputSystem;
 using Invasion.Engine.Interfaces;
 using Invasion.Models;
@@ -30,7 +31,7 @@ namespace Invastion.CompositeRoot.Implementations;
 public class HeroCompositeRoot : ICompositeRoot
 {
     private IInputProvider _inputProvider;
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicsProvider;
     private CollisionsCompositeRoot _collisionsRoot;
     private Scene _gameScene;
     private Dictionary<string, Player> _players = new Dictionary<string, Player>();
@@ -56,19 +57,19 @@ public class HeroCompositeRoot : ICompositeRoot
     /// <param name="collisionsRoot">Collision composite root</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="playerWeapons">Player choosed weapons</param>
-    public HeroCompositeRoot(IInputProvider inputProvider, DirectXGraphicsProvider dx2D, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
+    public HeroCompositeRoot(IInputProvider inputProvider, IGraphicProvider graphicProvider, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
         _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
         _inputProvider = inputProvider;
-        _dx2D = dx2D;
+        _graphicsProvider = graphicProvider;
         _collisionsRoot = collisionsRoot;
         _gameScene = gameScene;
         _bulletFactory = new BulletFactory();
         _playerConfiguration = new PlayerConfiguration(1, 5);
         _bulletSystem.OnStart += SpawnBullet;
         _bulletSystem.OnEnd += DeleteBullet;
-        _weaponFactory = new WeaponFactory(_collisionsRoot.Controller, bulletSystem, dx2D);
+        _weaponFactory = new WeaponFactory(_collisionsRoot.Controller, bulletSystem, _graphicsProvider);
     }
 
     public void Compose()
@@ -95,14 +96,14 @@ public class HeroCompositeRoot : ICompositeRoot
             {
                 Position = startPosition
             },
-            new SpriteRenderer(_dx2D, sprite),
+            new SpriteRenderer(_graphicsProvider, sprite),
             new RigidBody2D()
         }, _playerConfiguration, Layer.Player);
         var playerDecorator = new PlayerDecorator(player, new List<IComponent>(player.Components), _playerConfiguration);
         playerDecorator.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, playerDecorator, colliderSize));
         var playerView = new GameObjectView(playerDecorator);
         var playerController = new PlayerController(playerDecorator, inputs);
-        var healthView = new HealthView(playerDecorator, _dx2D.RenderTarget);
+        var healthView = new HealthView(playerDecorator, _graphicsProvider.GraphicTarget);
         playerDecorator.OnDestroyed += () =>
         {
             SingletonEventBus.GetInstance.Invoke(new GameLoseEvent());

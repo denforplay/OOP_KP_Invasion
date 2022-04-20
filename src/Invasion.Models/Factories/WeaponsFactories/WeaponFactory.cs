@@ -1,5 +1,6 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.BulletFactories;
@@ -16,13 +17,13 @@ public class WeaponFactory
     private string _pistolSprite = @"Sources\pistol.png";
     private CollisionController _collisionController;
     private BulletSystem _bulletSystem;
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
 
-    public WeaponFactory(CollisionController collisionController, BulletSystem bulletSystem, DirectXGraphicsProvider dx2D)
+    public WeaponFactory(CollisionController collisionController, BulletSystem bulletSystem, IGraphicProvider graphicProvider)
     {
         _collisionController = collisionController;
         _bulletSystem = bulletSystem;
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
     }
     
     public WeaponBase Create(GameObject parent, Type type)
@@ -32,17 +33,17 @@ public class WeaponFactory
             Knife knife = new Knife(parent, new List<IComponent>
             {
                 new Transform(),
-                new SpriteRenderer(_dx2D, _knifeSprite),
+                new SpriteRenderer(_graphicProvider, _knifeSprite),
             });
 
             return knife;
         }
         else if (type == typeof(Pistol))
         {
-            Pistol pistol = new Pistol(new DefaultBulletFactory(_dx2D, _collisionController), _bulletSystem, new List<IComponent>
+            Pistol pistol = new Pistol(new DefaultBulletFactory(_graphicProvider, _collisionController), _bulletSystem, new List<IComponent>
             {
                 new Transform(),
-                new SpriteRenderer(_dx2D, _pistolSprite),
+                new SpriteRenderer(_graphicProvider, _pistolSprite),
             }, parent);
 
 

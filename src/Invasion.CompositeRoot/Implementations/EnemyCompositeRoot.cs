@@ -1,6 +1,7 @@
 ﻿using Invasion.Controller.Controllers;
 using Invasion.Engine;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Collisions;
@@ -29,7 +30,7 @@ public class EnemyCompositeRoot : ICompositeRoot
     private CollisionController _collisionController;
     private Scene _gameScene;
     private List<Player> _players;
-    private DirectXGraphicsProvider _graphicsProvider;
+    private IGraphicProvider _graphicProvider;
     private WeaponFactory _weaponFactory;
     private Dictionary<Type, Type> _enemyWeapons = new Dictionary<Type, Type>
     {
@@ -47,21 +48,21 @@ public class EnemyCompositeRoot : ICompositeRoot
     /// <param name="collisionController">Collision controller</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="players">Game players</param>
-    public EnemyCompositeRoot(DirectXGraphicsProvider graphicsProvider, BulletSystem bulletSystem, EnemySystem enemySystem,
+    public EnemyCompositeRoot(IGraphicProvider graphicProvider, BulletSystem bulletSystem, EnemySystem enemySystem,
         CollisionController collisionController, Scene gameScene, List<Player> players)
     {
         _enemySystem = enemySystem;
         _players = players;
         _gameScene = gameScene;
         _collisionController = collisionController;
-        _graphicsProvider = graphicsProvider;
-        _weaponFactory = new WeaponFactory(_collisionController, bulletSystem, graphicsProvider);
+        _graphicProvider = graphicProvider;
+        _weaponFactory = new WeaponFactory(_collisionController, bulletSystem, graphicProvider);
     }
 
     public void Compose()
     {
         _enemyFactory = new EnemyFactory();
-        _enemySpawner = new EnemySpawner(_enemySystem, _collisionController, _graphicsProvider);
+        _enemySpawner = new EnemySpawner(_enemySystem, _collisionController, _graphicProvider);
         _enemySystem.OnStart += SpawnEnemy;
         _enemySystem.OnEnd += DeleteEnemy;
         _enemySpawner.Spawn();
@@ -84,7 +85,7 @@ public class EnemyCompositeRoot : ICompositeRoot
         _gameScene.AddGameObjectView(weaponView);
         var controller = new EnemyController(enemy.GetEntity, _players);
         controller.BindGun(enemyWeapon);
-        var healthView = new HealthView(enemy.GetEntity, _graphicsProvider.RenderTarget);
+        var healthView = new HealthView(enemy.GetEntity, _graphicProvider.GraphicTarget);
         _gameScene.AddGameObject(enemy.GetEntity);
         _gameScene.AddGameObjectView(enemyView);
         _gameScene.AddGameObjectView(healthView);

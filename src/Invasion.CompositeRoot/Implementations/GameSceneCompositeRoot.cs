@@ -3,6 +3,7 @@ using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
 using Invasion.Engine.Components.Interfaces;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using Invasion.Models.Configurations;
@@ -35,7 +36,7 @@ namespace Invastion.CompositeRoot.Implementations
         private Dictionary<string, Type> _playerWeapons;
         private GameConfiguration _gameConfiguration;
         private IInputProvider _inputProvider;
-        private DirectXGraphicsProvider _graphicsProvider;
+        private IGraphicProvider _graphicsProvider;
 
         /// <summary>
         /// Game scene composite root constructor
@@ -44,7 +45,7 @@ namespace Invastion.CompositeRoot.Implementations
         /// <param name="inputProvider">Input helper</param>
         /// <param name="playerWeapons">Player weapons</param>
         /// <param name="gameConfiguration">Game configuration</param>
-        public GameSceneCompositeRoot(DirectXGraphicsProvider graphicsProvider, IInputProvider inputProvider, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
+        public GameSceneCompositeRoot(IGraphicProvider graphicsProvider, IInputProvider inputProvider, Dictionary<string, Type> playerWeapons, GameConfiguration gameConfiguration)
         {
             _playerWeapons = playerWeapons;
             _inputProvider = inputProvider;
@@ -82,7 +83,7 @@ namespace Invastion.CompositeRoot.Implementations
                 new ModificatorsCompositeRoot(_graphicsProvider, _collisionsRoot.Controller, _gameScene, _modificatorSystem);
             _modificatorsCompositeRoot.Compose();
             _scoreSystem = new ScoreSystem();
-            var scoreView = new ScoreView(_scoreSystem, _graphicsProvider.RenderTarget);
+            var scoreView = new ScoreView(_scoreSystem, _graphicsProvider.GraphicTarget.Target);
             _gameScene.AddGameObjectView(scoreView);
             _enemySystem.OnEnd += UpdateScoreSystem;
             GenerateBorders();

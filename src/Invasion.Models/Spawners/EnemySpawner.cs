@@ -1,5 +1,6 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
+using Invasion.Engine.Graphics;
 using Invasion.Models.Collisions;
 using Invasion.Models.Enemies;
 using Invasion.Models.Factories.EnemiesFactories;
@@ -16,18 +17,18 @@ public class EnemySpawner : ISpawner
     private readonly Random _random = new Random();
     private readonly CollisionController _collisionController;
     private Vector3[] _spawnPositions;
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
     private bool _isSpawning = true;
-    public EnemySpawner(EnemySystem enemySystem, CollisionController controller, DirectXGraphicsProvider dx2D)
+    public EnemySpawner(EnemySystem enemySystem, CollisionController controller, IGraphicProvider graphicProvider)
     {
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
         _collisionController = controller;
         _enemySystem = enemySystem;
         _variants = new Func<EnemyBase>[]
         {
-            new ShootingEnemyFactory(_dx2D, _collisionController).Create,
-            new BeatingEnemyFactory(_dx2D, _collisionController).Create,
-            new KamikadzeEnemyFactory(_dx2D, _collisionController).Create
+            new ShootingEnemyFactory(_graphicProvider, _collisionController).Create,
+            new BeatingEnemyFactory(_graphicProvider, _collisionController).Create,
+            new KamikadzeEnemyFactory(_graphicProvider, _collisionController).Create
         };
         _spawnPositions = new[]
         {

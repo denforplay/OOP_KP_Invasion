@@ -2,6 +2,7 @@
 using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Components.Colliders;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
 using Invasion.Models.Modificators.Traps;
@@ -11,13 +12,13 @@ namespace Invasion.Models.Factories.ModificatorFactories;
 public class SlowTrapFactory : IModelFactory<SlowTrap>
 {
     private string _spriteFileName = @"Sources\slowTrap.png";
-    private DirectXGraphicsProvider _dx2D;
+    private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
     
-    public SlowTrapFactory(DirectXGraphicsProvider dx2D, CollisionController collisionController)
+    public SlowTrapFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
         _collisionController = collisionController;
-        _dx2D = dx2D;
+        _graphicProvider = graphicProvider;
     }
     
     public SlowTrap Create()
@@ -25,7 +26,7 @@ public class SlowTrapFactory : IModelFactory<SlowTrap>
         var slowTrap = new SlowTrap(new List<IComponent>
         {
             new Transform(),
-            new SpriteRenderer(_dx2D, _spriteFileName),
+            new SpriteRenderer(_graphicProvider, _spriteFileName),
         }, 
         new Configurations.ModificatorConfiguration(1000));
 

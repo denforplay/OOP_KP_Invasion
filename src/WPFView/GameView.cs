@@ -1,4 +1,5 @@
 ﻿using Invasion.Engine;
+using Invasion.Engine.Graphics;
 using Invasion.Engine.InputSystem;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Configurations;
@@ -15,12 +16,13 @@ namespace WPFView
     {
         private float _fps = 60;
         public RenderForm RenderForm { get; private set; }
-        public DirectXGraphicsProvider GraphicsProvider { get; private set; }
+        public IGraphicProvider GraphicsProvider { get; private set; }
 
         private GameSceneCompositeRoot _game;
         private float _scale;
         private RectangleF _clientRect;
         private IInputProvider _inputProvider;
+        WindowRenderTarget renderTarget;
 
         public GameView(GameConfiguration gameConfiguration, Dictionary<string, Type> playerWeapons)
         {
@@ -34,6 +36,7 @@ namespace WPFView
             _clientRect.Height = RenderForm.ClientSize.Height;
             _inputProvider = new DirectXInputProvider(RenderForm);
             _game = new GameSceneCompositeRoot(GraphicsProvider, _inputProvider, playerWeapons, gameConfiguration);
+            renderTarget = GraphicsProvider.GraphicTarget.Target;
             RenderForm_Resize(this, null);
         }
 
@@ -42,15 +45,14 @@ namespace WPFView
             if (Time.Update())
             {
                 _inputProvider.Update();
-                WindowRenderTarget target = GraphicsProvider.RenderTarget;
-                Size2F targetSize = target.Size;
+                Size2F targetSize = renderTarget.Size;
                 _clientRect.Width = targetSize.Width;
                 _clientRect.Height = targetSize.Height;
-                target.BeginDraw();
-                target.Clear(Color.Black);
+                renderTarget.BeginDraw();
+                renderTarget.Clear(Color.Black);
                 _game.Update(_scale);
-                target.Transform = Matrix3x2.Identity;
-                target.EndDraw();
+                renderTarget.Transform = Matrix3x2.Identity;
+                renderTarget.EndDraw();
             }
         }
 
@@ -58,9 +60,9 @@ namespace WPFView
         {
             int width = RenderForm.ClientSize.Width;
             int height = RenderForm.ClientSize.Height;
-            GraphicsProvider.RenderTarget.Resize(new Size2(width, height));
-            _clientRect.Width = GraphicsProvider.RenderTarget.Size.Width;
-            _clientRect.Height = GraphicsProvider.RenderTarget.Size.Height;
+            renderTarget.Resize(new Size2(width, height));
+            _clientRect.Width = renderTarget.Size.Width;
+            _clientRect.Height = renderTarget.Size.Height;
             _scale = _clientRect.Height / 25f;
         }
 
@@ -73,7 +75,6 @@ namespace WPFView
         public void Dispose()
         {
             _game.Dispose();
-            GraphicsProvider.Dispose();
             RenderForm.Dispose();
         }
     }
