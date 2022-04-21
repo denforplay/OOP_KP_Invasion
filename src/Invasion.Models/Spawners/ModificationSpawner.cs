@@ -31,11 +31,11 @@ public class ModificationSpawner : ISpawner
     
     public async void Spawn()
     {
-        while (_isSpawning && Time.TimeScale != 0)
+        while (_isSpawning)
         {
             if (_modificatorSystem.Entities.Count() <= 5)
             {
-                var randomX = (float)(_random.NextDouble() * (43f-2f)) + 2f;
+                var randomX = (float)(_random.NextDouble() * (43f - 2f)) + 2f;
                 var randomY = (float)(_random.NextDouble() * (23f - 2f)) + 2f;
                 SpawnModificator(new Vector3(randomX, randomY, 0));
                 await Task.Delay(1000);
@@ -59,5 +59,10 @@ public class ModificationSpawner : ISpawner
     public void StopSpawn()
     {
         _isSpawning = false;
+    }
+
+    public void StartSpawn()
+    {
+        _isSpawning = true;
     }
 }

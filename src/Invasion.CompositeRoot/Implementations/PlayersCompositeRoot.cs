@@ -74,8 +74,8 @@ public class HeroCompositeRoot : ICompositeRoot
 
     public void Compose()
     {
-       CreatePlayer("Player1", @"Sources\dash.bmp", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.W, Key.S, Key.D, Key.A));
-       CreatePlayer("Player2", @"Sources\dash.bmp", new Vector3(5f, 5f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.I, Key.K, Key.J, Key.L));
+       CreatePlayer("Player1", @"Sources\character.png", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.W, Key.S, Key.D, Key.A));
+       CreatePlayer("Player2", @"Sources\character.png", new Vector3(35f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.I, Key.K, Key.J, Key.L));
        InitializeWeapons();
     }
     
@@ -154,6 +154,7 @@ public class HeroCompositeRoot : ICompositeRoot
         _gameScene.AddGameObject(bullet.GetEntity);
         bullet.GetEntity.OnDestroyed += () =>
         {
+            bulletView.Dispose();
             _gameScene.RemoveGameObject(bullet.GetEntity);
             _gameScene.RemoveGameObjectView(bulletView);
         };
@@ -171,5 +172,15 @@ public class HeroCompositeRoot : ICompositeRoot
 
     public void Dispose()
     {
+    }
+
+    public void Restart()
+    {
+        _players["Player1"].TryTakeComponent(out Transform transform1);
+        transform1.Position = new Vector3(15f, 15f, 0f);
+        _players["Player2"].TryTakeComponent(out Transform transform2);
+        _players["Player1"].SetHealth(_playerConfiguration.MaxHealth);
+        _players["Player2"].SetHealth(_playerConfiguration.MaxHealth);
+        transform2.Position = new Vector3(35f, 15f, 0f);
     }
 }

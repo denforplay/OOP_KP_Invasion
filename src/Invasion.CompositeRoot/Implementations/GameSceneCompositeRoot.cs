@@ -61,7 +61,7 @@ namespace Invastion.CompositeRoot.Implementations
         public void Compose()
         {
             _graphicsProvider.LoadBitmap(@"Sources\background.bmp");
-            _graphicsProvider.LoadBitmap(@"Sources\dash.bmp");
+            _graphicsProvider.LoadBitmap(@"Sources\character.png");
             _graphicsProvider.LoadBitmap(@"Sources\topdownwall.png");
             _graphicsProvider.LoadBitmap(@"Sources\pistol.png");
             _graphicsProvider.LoadBitmap(@"Sources\knife.png");
@@ -87,6 +87,23 @@ namespace Invastion.CompositeRoot.Implementations
             _gameScene.AddGameObjectView(scoreView);
             _enemySystem.OnEnd += UpdateScoreSystem;
             GenerateBorders();
+        }
+
+        public void Restart()
+        {
+            _scoreSystem.Restart();
+            _heroCompositeRoot.Restart();
+            _enemyCompositeRoot.Restart();
+            _modificatorsCompositeRoot.Restart();
+            Time.TimeScale = 1;
+        }
+
+        public void StopGame()
+        {
+            _bulletSystem.StopAll();
+            _enemySystem.StopAll();
+            _modificatorSystem.StopAll();
+            Time.TimeScale = 0;
         }
 
         /// <summary>

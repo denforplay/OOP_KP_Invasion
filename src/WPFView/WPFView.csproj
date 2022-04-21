@@ -39,6 +39,9 @@
     <None Update="Sources\beatingEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Sources\character.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Sources\dash.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

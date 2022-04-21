@@ -17,5 +17,7 @@ namespace Invasion.Engine.Components.Interfaces
         /// </summary>
         /// <param name="transform">Transform information</param>
         void SetTransform(Transform transform);
+
+        void Dispose();
     }
 }

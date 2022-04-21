@@ -32,13 +32,6 @@ namespace Invasion.Engine.Components.Colliders
         }
 
         /// <summary>
-        /// Get collision point between two colliders
-        /// </summary>
-        /// <param name="toPoint">Direction in which find collide point</param>
-        /// <returns>Collision point</returns>
-        public abstract Vector2 GetCollisionPoint(Vector2 toPoint);
-
-        /// <summary>
         /// Checks if one collider inside another
         /// </summary>
         /// <param name="other">Other collider</param>

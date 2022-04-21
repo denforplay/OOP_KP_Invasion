@@ -120,6 +120,7 @@ namespace Invasion.Engine
             _colliders.Clear();
             _gameObjects.Clear();
             _controllers.Clear();
+            _views.ForEach(x => x.Dispose());
             _views.Clear();
         }
     }

@@ -92,6 +92,7 @@ public class EnemyCompositeRoot : ICompositeRoot
         _gameScene.AddController(controller);
         enemy.GetEntity.OnDestroyed += () =>
         {
+            enemyView.Dispose();
             _gameScene.RemoveController(controller);
             _gameScene.RemoveGameObjectView(enemyView);
             _gameScene.RemoveGameObjectView(healthView);
@@ -114,5 +115,10 @@ public class EnemyCompositeRoot : ICompositeRoot
     public void Dispose()
     {
         _enemySpawner.StopSpawn();
+    }
+
+    public void Restart()
+    {
+        _enemySpawner.StartSpawn();
     }
 }

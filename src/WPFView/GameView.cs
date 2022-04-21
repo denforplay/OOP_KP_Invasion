@@ -15,29 +15,40 @@ namespace WPFView
     public class GameView
     {
         private float _fps = 60;
-        public RenderForm RenderForm { get; private set; }
-        public IGraphicProvider GraphicsProvider { get; private set; }
+        private RenderForm _renderForm;
+        public RenderForm RenderForm => _renderForm;
 
         private GameSceneCompositeRoot _game;
         private float _scale;
         private RectangleF _clientRect;
+        public IGraphicProvider GraphicsProvider { get; private set; }
         private IInputProvider _inputProvider;
         WindowRenderTarget renderTarget;
 
         public GameView(GameConfiguration gameConfiguration, Dictionary<string, Type> playerWeapons)
         {
             Time.Start(_fps);
-            RenderForm = new RenderForm("Direct2D Application");
-            RenderForm.ClientSize = new System.Drawing.Size(Screen.Width, Screen.Height);
-            RenderForm.TopLevel = false;
-            RenderForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            GraphicsProvider = new DirectXGraphicsProvider(RenderForm);
-            _clientRect.Width = RenderForm.ClientSize.Width;
-            _clientRect.Height = RenderForm.ClientSize.Height;
-            _inputProvider = new DirectXInputProvider(RenderForm);
+            _renderForm = new RenderForm("Direct2D Application");
+            _renderForm.ClientSize = new System.Drawing.Size(Screen.Width, Screen.Height);
+            _renderForm.TopLevel = false;
+            _renderForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            GraphicsProvider = new DirectXGraphicsProvider(_renderForm);
+            _clientRect.Width = _renderForm.ClientSize.Width;
+            _clientRect.Height = _renderForm.ClientSize.Height;
+            _inputProvider = new DirectXInputProvider(_renderForm);
             _game = new GameSceneCompositeRoot(GraphicsProvider, _inputProvider, playerWeapons, gameConfiguration);
             renderTarget = GraphicsProvider.GraphicTarget.Target;
             RenderForm_Resize(this, null);
+        }
+
+        public void Restart()
+        {
+            _game.Restart();
+        }
+
+        public void Stop()
+        {
+            _game.StopGame();
         }
 
         private void RenderCallback()
@@ -58,8 +69,8 @@ namespace WPFView
 
         private void RenderForm_Resize(object sender, EventArgs e)
         {
-            int width = RenderForm.ClientSize.Width;
-            int height = RenderForm.ClientSize.Height;
+            int width = _renderForm.ClientSize.Width;
+            int height = _renderForm.ClientSize.Height;
             renderTarget.Resize(new Size2(width, height));
             _clientRect.Width = renderTarget.Size.Width;
             _clientRect.Height = renderTarget.Size.Height;
@@ -68,14 +79,17 @@ namespace WPFView
 
         public void Run()
         {
-            RenderForm.Resize += RenderForm_Resize;
-            RenderLoop.Run(RenderForm, RenderCallback);
+            _renderForm.Resize += RenderForm_Resize;
+            RenderLoop.Run(_renderForm, RenderCallback);
         }
 
         public void Dispose()
         {
+            GraphicsProvider.Dispose();
+            _inputProvider.Dispose();
+            Utilities.Dispose(ref renderTarget);
             _game.Dispose();
-            RenderForm.Dispose();
+            Utilities.Dispose(ref _renderForm);
         }
     }
 }

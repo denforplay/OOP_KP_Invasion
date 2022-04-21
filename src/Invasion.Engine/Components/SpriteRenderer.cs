@@ -10,8 +10,7 @@ namespace Invasion.Engine.Components
 {
     public class SpriteRenderer : IRenderer
     {
-        private readonly float _pu = 1.0f / 16.0f;
-
+        private readonly float _perUnit = 1.0f / 16f;
         private IGraphicProvider _graphicProvider;
         private Transform _transform;
         public Size Size => _bitmapSize;
@@ -65,17 +64,17 @@ namespace Invasion.Engine.Components
             }
         }
 
-        public virtual void Draw()
+        public void Draw()
         {
             float height = Screen.Height;
             float scale = Screen.Height / Screen.UnitsPerHeight;
-            _translation.X = (-_bitmapCenter.X * _pu + _transform.Position.X) * scale;
-            _translation.Y = height - (-_bitmapCenter.Y * _pu + _transform.Position.Y + 1) * scale;
+            _translation.X = (-_bitmapCenter.X * _perUnit + _transform.Position.X) * scale;
+            _translation.Y = height - (-_bitmapCenter.Y * _perUnit + _transform.Position.Y + 1) * scale;
             if (_mode == RendererMode.Static)
                 _translation = Vector2.Zero;
             _matrix =
                 Matrix3x2.Rotation(_transform.Rotation.X, _bitmapCenter)*
-                Matrix3x2.Scaling(scale * _pu, scale * _pu, Vector2.Zero) *
+                Matrix3x2.Scaling(scale * _perUnit, scale * _perUnit, Vector2.Zero) *
                 Matrix3x2.Translation(_translation) ;
 
             _graphicProvider.GraphicTarget.Target.Transform = _matrix;
@@ -85,6 +84,11 @@ namespace Invasion.Engine.Components
         public void SetTransform(Transform transform)
         {
             _transform = transform;
+        }
+
+        public void Dispose()
+        {
+            Utilities.Dispose(ref _bitmap);
         }
     }
 }

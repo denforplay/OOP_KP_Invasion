@@ -6,5 +6,6 @@ namespace Invasion.Engine.Interfaces
     {
         bool CheckKey(Key key);
         void Update();
+        void Dispose();
     }
 }

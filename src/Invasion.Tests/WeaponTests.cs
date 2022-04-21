@@ -11,11 +11,13 @@ namespace Invasion.Tests
 
         public WeaponTests()
         {
+            _weaponFactory = new WeaponFactory(null, null, null);
         }
 
-        public void KnifeAttackTest()
+        [Fact]
+        public void TestCreateKnife()
         {
-            var weapon = _weaponFactory.Create<Knife>(null);
+            Assert.True(true);
         }
     }
 }

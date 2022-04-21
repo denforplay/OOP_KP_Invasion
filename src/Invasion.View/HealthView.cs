@@ -29,6 +29,11 @@ public class HealthView : IView
         _healthable.OnHealthChanged += ChangeText;
     }
 
+    public void Dispose()
+    {
+        _healthText.Dispose();
+    }
+
     public void Update()
     {
         _healthText.SetPosition(new RectangleF(_parent.Position.X / 45f * Screen.Width - 50, Screen.Height - _parent.Position.Y / 25f * Screen.Height - 30, 100, 100));

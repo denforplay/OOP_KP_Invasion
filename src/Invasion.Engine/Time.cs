@@ -28,7 +28,7 @@ namespace Invasion.Engine
                 _previousTicks = ticks;
                 if (DeltaTime > FixedDeltaTime)
                 {
-                    DeltaTime -= FixedDeltaTime;
+                    DeltaTime = 0;
                     return true;
                 }
             }

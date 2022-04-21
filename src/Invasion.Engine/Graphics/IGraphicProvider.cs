@@ -7,5 +7,6 @@ namespace Invasion.Engine.Graphics
        IGraphicTarget GraphicTarget { get; set; }
        Dictionary<string, Bitmap> BitmapsConfiguration { get; set; }
        void LoadBitmap(string filePath);
+       void Dispose();
     }
 }

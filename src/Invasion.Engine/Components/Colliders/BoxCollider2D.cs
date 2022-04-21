@@ -48,33 +48,5 @@ namespace Invasion.Engine.Components.Colliders
 
             return false;
         }
-        public override Vector2 GetCollisionPoint(Vector2 toPoint)
-        {
-            if (ColliderObject.TryTakeComponent(out Transform transform))
-            {
-                if (IsPointInsideCollider(toPoint))
-                {
-                    return new Vector2(toPoint.X - transform.Position.X, toPoint.Y - transform.Position.Y);
-                }
-                else
-                {
-                    float k = (toPoint.X - transform.Position.X) / (toPoint.Y - transform.Position.Y);
-                    float b = toPoint.Y - k * toPoint.X;
-
-                    float x = toPoint.X;
-                    float y = k * x + b;
-                    while (!IsPointInsideCollider(new Vector2(x, y)))
-                    {
-                        x += 0.1f;
-                        y = k * x + b;
-                    }
-
-                    return GetCollisionPoint(new Vector2(x, y));
-                }
-            }
-
-            throw new InvalidOperationException();
-        }
-
     }
 }

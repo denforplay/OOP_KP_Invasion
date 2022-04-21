@@ -21,24 +21,35 @@ namespace WPFView
         
         public void StartGame()
         {
-            Time.TimeScale = 1;
+            bool marker = false;
             Subscribe();
             Screen.Width = (int)viewBox.DesiredSize.Width;
             Screen.Height = (int)viewBox.DesiredSize.Height;
-            _gameView?.Dispose();
-            _gameView = new GameView(new Invasion.Models.Configurations.GameConfiguration(3), _weaponTypes);
-            formPlacement.Child = _gameView.RenderForm;
-            _gameView.Run();
+            if (_gameView is null)
+            {
+                marker = true;
+                _gameView = new GameView(new Invasion.Models.Configurations.GameConfiguration(3), _weaponTypes);
+            }
+            else
+            {
+                _gameView.Restart();
+            }
+
+            if (marker)
+            {
+                formPlacement.Child = _gameView.RenderForm;
+                _gameView.Run();
+            }
         }
 
         public void LoseGame(GameLoseEvent loseEvent)
         {
-            Time.TimeScale = 0;
+            UnSubscribe();
+            _gameView.Stop();
             LoseWindow loseWindow = new LoseWindow();
             loseWindow.Show();
             loseWindow.OnRestart += StartGame;
             loseWindow.OnExit += CloseGame;
-            UnSubscribe();
         }
 
         public void CloseGame()
@@ -62,11 +73,12 @@ namespace WPFView
 
         public void WinGame(GameWinEvent gameWinEvent)
         {
+            UnSubscribe();
+            _gameView.Stop();
             WinWindow winWindow = new WinWindow(gameWinEvent.Score);
             winWindow.Show();
             winWindow.OnRestart += StartGame;
             winWindow.OnExit += CloseGame;
-            UnSubscribe();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

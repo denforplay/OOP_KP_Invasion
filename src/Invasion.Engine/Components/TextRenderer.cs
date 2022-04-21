@@ -17,14 +17,13 @@ public class TextRenderer : IComponent
     private WindowRenderTarget _renderTarget;
     private RectangleF _position;
     private float _fontSize;
-    private string _text = "fps";
-        
+    private string _text;
     public TextRenderer(WindowRenderTarget renderTarget, RectangleF position, float fontSize = 15)
     {
         _fontSize = fontSize;
         _position = position;
         _renderTarget = renderTarget;
-        _writeFactory = new SharpDX.DirectWrite.Factory();
+        _writeFactory = new Factory();
         _textFormat = new TextFormat(_writeFactory, "Valorant", _fontSize)
         {
             TextAlignment = TextAlignment.Center,
@@ -47,5 +46,12 @@ public class TextRenderer : IComponent
         _renderTarget.Transform = Matrix3x2.Identity;
         _renderTarget.DrawText(_text,
             _textFormat, _position, _whiteBrush);
+    }
+
+    public void Dispose()
+    {
+        Utilities.Dispose(ref _writeFactory);
+        Utilities.Dispose(ref _whiteBrush);
+        Utilities.Dispose(ref _textFormat);
     }
 }

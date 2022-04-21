@@ -19,6 +19,11 @@ namespace Invasion.View
             _renderer?.SetTransform(_transform);
         }
 
+        public void Dispose()
+        {
+            _renderer.Dispose();
+        }
+
         public void Update()
         {
             _renderer?.Draw();

@@ -41,7 +41,7 @@ public class EnemySpawner : ISpawner
     
     public async void Spawn()
     {
-        while (_isSpawning && Time.TimeScale != 0)
+        while (_isSpawning)
         {
             if (_enemySystem.Entities.Count() <= 50)
             {
@@ -56,6 +56,11 @@ public class EnemySpawner : ISpawner
             }
             await Task.Delay(3000);
         }
+    }
+
+    public void StartSpawn()
+    {
+        _isSpawning = true;
     }
 
     public void StopSpawn()

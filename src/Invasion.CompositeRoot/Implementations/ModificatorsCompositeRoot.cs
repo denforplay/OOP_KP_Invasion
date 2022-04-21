@@ -75,4 +75,9 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     {
         _modificationSpawner.StopSpawn();
     }
+
+    public void Restart()
+    {
+        _modificationSpawner.StartSpawn();
+    }
 }

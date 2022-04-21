@@ -9,5 +9,6 @@
         /// Update view
         /// </summary>
         void Update();
+        void Dispose();
     }
 }

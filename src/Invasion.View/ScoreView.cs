@@ -20,6 +20,11 @@ namespace Invasion.View
             _scoreSystem.Restart();
         }
 
+        public void Dispose()
+        {
+            _scoreText.Dispose();
+        }
+
         public void Update()
         {
             _scoreText.Update();

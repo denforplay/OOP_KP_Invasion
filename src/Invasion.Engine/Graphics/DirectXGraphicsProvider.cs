@@ -20,7 +20,7 @@ namespace Invasion.Engine
 
         private ImagingFactory _imagingFactory;
         public ImagingFactory ImagingFactory { get => _imagingFactory; }
-        public Dictionary<string, System.Drawing.Bitmap> BitmapsConfiguration { get; set; }
+        public Dictionary<string, System.Drawing.Bitmap> BitmapsConfiguration { get; set; } = new Dictionary<string, System.Drawing.Bitmap>();
         public IGraphicTarget GraphicTarget { get; set; }
 
         public DirectXGraphicsProvider(RenderForm form)
@@ -53,6 +53,9 @@ namespace Invasion.Engine
             Utilities.Dispose(ref _imagingFactory);
             Utilities.Dispose(ref _renderTarget);
             Utilities.Dispose(ref _factory);
+            Utilities.Dispose(ref _writeFactory);
+            foreach (var bitmap in BitmapsConfiguration.Values)
+                bitmap.Dispose();
         }
 
         public void LoadBitmap(string filePath)
