@@ -75,7 +75,7 @@ public class HeroCompositeRoot : ICompositeRoot
     public void Compose()
     {
        CreatePlayer("Player1", @"Sources\character.png", new Vector3(15f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.W, Key.S, Key.D, Key.A));
-       CreatePlayer("Player2", @"Sources\character.png", new Vector3(35f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.I, Key.K, Key.J, Key.L));
+       CreatePlayer("Player2", @"Sources\character.png", new Vector3(35f, 15f, 0f), new Size(2, 2), new PlayerInput(_inputProvider, Key.I, Key.K, Key.L, Key.J));
        InitializeWeapons();
     }
     
