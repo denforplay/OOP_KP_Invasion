@@ -29,7 +29,7 @@ public class MeleeBase : WeaponBase
         _parent = parent;
         _damage = 1;
         TryTakeComponent(out _transform);
-        parent.TryTakeComponent(out _parentTransform);
+        parent?.TryTakeComponent(out _parentTransform);
         _canAttack = true;
     }
 
