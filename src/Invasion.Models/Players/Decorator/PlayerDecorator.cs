@@ -9,6 +9,7 @@ public class PlayerDecorator : Player
     protected Player _player;
     public Player Player => _player;
     public override float Speed { get => _player.Speed; }
+    public override int CurrentHealthPoints { get; set; }
 
     public PlayerDecorator(Player player, List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(components, playerConfig, layer)
     {

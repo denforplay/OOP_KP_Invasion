@@ -5,9 +5,9 @@ using Invasion.Models.Weapons.Decorator;
 
 namespace Invasion.Models.Modificators.Bonuses;
 
-public class SpeedBonus : BonusBase
+public class HigherReloadWeaponBonus : BonusBase
 {
-    public SpeedBonus(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
+    public HigherReloadWeaponBonus(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
     {
     }
 

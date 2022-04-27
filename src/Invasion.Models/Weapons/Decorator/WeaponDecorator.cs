@@ -18,9 +18,12 @@ public class WeaponBaseDecorator : WeaponBase
 
     public override GameObject Parent => Weapon.Parent;
 
+    public override int Damage => Weapon.Damage;
+    public override float Speed => Weapon.Speed;
+
     public override void GiveDamage(IHealthable healthable)
     {
-        DecoratedWeaponBase.GiveDamage(healthable);
+        healthable.TakeDamage(Damage);
     }
 
     public override void Attack(Vector2 direction)

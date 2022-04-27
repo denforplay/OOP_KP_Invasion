@@ -5,6 +5,7 @@ using Invasion.Engine.InputSystem.Interfaces;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Decorator;
 using Invasion.Models.Weapons;
+using Invasion.Models.Weapons.Decorator;
 using System.Numerics;
 
 namespace Invasion.Controller.Controllers
@@ -17,7 +18,7 @@ namespace Invasion.Controller.Controllers
         private PlayerDecorator _player;
         private IInputComponent<Vector2> _playerInput;
         private RigidBody2D _rigidBody;
-        private WeaponBase _weaponBase;
+        private WeaponBaseDecorator _weaponBase;
         private WeaponInput _weaponInput;
         private float _shootTime;
 
@@ -38,7 +39,7 @@ namespace Invasion.Controller.Controllers
         /// </summary>
         /// <param name="weaponBase">Binded weapon</param>
         /// <param name="weaponInput">Weapon controls</param>
-        public void BindGun(WeaponBase weaponBase, WeaponInput weaponInput)
+        public void BindGun(WeaponBaseDecorator weaponBase, WeaponInput weaponInput)
         {
             _weaponInput = weaponInput;
             _weaponBase = weaponBase;
@@ -57,7 +58,7 @@ namespace Invasion.Controller.Controllers
                 _player.TryTakeComponent(out Transform transform);
                 var direction = new Vector2((float)Math.Cos(transform.Rotation.X), -(float)Math.Sin(transform.Rotation.X));
                 _shootTime = 0;
-                _weaponBase?.Attack(Vector2.Normalize(direction)/10);
+                _weaponBase?.Attack(Vector2.Normalize(direction)/10 * _weaponBase.Speed);
             }
         }
 

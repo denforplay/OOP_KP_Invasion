@@ -10,8 +10,10 @@ public abstract class WeaponBase : GameObject
     public abstract GameObject Parent { get; }
     public abstract void GiveDamage(IHealthable healthable);
     public virtual float ReloadTime { get; }
+    public virtual float Speed { get; set; }
     public abstract void Attack(Vector2 direction);
     public abstract void Update();
+    public virtual int Damage { get; }
 
     protected WeaponBase(List<IComponent> components, Layer layer = Layer.Weapon) : base(components, layer)
     {

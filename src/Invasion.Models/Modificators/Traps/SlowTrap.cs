@@ -14,7 +14,7 @@ public class SlowTrap : TrapBase
     protected async override void Apply(PlayerDecorator player)
     {
         var previous = player.Player;
-        player.SetPlayer(new SlowedPlayer(previous, previous.Components, new Configurations.PlayerConfiguration(1, 5)));
+        player.SetPlayer(new SlowedPlayer(previous, previous.Components, new PlayerConfiguration(1, 5)));
         await Task.Delay(_configuration.Duration);
         player.SetPlayer(previous);
     }

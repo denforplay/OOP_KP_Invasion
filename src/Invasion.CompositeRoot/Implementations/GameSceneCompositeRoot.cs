@@ -67,11 +67,16 @@ namespace Invastion.CompositeRoot.Implementations
             _graphicsProvider.LoadBitmap(@"Sources\knife.png");
             _graphicsProvider.LoadBitmap(@"Sources\defaultBullet.png");
             _graphicsProvider.LoadBitmap(@"Sources\shootingEnemy.png");
-            _graphicsProvider.LoadBitmap(@"Sources\speedBonus.png");
+            _graphicsProvider.LoadBitmap(@"Sources\speedWeaponBonus.png");
+            _graphicsProvider.LoadBitmap(@"Sources\slowedWeaponBonus.png");
+            _graphicsProvider.LoadBitmap(@"Sources\removeHealthTrap.png");
+            _graphicsProvider.LoadBitmap(@"Sources\lowerReload.png");
+            _graphicsProvider.LoadBitmap(@"Sources\higherReload.png");
+            _graphicsProvider.LoadBitmap(@"Sources\moreDamageBonus.png");
             _graphicsProvider.LoadBitmap(@"Sources\slowTrap.png");
             _graphicsProvider.LoadBitmap(@"Sources\kamikadzeEnemy.png");
             _graphicsProvider.LoadBitmap(@"Sources\beatingEnemy.png");
-            _background = new SpriteRenderer(_graphicsProvider, @"Sources\background.bmp", Invasion.Engine.Graphics.RendererMode.Static);
+            _background = new SpriteRenderer(_graphicsProvider, @"Sources\background.bmp", RendererMode.Static);
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _collisionsRoot.Compose();
             _heroCompositeRoot = new HeroCompositeRoot(_inputProvider, _graphicsProvider, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);

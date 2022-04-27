@@ -8,21 +8,21 @@ using Invasion.Models.Modificators.Bonuses;
 
 namespace Invasion.Models.Factories.ModificatorFactories;
 
-public class SpeedBonusFactory : IModelFactory<SpeedBonus>
+public class HigherReloadWeaponBonusFactory : IModelFactory<HigherReloadWeaponBonus>
 {
-    private string _spriteFileName = @"Sources\speedBonus.png";
+    private string _spriteFileName = @"Sources\lowerReload.png";
     private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
     
-    public SpeedBonusFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
+    public HigherReloadWeaponBonusFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
         _collisionController = collisionController;
         _graphicProvider = graphicProvider;
     }
     
-    public SpeedBonus Create()
+    public HigherReloadWeaponBonus Create()
     {
-        var speedBonus = new SpeedBonus(new List<IComponent>
+        var speedBonus = new HigherReloadWeaponBonus(new List<IComponent>
         {
             new Transform(),
             new SpriteRenderer(_graphicProvider, _spriteFileName),

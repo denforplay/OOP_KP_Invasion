@@ -24,8 +24,10 @@ public class ModificationSpawner : ISpawner
         _modificatorSystem = modificatorSystem;
         _variants = new Func<ModificatorBase>[]
         {
-            new SpeedBonusFactory(_graphicProvider, controller).Create,
-            new SlowTrapFactory(_graphicProvider, controller).Create,
+            //new SpeedWeaponBonusFactory(_graphicProvider, controller).Create,
+            //new SlowTrapFactory(_graphicProvider, controller).Create,
+            //new SlowWeaponBonusFactory(_graphicProvider, controller).Create,
+            new HigherFireRateBonusFactory(graphicProvider, controller).Create,
         };
     }
     

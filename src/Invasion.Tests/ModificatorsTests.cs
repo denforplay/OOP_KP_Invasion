@@ -1,5 +1,7 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Graphics;
+using Invasion.Models;
+using Invasion.Models.Configurations;
 using Invasion.Models.Factories;
 using Invasion.Models.Factories.ModificatorFactories;
 using Invasion.Models.Modificators;
@@ -22,9 +24,9 @@ namespace Invasion.Tests
         public void SpeedBonus_ApplyTest()
         {
             Player player = new Player(null, new PlayerConfiguration(1, 10));
-            _modificatorsFactory = new SpeedBonusFactory(_graphicProvider, null);
+            _modificatorsFactory = new HigherReloadWeaponBonusFactory(_graphicProvider, null);
             var bonus = _modificatorsFactory.Create();
-            bonus.Apply()
+            bonus.Apply(player);
         }
 
         public void Compose()

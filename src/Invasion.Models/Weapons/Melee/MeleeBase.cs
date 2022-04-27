@@ -19,15 +19,16 @@ public class MeleeBase : WeaponBase
     private bool _canAttack;
     private int _damage;
     public override float ReloadTime => 0.5f;
-
     public bool IsAttack => !_canAttack;
-
     public override GameObject Parent => _parent;
+    public override int Damage => _damage;
+    public override float Speed { get; set; }
 
     public MeleeBase(GameObject parent, List<IComponent> components = null) : base(components, Layer.Weapon)
     {
         _parent = parent;
         _damage = 1;
+        Speed = 1f;
         TryTakeComponent(out _transform);
         parent?.TryTakeComponent(out _parentTransform);
         _canAttack = true;

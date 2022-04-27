@@ -12,10 +12,10 @@ namespace Invasion.Models.Weapons.Firearms.Base;
 public class FirearmBase : WeaponBase
 {
     private float _reloadTime;
-    
+
     public override void GiveDamage(IHealthable healthable)
     {
-        healthable.TakeDamage(_damage);
+        healthable.TakeDamage(Damage);
     }
 
     private GameObject _parent;
@@ -23,13 +23,15 @@ public class FirearmBase : WeaponBase
     private int _damage;
     private IModelFactory<BulletBase> _bulletFactory;
     public override float ReloadTime => _reloadTime;
-
+    public override int Damage => _damage;
     public override GameObject Parent => _parent;
+    public override float Speed { get; set; }
 
     public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, List<IComponent> components, GameObject parent) : base(components, Layer.Weapon)
     {
         _damage = 1;
         _reloadTime = 1f;
+        Speed = 1f;
         _bulletSystem = bulletSystem; 
         _parent = parent;
         _bulletFactory = bulletFactory;
