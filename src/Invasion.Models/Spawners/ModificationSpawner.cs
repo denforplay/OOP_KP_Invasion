@@ -26,8 +26,9 @@ public class ModificationSpawner : ISpawner
         {
             //new SpeedWeaponBonusFactory(_graphicProvider, controller).Create,
             //new SlowTrapFactory(_graphicProvider, controller).Create,
-            //new SlowWeaponBonusFactory(_graphicProvider, controller).Create,
-            new HigherFireRateBonusFactory(graphicProvider, controller).Create,
+            ////new SlowWeaponBonusFactory(_graphicProvider, controller).Create,
+            //new HigherFireRateBonusFactory(graphicProvider, controller).Create,
+            new FreezeTrapFactory(_graphicProvider, controller).Create
         };
     }
     

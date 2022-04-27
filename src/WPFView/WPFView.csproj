@@ -26,13 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="04.jpg" />
+    <Resource Include="04.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="background.bmp" />
     <Resource Include="images.jfif" />
     <Resource Include="topdownwall.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Sources\04.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Sources\background.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -46,6 +51,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Sources\defaultBullet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Sources\freezeTrap.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Sources\higherReload.png">

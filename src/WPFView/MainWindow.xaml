@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Width="1920" Height="1080" WindowState="Maximized"  WindowStyle="None" Visibility="Visible">
     <Window.Background>
-        <ImageBrush Stretch="Uniform" ImageSource="/04.jpg" Opacity="1"/>
+        <ImageBrush ImageSource="/04.jpg"/>
     </Window.Background>
     <Viewbox x:Name="viewBox" Stretch="Uniform">
         <Grid Height="786" Width="1412">

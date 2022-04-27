@@ -74,6 +74,7 @@ namespace Invastion.CompositeRoot.Implementations
             _graphicsProvider.LoadBitmap(@"Sources\higherReload.png");
             _graphicsProvider.LoadBitmap(@"Sources\moreDamageBonus.png");
             _graphicsProvider.LoadBitmap(@"Sources\slowTrap.png");
+            _graphicsProvider.LoadBitmap(@"Sources\freezeTrap.png");
             _graphicsProvider.LoadBitmap(@"Sources\kamikadzeEnemy.png");
             _graphicsProvider.LoadBitmap(@"Sources\beatingEnemy.png");
             _background = new SpriteRenderer(_graphicsProvider, @"Sources\background.bmp", RendererMode.Static);
