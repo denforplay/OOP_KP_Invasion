@@ -1,5 +1,6 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Interfaces;
+using Invasion.Models.Configurations;
 using Invasion.Models.Interfaces;
 using System.Numerics;
 
@@ -7,7 +8,7 @@ namespace Invasion.Models.Weapons
 {
     public class EmptyWeapon : WeaponBase
     {
-        public EmptyWeapon(List<IComponent> components, Layer layer = Layer.Default) : base(components, layer)
+        public EmptyWeapon(WeaponConfiguration configuration, List<IComponent> components, Layer layer = Layer.Weapon) : base(configuration, components, layer)
         {
         }
 

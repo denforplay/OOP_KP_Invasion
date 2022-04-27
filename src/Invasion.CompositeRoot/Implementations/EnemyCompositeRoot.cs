@@ -76,7 +76,7 @@ public class EnemyCompositeRoot : ICompositeRoot
     {
         var enemyView = _enemyFactory.Create(enemy);
         var enemyWeapon = _weaponFactory.Create(enemy.GetEntity, _enemyWeapons[enemy.GetEntity.GetType()]);
-        enemyWeapon = new WeaponBaseDecorator(enemyWeapon, new List<IComponent>(enemyWeapon.Components));
+        enemyWeapon = new WeaponBaseDecorator(enemyWeapon, enemyWeapon.Configuration, new List<IComponent>(enemyWeapon.Components));
         var collider = new BoxCollider2D(_collisionController, enemyWeapon, new System.Drawing.Size(2, 2));
         enemyWeapon.AddComponent(collider);
         var weaponView =

@@ -1,5 +1,6 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Interfaces;
+using Invasion.Models.Configurations;
 using Invasion.Models.Interfaces;
 using System.Numerics;
 
@@ -14,6 +15,12 @@ public class WeaponBaseDecorator : WeaponBase
 
     public override float ReloadTime { get => DecoratedWeaponBase.ReloadTime; }
     protected WeaponBase DecoratedWeaponBase;
+
+    public WeaponBaseDecorator(WeaponBase other, WeaponConfiguration configuration, List<IComponent> components, Layer layer = Layer.Weapon) : base(configuration, components, layer)
+    {
+        DecoratedWeaponBase = other;
+    }
+
     public WeaponBase Weapon => DecoratedWeaponBase;
 
     public override GameObject Parent => Weapon.Parent;
@@ -34,10 +41,5 @@ public class WeaponBaseDecorator : WeaponBase
     public override void Update()
     {
         DecoratedWeaponBase.Update();
-    }
-
-    public WeaponBaseDecorator(WeaponBase weaponBase, List<IComponent> components, Layer layer = Layer.Weapon) : base(components, layer)
-    {
-        DecoratedWeaponBase = weaponBase;
     }
 }

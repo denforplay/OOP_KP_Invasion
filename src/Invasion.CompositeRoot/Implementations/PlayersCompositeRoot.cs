@@ -132,7 +132,7 @@ public class HeroCompositeRoot : ICompositeRoot
     private void CreateWeapon(Player owner, WeaponInput weaponInput, Type type)
     {
         var weaponModel = _weaponFactory.Create(owner, type);
-        WeaponBaseDecorator weaponBase = new WeaponBaseDecorator(weaponModel, new List<IComponent>(weaponModel.Components));
+        WeaponBaseDecorator weaponBase = new WeaponBaseDecorator(weaponModel, weaponModel.Configuration, new List<IComponent>(weaponModel.Components));
         var collider = new BoxCollider2D(_collisionsRoot.Controller, weaponBase, new Size(2, 2));
         weaponBase.AddComponent(collider);
         var weaponView =

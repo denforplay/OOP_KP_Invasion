@@ -14,7 +14,7 @@ public class HigherReloadWeaponBonus : BonusBase
     protected async override void Apply(WeaponBaseDecorator weaponBase)
     {
         var previousWeapon = weaponBase.Weapon;
-        weaponBase.SetWeapon(new FasterWeaponBaseDecorator(previousWeapon, previousWeapon.Components));
+        weaponBase.SetWeapon(new FasterWeaponBaseDecorator(previousWeapon, previousWeapon.Configuration, previousWeapon.Components));
         await Task.Delay(_configuration.Duration);
         weaponBase.SetWeapon(previousWeapon);
     }

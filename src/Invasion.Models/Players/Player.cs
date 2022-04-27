@@ -8,13 +8,15 @@ namespace Invasion.Models
     public class Player: GameObject, IHealthable
     {
         public event Action<int>? OnHealthChanged;
+        public PlayerConfiguration Configuration { get; init; }
         public int MaxHealthPoint { get; set; }
         public virtual int CurrentHealthPoints { get; set; }
         public virtual float Speed { get; set; }
 
         public Player(List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(components, layer)
         {
-            Speed = 1f;
+            Configuration = playerConfig;
+            Speed = playerConfig.Speed;
             CurrentHealthPoints = playerConfig.MaxHealth;
             MaxHealthPoint = playerConfig.MaxHealth;
         }

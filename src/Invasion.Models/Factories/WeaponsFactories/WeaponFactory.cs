@@ -3,6 +3,7 @@ using Invasion.Engine.Components;
 using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
 using Invasion.Models.Collisions;
+using Invasion.Models.Configurations;
 using Invasion.Models.Factories.BulletFactories;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons;
@@ -30,7 +31,7 @@ public class WeaponFactory
     {
         if (type == typeof(Knife))
         {
-            Knife knife = new Knife(parent, new List<IComponent>
+            Knife knife = new Knife(parent, new WeaponConfiguration(1f, 1f, 1), new List<IComponent>
             {
                 new Transform(),
                 new SpriteRenderer(_graphicProvider, _knifeSprite),
@@ -40,7 +41,9 @@ public class WeaponFactory
         }
         else if (type == typeof(Pistol))
         {
-            Pistol pistol = new Pistol(new DefaultBulletFactory(_graphicProvider, _collisionController), _bulletSystem, new List<IComponent>
+            Pistol pistol = new Pistol(new DefaultBulletFactory(_graphicProvider, _collisionController), _bulletSystem, 
+                new WeaponConfiguration(1f, 1f, 2),
+                new List<IComponent>
             {
                 new Transform(),
                 new SpriteRenderer(_graphicProvider, _pistolSprite),
@@ -51,7 +54,8 @@ public class WeaponFactory
         }
         else
         {
-            return new EmptyWeapon(new List<IComponent>()
+            return new EmptyWeapon(new WeaponConfiguration(0, 0, 0), 
+                new List<IComponent>()
             {
                 new Transform()
             });

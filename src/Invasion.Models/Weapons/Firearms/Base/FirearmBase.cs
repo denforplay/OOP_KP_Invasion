@@ -1,6 +1,7 @@
 ﻿using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Interfaces;
+using Invasion.Models.Configurations;
 using Invasion.Models.Factories;
 using Invasion.Models.Interfaces;
 using Invasion.Models.Systems;
@@ -11,8 +12,6 @@ namespace Invasion.Models.Weapons.Firearms.Base;
 
 public class FirearmBase : WeaponBase
 {
-    private float _reloadTime;
-
     public override void GiveDamage(IHealthable healthable)
     {
         healthable.TakeDamage(Damage);
@@ -20,18 +19,15 @@ public class FirearmBase : WeaponBase
 
     private GameObject _parent;
     private BulletSystem _bulletSystem;
-    private int _damage;
     private IModelFactory<BulletBase> _bulletFactory;
-    public override float ReloadTime => _reloadTime;
-    public override int Damage => _damage;
+    public override float ReloadTime { get; set; }
+    public override int Damage { get; set; }
     public override GameObject Parent => _parent;
     public override float Speed { get; set; }
 
-    public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, List<IComponent> components, GameObject parent) : base(components, Layer.Weapon)
+    public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, 
+        WeaponConfiguration configuration, List<IComponent> components, GameObject parent) : base(configuration, components, Layer.Weapon)
     {
-        _damage = 1;
-        _reloadTime = 1f;
-        Speed = 1f;
         _bulletSystem = bulletSystem; 
         _parent = parent;
         _bulletFactory = bulletFactory;

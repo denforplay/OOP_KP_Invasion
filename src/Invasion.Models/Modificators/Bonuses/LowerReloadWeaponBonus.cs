@@ -15,7 +15,7 @@ namespace Invasion.Models.Modificators.Bonuses
         protected async override void Apply(WeaponBaseDecorator weaponBase)
         {
             var previousWeapon = weaponBase.Weapon;
-            weaponBase.SetWeapon(new LowerReloadWeaponDecorator(previousWeapon, previousWeapon.Components));
+            weaponBase.SetWeapon(new LowerReloadWeaponDecorator(previousWeapon, previousWeapon.Configuration, previousWeapon.Components));
             await Task.Delay(_configuration.Duration);
             weaponBase.SetWeapon(previousWeapon);
         }

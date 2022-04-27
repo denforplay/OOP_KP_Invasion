@@ -104,7 +104,7 @@ namespace Invasion.Tests
             }, new PlayerConfiguration(1, 10));
             Pistol weapon = _weaponFactory.Create<Pistol>(player) as Pistol;
             weapon.GiveDamage(player);
-            Assert.Equal(9, player.CurrentHealthPoints);
+            Assert.Equal(8, player.CurrentHealthPoints);
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace Invasion.Tests
             }, new PlayerConfiguration(1, 10));
             Pistol weapon = _weaponFactory.Create<Pistol>(player) as Pistol;
             var previousReloadTime = weapon.ReloadTime;
-            FasterWeaponBaseDecorator decorator = new FasterWeaponBaseDecorator(weapon, weapon.Components);
+            FasterWeaponBaseDecorator decorator = new FasterWeaponBaseDecorator(weapon, weapon.Configuration, weapon.Components);
             Assert.Equal(previousReloadTime / 10f, decorator.ReloadTime);
         }
 
@@ -185,7 +185,7 @@ namespace Invasion.Tests
             Player player = new Player(null, new PlayerConfiguration(1, 10));
             bool isBulletCreated = false;
             var weapon = _weaponFactory.Create<Pistol>(player);
-            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Components);
+            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Configuration, weapon.Components);
             _bulletSystem.OnStart += _ => isBulletCreated = true;
             weapon.Attack(new Vector2(1, 1));
             Assert.True(isBulletCreated);
@@ -200,7 +200,7 @@ namespace Invasion.Tests
             }, new PlayerConfiguration(1, 10));
             bool isBulletCreated = false;
             var weapon = _weaponFactory.Create<Pistol>(player);
-            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Components);
+            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Configuration, weapon.Components);
             player.TryTakeComponent(out Transform transform);
             transform.Position = new Vector3(1, 2, 3);
             weapon.Update();
@@ -217,9 +217,9 @@ namespace Invasion.Tests
                 new Transform()
             }, new PlayerConfiguration(1, 10));
             var weapon = _weaponFactory.Create<Pistol>(player);
-            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Components);
+            weapon = new FasterWeaponBaseDecorator(weapon, weapon.Configuration, weapon.Components);
             weapon.GiveDamage(player);
-            Assert.Equal(9, player.CurrentHealthPoints);
+            Assert.Equal(8, player.CurrentHealthPoints);
         }
     }
 }
