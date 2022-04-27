@@ -2,6 +2,7 @@
 using Invasion.Engine.Components;
 using Invasion.Engine.Graphics;
 using Invasion.Models.Collisions;
+using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
 using Invasion.Models.Factories.EnemiesFactories;
 using Invasion.Models.Interfaces;
@@ -26,9 +27,9 @@ public class EnemySpawner : ISpawner
         _enemySystem = enemySystem;
         _variants = new Func<EnemyBase>[]
         {
-            new ShootingEnemyFactory(_graphicProvider, _collisionController).Create,
-            new BeatingEnemyFactory(_graphicProvider, _collisionController).Create,
-            new KamikadzeEnemyFactory(_graphicProvider, _collisionController).Create
+            new ShootingEnemyFactory(_graphicProvider, _collisionController, new EnemyConfiguration(2, 1f, 1)).Create,
+            new BeatingEnemyFactory(_graphicProvider, _collisionController, new EnemyConfiguration(health:8, speed:1.25f, cost:1)).Create,
+            new KamikadzeEnemyFactory(_graphicProvider, _collisionController, new EnemyConfiguration(health:2, speed:3f, cost:1)).Create
         };
         _spawnPositions = new[]
         {

@@ -52,7 +52,6 @@ namespace Invasion.Tests
             Assert.True(weapon is Knife);
         }
 
-
         [Fact]
         public void TestCreatePistol()
         {

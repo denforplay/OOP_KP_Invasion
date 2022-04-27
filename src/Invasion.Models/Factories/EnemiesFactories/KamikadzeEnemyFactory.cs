@@ -15,9 +15,11 @@ namespace Invasion.Models.Factories.EnemiesFactories
         private string _spriteFileName = @"Sources\kamikadzeEnemy.png";
         private IGraphicProvider _graphicProvider;
         private CollisionController _collisionController;
+        private EnemyConfiguration _configuration;
 
-        public KamikadzeEnemyFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
+        public KamikadzeEnemyFactory(IGraphicProvider graphicProvider, CollisionController collisionController, EnemyConfiguration configuration)
         {
+            _configuration = configuration;
             _collisionController = collisionController;
             _graphicProvider = graphicProvider;
         }
@@ -28,7 +30,7 @@ namespace Invasion.Models.Factories.EnemiesFactories
             {
                 new Transform(),
                 new RigidBody2D()
-            }, new EnemyConfiguration(health:2, speed:3f, cost:1), Layer.Enemy);
+            }, _configuration);
             enemy.AddComponent(new SpriteRenderer(_graphicProvider, _spriteFileName));
             enemy.AddComponent(new BoxCollider2D(_collisionController, enemy, new Size(2, 2)));
             return enemy;

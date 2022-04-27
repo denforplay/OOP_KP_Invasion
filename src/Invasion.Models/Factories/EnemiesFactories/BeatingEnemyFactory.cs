@@ -15,11 +15,13 @@ namespace Invasion.Models.Factories.EnemiesFactories
         private string _spriteFileName = @"Sources\beatingEnemy.png";
         private IGraphicProvider _graphicProvider;
         private CollisionController _collisionController;
+        private EnemyConfiguration _configuration;
 
-        public BeatingEnemyFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
+        public BeatingEnemyFactory(IGraphicProvider graphicProvider, CollisionController collisionController, EnemyConfiguration enemyConfiguration)
         {
             _collisionController = collisionController;
             _graphicProvider = graphicProvider;
+            _configuration = enemyConfiguration;
         }
 
         public BeatingEnemy Create()
@@ -28,7 +30,7 @@ namespace Invasion.Models.Factories.EnemiesFactories
             {
                 new Transform(),
                 new RigidBody2D()
-            }, new EnemyConfiguration(health:8, speed:1.25f, cost:1), Layer.Enemy);
+            }, _configuration, Layer.Enemy);
             enemy.AddComponent(new SpriteRenderer(_graphicProvider, _spriteFileName));
             enemy.AddComponent(new BoxCollider2D(_collisionController, enemy, new Size(2, 2)));
             return enemy;

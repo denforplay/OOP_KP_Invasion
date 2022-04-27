@@ -21,7 +21,7 @@ namespace Invasion.Tests
 
         public CollisionTests()
         {
-            _collisionRecords = new CollisionRecords(new Mock<BulletSystem>().Object, new Mock<EnemySystem>().Object, new ModificatorSystem());
+            _collisionRecords = new CollisionRecords(new BulletSystem(), new EnemySystem(), new ModificatorSystem());
             _collisionController = new CollisionController(_collisionRecords.StartCollideValues);
             _firstObject = new GameObject(new List<IComponent>
             {
