@@ -2,11 +2,25 @@
 
 namespace Invasion.Engine.Graphics
 {
-    public interface IGraphicProvider
+    /// <summary>
+    /// Provides graphics functionality
+    /// </summary>
+    public interface IGraphicProvider : IDisposable
     {
-       IGraphicTarget GraphicTarget { get; set; }
-       Dictionary<string, Bitmap> BitmapsConfiguration { get; set; }
-       void LoadBitmap(string filePath);
-       void Dispose();
+        /// <summary>
+        /// Graphic target
+        /// </summary>
+        IGraphicTarget GraphicTarget { get; set; }
+
+        /// <summary>
+        /// Bitmaps configuration
+        /// </summary>
+        Dictionary<string, Bitmap> BitmapsConfiguration { get; set; }
+
+        /// <summary>
+        /// Load bitmap from filepath
+        /// </summary>
+        /// <param name="filePath">Bitmap file path</param>
+        void LoadBitmap(string filePath);
     }
 }

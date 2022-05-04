@@ -11,6 +11,7 @@ public class PlayerDecorator : Player
     public override float Speed { get => _player.Speed; }
     public override int CurrentHealthPoints { get; set; }
 
+    public override bool CanDamage { get => _player.CanDamage; }
     public PlayerDecorator(Player player, List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(components, playerConfig, layer)
     {
         _player = player;

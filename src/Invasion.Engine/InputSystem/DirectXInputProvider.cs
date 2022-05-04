@@ -17,16 +17,21 @@ namespace Invasion.Engine.InputSystem
         private bool _keyboardUpdated;
         private bool _keyboardAcquired;
 
-        public DirectXInputProvider(RenderForm renderForm)
+        /// <summary>
+        /// DirectX input provider constructor
+        /// </summary>
+        public DirectXInputProvider()
         {
             _directInput = new DirectInput();
-
             _keyboard = new SharpDX.DirectInput.Keyboard(_directInput);
             _keyboard.Properties.BufferSize = 16;
             AcquireKeyboard();
             _keyboardState = new KeyboardState();
         }
 
+        /// <summary>
+        /// Acquire keyboard
+        /// </summary>
         private void AcquireKeyboard()
         {
             try
@@ -41,6 +46,9 @@ namespace Invasion.Engine.InputSystem
             }
         }
 
+        /// <summary>
+        /// Update keyboard
+        /// </summary>
         public void UpdateKeyboardState()
         {
             if (!_keyboardAcquired) AcquireKeyboard();
@@ -66,6 +74,11 @@ namespace Invasion.Engine.InputSystem
             Utilities.Dispose(ref _directInput);
         }
 
+        /// <summary>
+        /// Check if key is pressed
+        /// </summary>
+        /// <param name="key">Key to check</param>
+        /// <returns>True if key is pressed other returns false</returns>
         public bool CheckKey(System.Windows.Input.Key key)
         {
             if (_keyboardUpdated)
@@ -78,6 +91,9 @@ namespace Invasion.Engine.InputSystem
             return false;
         }
 
+        /// <summary>
+        /// Update keyboard
+        /// </summary>
         public void Update()
         {
             UpdateKeyboardState();

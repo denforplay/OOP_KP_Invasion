@@ -14,7 +14,7 @@ using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Melee;
 using Invasion.View;
-using Invasion.View.Factories;
+using Invasion.View.Factories.Base;
 using Invastion.CompositeRoot.Base;
 
 namespace Invastion.CompositeRoot.Implementations;
@@ -25,7 +25,7 @@ namespace Invastion.CompositeRoot.Implementations;
 public class EnemyCompositeRoot : ICompositeRoot
 {
     private EnemySystem _enemySystem;
-    private EnemyFactory _enemyFactory;
+    private GameObjectViewFactoryBase<EnemyBase> _enemyFactory;
     private EnemySpawner _enemySpawner;
     private CollisionController _collisionController;
     private Scene _gameScene;
@@ -61,7 +61,7 @@ public class EnemyCompositeRoot : ICompositeRoot
 
     public void Compose()
     {
-        _enemyFactory = new EnemyFactory();
+        _enemyFactory = new GameObjectViewFactoryBase<EnemyBase>();
         _enemySpawner = new EnemySpawner(_enemySystem, _collisionController, _graphicProvider);
         _enemySystem.OnStart += SpawnEnemy;
         _enemySystem.OnEnd += DeleteEnemy;
@@ -82,23 +82,23 @@ public class EnemyCompositeRoot : ICompositeRoot
         var weaponView =
             new GameObjectView(enemyWeapon);
         _gameScene.AddGameObject(enemyWeapon);
-        _gameScene.AddGameObjectView(weaponView);
+        _gameScene.AddView(weaponView);
         var controller = new EnemyController(enemy.GetEntity, _players);
         controller.BindGun(enemyWeapon);
         var healthView = new HealthView(enemy.GetEntity, _graphicProvider.GraphicTarget);
         _gameScene.AddGameObject(enemy.GetEntity);
-        _gameScene.AddGameObjectView(enemyView);
-        _gameScene.AddGameObjectView(healthView);
+        _gameScene.AddView(enemyView);
+        _gameScene.AddView(healthView);
         _gameScene.AddController(controller);
         enemy.GetEntity.OnDestroyed += () =>
         {
             enemyView.Dispose();
             _gameScene.RemoveController(controller);
-            _gameScene.RemoveGameObjectView(enemyView);
-            _gameScene.RemoveGameObjectView(healthView);
+            _gameScene.RemoveView(enemyView);
+            _gameScene.RemoveView(healthView);
             _gameScene.RemoveGameObject(enemy.GetEntity);
             _gameScene.RemoveGameObject(enemyWeapon);
-            _gameScene.RemoveGameObjectView(weaponView);
+            _gameScene.RemoveView(weaponView);
         };
     }
 
@@ -117,6 +117,9 @@ public class EnemyCompositeRoot : ICompositeRoot
         _enemySpawner.StopSpawn();
     }
 
+    /// <summary>
+    /// Restart enemies systems
+    /// </summary>
     public void Restart()
     {
         _enemySpawner.StartSpawn();

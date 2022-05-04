@@ -22,8 +22,8 @@
                 <ColumnDefinition Width="289*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="startGameButton" Content="Start" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" Height="162" Width="419" Click="Button_Click" FontSize="90" Grid.Column="1" FlowDirection="LeftToRight"/>
-            <Label Content="Player 1" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="121" Width="265" FontSize="70"/>
-            <Label Content="Player 2" HorizontalAlignment="Left" Width="405" FontSize="75" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="162" VerticalAlignment="Top" Margin="25,14,0,0"/>
+            <Label Content="Player 1" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="121" Width="265" FontSize="70" Foreground="White"/>
+            <Label Content="Player 2" HorizontalAlignment="Left" Width="405" FontSize="75" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="162" VerticalAlignment="Top" Margin="25,14,0,0" Foreground="White"/>
             <ComboBox x:Name="player1Choose" ItemsSource="{Binding Source = WeaponTypes}" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" Width="253" Height="76" FontSize="50" Grid.Row="1"/>
             <ComboBox x:Name="player2Choose" ItemsSource="{Binding Source = WeaponTypes}" HorizontalAlignment="Left" Margin="101,35,0,0" VerticalAlignment="Top" Width="254" Height="76" FontSize="50" Grid.Row="1" Grid.Column="2" RenderTransformOrigin="0.733,0.092"/>
             <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Center" Margin="0,384,0,0" VerticalAlignment="Top" Height="162" Width="419" FontSize="90" Grid.Column="1" FlowDirection="LeftToRight" Grid.Row="1" Click="exitButton_Click"/>

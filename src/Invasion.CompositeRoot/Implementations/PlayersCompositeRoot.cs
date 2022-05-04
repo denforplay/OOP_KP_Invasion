@@ -28,7 +28,7 @@ namespace Invastion.CompositeRoot.Implementations;
 /// <summary>
 /// Hero composite root
 /// </summary>
-public class HeroCompositeRoot : ICompositeRoot
+public class PlayersCompositeRoot : ICompositeRoot
 {
     private IInputProvider _inputProvider;
     private IGraphicProvider _graphicsProvider;
@@ -57,7 +57,7 @@ public class HeroCompositeRoot : ICompositeRoot
     /// <param name="collisionsRoot">Collision composite root</param>
     /// <param name="gameScene">Game scene</param>
     /// <param name="playerWeapons">Player choosed weapons</param>
-    public HeroCompositeRoot(IInputProvider inputProvider, IGraphicProvider graphicProvider, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
+    public PlayersCompositeRoot(IInputProvider inputProvider, IGraphicProvider graphicProvider, BulletSystem bulletSystem, CollisionsCompositeRoot collisionsRoot,Scene gameScene, Dictionary<string, Type> playerWeapons)
     {
         _playerWeapons = playerWeapons;
         _bulletSystem = bulletSystem;
@@ -65,7 +65,7 @@ public class HeroCompositeRoot : ICompositeRoot
         _graphicsProvider = graphicProvider;
         _collisionsRoot = collisionsRoot;
         _gameScene = gameScene;
-        _bulletFactory = new BulletFactory();
+        _bulletFactory = new GameObjectViewFactoryBase<BulletBase>();
         _playerConfiguration = new PlayerConfiguration(1, 5);
         _bulletSystem.OnStart += SpawnBullet;
         _bulletSystem.OnEnd += DeleteBullet;
@@ -109,7 +109,7 @@ public class HeroCompositeRoot : ICompositeRoot
             SingletonEventBus.GetInstance.Invoke(new GameLoseEvent());
         };
         _gameScene.Add(playerDecorator, playerView, playerController);
-        _gameScene.AddGameObjectView(healthView);
+        _gameScene.AddView(healthView);
         _players.Add(playerTag, playerDecorator);
         _playersData.Add(playerDecorator, (playerController, playerView));
     }
@@ -139,7 +139,7 @@ public class HeroCompositeRoot : ICompositeRoot
             new GameObjectView(weaponBase);
             
         _gameScene.AddGameObject(weaponBase);
-        _gameScene.AddGameObjectView(weaponView);
+        _gameScene.AddView(weaponView);
         _playersData[owner].Item1.BindGun(weaponBase, weaponInput);
     }
     
@@ -150,13 +150,13 @@ public class HeroCompositeRoot : ICompositeRoot
     private void SpawnBullet(Entity<BulletBase> bullet)
     {
         var bulletView = _bulletFactory.Create(bullet);
-        _gameScene.AddGameObjectView(bulletView);
+        _gameScene.AddView(bulletView);
         _gameScene.AddGameObject(bullet.GetEntity);
         bullet.GetEntity.OnDestroyed += () =>
         {
             bulletView.Dispose();
             _gameScene.RemoveGameObject(bullet.GetEntity);
-            _gameScene.RemoveGameObjectView(bulletView);
+            _gameScene.RemoveView(bulletView);
         };
     }
         

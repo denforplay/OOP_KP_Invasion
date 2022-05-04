@@ -9,7 +9,7 @@ using Invasion.Models.Factories.EnemiesFactories;
 using Invasion.Models.Systems;
 using Xunit;
 
-namespace Invasion.Tests
+namespace Invasion.Tests.Models
 {
     public class EnemiesTests
     {

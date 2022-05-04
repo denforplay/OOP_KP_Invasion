@@ -11,7 +11,6 @@ namespace Invasion.Controller.Inputs
     /// </summary>
     public class PlayerInput : IInputComponent<Vector2>
     {
-        private IInputProvider _inputProvider;
         private KeyButton _upButton;
         private KeyButton _downButton;
         private KeyButton _leftButton;
@@ -27,7 +26,6 @@ namespace Invasion.Controller.Inputs
         /// <param name="leftKey">Left movement key</param>
         public PlayerInput(IInputProvider inputProvider, Key upKey, Key downKey, Key rightKey, Key leftKey)
         {
-            _inputProvider = inputProvider;
             _upButton = new KeyButton(inputProvider, upKey);
             _downButton = new KeyButton(inputProvider, downKey);
             _leftButton = new KeyButton(inputProvider, leftKey);

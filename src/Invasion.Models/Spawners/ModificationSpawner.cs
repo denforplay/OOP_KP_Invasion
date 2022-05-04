@@ -24,11 +24,12 @@ public class ModificationSpawner : ISpawner
         _modificatorSystem = modificatorSystem;
         _variants = new Func<ModificatorBase>[]
         {
-            //new SpeedWeaponBonusFactory(_graphicProvider, controller).Create,
-            //new SlowTrapFactory(_graphicProvider, controller).Create,
-            ////new SlowWeaponBonusFactory(_graphicProvider, controller).Create,
-            //new HigherFireRateBonusFactory(graphicProvider, controller).Create,
-            new FreezeTrapFactory(_graphicProvider, controller).Create
+            new HigherReloadWeaponBonusFactory(_graphicProvider, controller).Create,
+            new SlowTrapFactory(_graphicProvider, controller).Create,
+            new LowerReloadWeaponBonusFactory(_graphicProvider, controller).Create,
+            new HigherFireRateBonusFactory(graphicProvider, controller).Create,
+            new FreezeTrapFactory(_graphicProvider, controller).Create,
+            new CantShootTrapFactory(_graphicProvider, controller).Create
         };
     }
     

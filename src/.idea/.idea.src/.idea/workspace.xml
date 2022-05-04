@@ -33,11 +33,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/Decorator/WeaponDecorator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/Decorator/FasterWeaponDecorator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/WeaponBase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/CollisionsCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.CompositeRoot/Implementations/GameSceneCompositeRoot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/Decorator/WeaponDecorator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Invasion.Models/Weapons/WeaponBase.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -48,16 +47,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.07712766" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="sshConsole" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RunManager" selected=".NET Project.ConsoleApp1">
     <configuration name="ConsoleApp1" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -172,6 +169,7 @@
       <workItem from="1648059473322" duration="5836000" />
       <workItem from="1648904450240" duration="2381000" />
       <workItem from="1648918400239" duration="1544000" />
+      <workItem from="1651244546553" duration="50000" />
     </task>
     <servers />
   </component>

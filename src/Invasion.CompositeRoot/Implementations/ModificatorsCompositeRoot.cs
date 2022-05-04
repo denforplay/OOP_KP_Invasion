@@ -18,7 +18,7 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     private IGraphicProvider _graphicsProvider;
     private ModificatorSystem _modificatorSystem;
     private ModificationSpawner _modificationSpawner;
-    private ModificatorFactory _viewFactory;
+    private GameObjectViewFactoryBase<ModificatorBase> _viewFactory;
     private Scene _gameScene;
 
     /// <summary>
@@ -34,7 +34,7 @@ public class ModificatorsCompositeRoot : ICompositeRoot
         _gameScene = gameScene;
         _graphicsProvider = graphicsProvider;
         _modificationSpawner = new ModificationSpawner(_modificatorSystem, collisionController, _graphicsProvider);
-        _viewFactory = new ModificatorFactory();
+        _viewFactory = new GameObjectViewFactoryBase<ModificatorBase>();
 
     }
     
@@ -53,10 +53,10 @@ public class ModificatorsCompositeRoot : ICompositeRoot
     {
         var modificatorView = _viewFactory.Create(modificator);
         _gameScene.AddGameObject(modificator.GetEntity);
-        _gameScene.AddGameObjectView(modificatorView);
+        _gameScene.AddView(modificatorView);
         modificator.GetEntity.OnDestroyed += () =>
         {
-            _gameScene.RemoveGameObjectView(modificatorView);
+            _gameScene.RemoveView(modificatorView);
             _gameScene.RemoveGameObject(modificator.GetEntity);
         };
     }

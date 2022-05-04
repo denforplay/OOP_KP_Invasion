@@ -12,6 +12,7 @@ namespace Invasion.Models
         public int MaxHealthPoint { get; set; }
         public virtual int CurrentHealthPoints { get; set; }
         public virtual float Speed { get; set; }
+        public virtual bool CanDamage { get => true; }
 
         public Player(List<IComponent> components, PlayerConfiguration playerConfig, Layer layer = Layer.Player) : base(components, layer)
         {

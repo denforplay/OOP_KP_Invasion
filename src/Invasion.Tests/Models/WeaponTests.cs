@@ -1,4 +1,6 @@
-﻿using Invasion.Engine;
+﻿using System.Collections.Generic;
+using System.Numerics;
+using Invasion.Engine;
 using Invasion.Engine.Components;
 using Invasion.Engine.Graphics;
 using Invasion.Engine.Interfaces;
@@ -10,11 +12,9 @@ using Invasion.Models.Weapons;
 using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms;
 using Invasion.Models.Weapons.Melee;
-using System.Collections.Generic;
-using System.Numerics;
 using Xunit;
 
-namespace Invasion.Tests
+namespace Invasion.Tests.Models
 {
     public class WeaponTests
     {

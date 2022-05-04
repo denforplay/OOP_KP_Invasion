@@ -3,7 +3,7 @@ using Invasion.Models.Configurations;
 using Invasion.Models.Decorator;
 using Xunit;
 
-namespace Invasion.Tests
+namespace Invasion.Tests.Models
 {
     public class PlayerTests
     {

@@ -24,7 +24,7 @@ namespace Invastion.CompositeRoot.Implementations
     {
         private bool _isDisposed;
         private CollisionsCompositeRoot _collisionsRoot;
-        private HeroCompositeRoot _heroCompositeRoot;
+        private PlayersCompositeRoot _playersCompositeRoot;
         private EnemyCompositeRoot _enemyCompositeRoot;
         private ModificatorsCompositeRoot _modificatorsCompositeRoot;
         private BulletSystem _bulletSystem;
@@ -77,20 +77,21 @@ namespace Invastion.CompositeRoot.Implementations
             _graphicsProvider.LoadBitmap(@"Sources\freezeTrap.png");
             _graphicsProvider.LoadBitmap(@"Sources\kamikadzeEnemy.png");
             _graphicsProvider.LoadBitmap(@"Sources\beatingEnemy.png");
+            _graphicsProvider.LoadBitmap(@"Sources\CantShootTrap.png");
             _background = new SpriteRenderer(_graphicsProvider, @"Sources\background.bmp", RendererMode.Static);
             _collisionsRoot = new CollisionsCompositeRoot(_bulletSystem, _enemySystem, _modificatorSystem);
             _collisionsRoot.Compose();
-            _heroCompositeRoot = new HeroCompositeRoot(_inputProvider, _graphicsProvider, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
-            _heroCompositeRoot.Compose();
+            _playersCompositeRoot = new PlayersCompositeRoot(_inputProvider, _graphicsProvider, _bulletSystem, _collisionsRoot, _gameScene, _playerWeapons);
+            _playersCompositeRoot.Compose();
             _enemyCompositeRoot = new EnemyCompositeRoot(_graphicsProvider, _bulletSystem, _enemySystem,
-                _collisionsRoot.Controller, _gameScene, _heroCompositeRoot.Players);
+                _collisionsRoot.Controller, _gameScene, _playersCompositeRoot.Players);
             _enemyCompositeRoot.Compose();
             _modificatorsCompositeRoot =
                 new ModificatorsCompositeRoot(_graphicsProvider, _collisionsRoot.Controller, _gameScene, _modificatorSystem);
             _modificatorsCompositeRoot.Compose();
             _scoreSystem = new ScoreSystem();
-            var scoreView = new ScoreView(_scoreSystem, _graphicsProvider.GraphicTarget.Target);
-            _gameScene.AddGameObjectView(scoreView);
+            var scoreView = new ScoreView(_scoreSystem, _graphicsProvider.GraphicTarget);
+            _gameScene.AddView(scoreView);
             _enemySystem.OnEnd += UpdateScoreSystem;
             GenerateBorders();
         }
@@ -98,7 +99,7 @@ namespace Invastion.CompositeRoot.Implementations
         public void Restart()
         {
             _scoreSystem.Restart();
-            _heroCompositeRoot.Restart();
+            _playersCompositeRoot.Restart();
             _enemyCompositeRoot.Restart();
             _modificatorsCompositeRoot.Restart();
             Time.TimeScale = 1;
@@ -161,7 +162,7 @@ namespace Invastion.CompositeRoot.Implementations
             border.AddComponent(new BoxCollider2D(_collisionsRoot.Controller, border, size));
             var borderView = new GameObjectView(border);
             _gameScene.AddGameObject(border);
-            _gameScene.AddGameObjectView(borderView);
+            _gameScene.AddView(borderView);
         }
 
         /// <summary>

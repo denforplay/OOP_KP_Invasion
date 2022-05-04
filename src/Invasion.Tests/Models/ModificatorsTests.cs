@@ -7,14 +7,13 @@ using Invasion.Models.Factories;
 using Invasion.Models.Factories.ModificatorFactories;
 using Invasion.Models.Factories.WeaponsFactories;
 using Invasion.Models.Modificators;
-using Invasion.Models.Modificators.Traps;
 using Invasion.Models.Players.Decorator;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Decorator;
 using Invasion.Models.Weapons.Firearms;
 using Xunit;
 
-namespace Invasion.Tests
+namespace Invasion.Tests.Models
 {
     public class ModificatorsTests
     {

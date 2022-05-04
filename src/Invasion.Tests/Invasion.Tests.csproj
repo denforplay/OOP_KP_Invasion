@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Invasion.Models\Invasion.Models.csproj" />
+    <ProjectReference Include="..\Invasion.View\Invasion.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>

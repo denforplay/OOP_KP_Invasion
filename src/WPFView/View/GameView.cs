@@ -9,10 +9,11 @@ using SharpDX.Direct2D1;
 using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
+using WPFView.View;
 
 namespace WPFView
 {
-    public class GameView
+    public class GameView : IGameView
     {
         private float _fps = 60;
         private RenderForm _renderForm;
@@ -35,7 +36,7 @@ namespace WPFView
             GraphicsProvider = new DirectXGraphicsProvider(_renderForm);
             _clientRect.Width = _renderForm.ClientSize.Width;
             _clientRect.Height = _renderForm.ClientSize.Height;
-            _inputProvider = new DirectXInputProvider(_renderForm);
+            _inputProvider = new DirectXInputProvider();
             _game = new GameSceneCompositeRoot(GraphicsProvider, _inputProvider, playerWeapons, gameConfiguration);
             renderTarget = GraphicsProvider.GraphicTarget.Target;
             RenderForm_Resize(this, null);

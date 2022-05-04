@@ -3,7 +3,7 @@ using Invasion.Models;
 
 namespace Invasion.View.Factories.Base;
 
-public abstract class GameObjectViewFactoryBase<T> where T : GameObject
+public class GameObjectViewFactoryBase<T> where T : GameObject
 {
     private Queue<GameObjectView> _entitiesViews = new Queue<GameObjectView>();
 

@@ -9,7 +9,10 @@ using Invasion.Engine.Interfaces;
 
 namespace Invasion.Engine.Components;
 
-public class TextRenderer : IComponent
+/// <summary>
+/// Represents text renderer
+/// </summary>
+public class TextRenderer : IComponent, IDisposable
 {
     private Factory _writeFactory;
     private TextFormat _textFormat;
@@ -18,6 +21,13 @@ public class TextRenderer : IComponent
     private RectangleF _position;
     private float _fontSize;
     private string _text;
+
+    /// <summary>
+    /// Text renderer constructor
+    /// </summary>
+    /// <param name="renderTarget">Render target</param>
+    /// <param name="position">Text position</param>
+    /// <param name="fontSize">Font size</param>
     public TextRenderer(WindowRenderTarget renderTarget, RectangleF position, float fontSize = 15)
     {
         _fontSize = fontSize;
@@ -31,16 +41,27 @@ public class TextRenderer : IComponent
         _whiteBrush = new SolidColorBrush(_renderTarget, Color.White);
     }
 
+    /// <summary>
+    /// Set new text position method
+    /// </summary>
+    /// <param name="position">New text position</param>
     public void SetPosition(RectangleF position)
     {
         _position = position;
     }
     
+    /// <summary>
+    /// Set new text
+    /// </summary>
+    /// <param name="text">Text</param>
     public void SetText(string text)
     {
         _text = text;
     }
 
+    /// <summary>
+    /// Update this text renderer
+    /// </summary>
     public void Update()
     {
         _renderTarget.Transform = Matrix3x2.Identity;

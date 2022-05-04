@@ -8,6 +8,9 @@ using System.Runtime.InteropServices;
 
 namespace Invasion.Engine.Components
 {
+    /// <summary>
+    /// Class represents drawing sprite
+    /// </summary>
     public class SpriteRenderer : IRenderer
     {
         private readonly float _perUnit = 1.0f / 16f;
@@ -21,6 +24,12 @@ namespace Invasion.Engine.Components
         private RendererMode _mode;
         private SharpDX.Direct2D1.Bitmap _bitmap;
 
+        /// <summary>
+        /// Sprite renderer constructor
+        /// </summary>
+        /// <param name="graphicProvider">Graphics provider</param>
+        /// <param name="spriteFileName">Sprite file name</param>
+        /// <param name="rendererMode">Renderer mode</param>
         public SpriteRenderer(IGraphicProvider graphicProvider, string spriteFileName, RendererMode rendererMode = RendererMode.Dynamic)
         {
             _transform = new Transform();
@@ -33,6 +42,11 @@ namespace Invasion.Engine.Components
             _bitmapCenter.Y = _bitmapSize.Height / 2.0f;
         }
 
+        /// <summary>
+        /// Method loading sharpdx bitmap from Windows bitmap
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
         private SharpDX.Direct2D1.Bitmap LoadFrom(System.Drawing.Bitmap bitmap)
         {
             var sourceArea = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);

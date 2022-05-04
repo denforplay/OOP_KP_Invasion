@@ -3,6 +3,9 @@ using System.Numerics;
 
 namespace Invasion.Engine.Components
 {
+    /// <summary>
+    /// Provides object transform data
+    /// </summary>
     public class Transform : IComponent
     {
         public Vector3 Position { get; set; }

@@ -9,7 +9,7 @@
         WindowState="Maximized"
         WindowStyle="None" AllowsTransparency="True">
     <Window.Background>
-        <SolidColorBrush Opacity="0.5" Color="Black"/>
+        <ImageBrush Stretch="Uniform"/>
     </Window.Background>
     <Viewbox x:Name="viewBox" Stretch="Uniform" Margin="0,0,0,0">
         <Grid Height="710" Width="1165">
@@ -23,12 +23,16 @@
                 <ColumnDefinition Width="470*"/>
                 <ColumnDefinition Width="169*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle HorizontalAlignment="Center" Height="746" Stroke="Black" VerticalAlignment="Center" Width="1128" Fill="White" Grid.Column="1" Grid.Row="1"/>
-            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="You win" VerticalAlignment="Top" Height="60" Width="685" TextAlignment="Center" FontSize="50" Grid.Row="1" Grid.Column="1"/>
+            <Rectangle HorizontalAlignment="Center" Height="746" Stroke="Black" VerticalAlignment="Center" Width="1128" Grid.Column="1" Grid.Row="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/04.jpg"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="You win" VerticalAlignment="Top" Height="60" Width="685" TextAlignment="Center" FontSize="50" Grid.Row="1" Grid.Column="1" Foreground="White"/>
             <Button x:Name="restartButton" Grid.Column="1" Content="Restart" HorizontalAlignment="Center" Margin="0,138,0,0" Grid.Row="1" VerticalAlignment="Top" Height="122" Width="570" FontSize="30" Click="restartButton_Click"/>
             <Button x:Name="exitButton" Grid.Column="1" Content="Exit" HorizontalAlignment="Center" Margin="0,359,0,0" Grid.Row="1" VerticalAlignment="Top" Height="122" Width="570" FontSize="30" Click="exitButton_Click"/>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="58,82,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Your score" VerticalAlignment="Top" Height="51" Width="285" TextAlignment="Center" FontSize="40"/>
-            <TextBlock x:Name="scoreText" Grid.Column="1" HorizontalAlignment="Left" Margin="316,82,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="312" FontSize="40"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="58,82,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Your score" VerticalAlignment="Top" Height="51" Width="285" TextAlignment="Center" FontSize="40" Foreground="White"/>
+            <TextBlock x:Name="scoreText" Grid.Column="1" HorizontalAlignment="Left" Margin="316,82,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="312" FontSize="40" Foreground="White"/>
         </Grid>
     </Viewbox>
 </Window>

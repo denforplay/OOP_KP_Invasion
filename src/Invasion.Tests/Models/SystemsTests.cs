@@ -1,13 +1,13 @@
-﻿using Invasion.Models;
+﻿using System.Linq;
+using Invasion.Models;
 using Invasion.Models.Configurations;
 using Invasion.Models.Enemies;
 using Invasion.Models.Modificators.Bonuses;
 using Invasion.Models.Systems;
 using Invasion.Models.Weapons.Firearms.Bullets;
-using System.Linq;
 using Xunit;
 
-namespace Invasion.Tests
+namespace Invasion.Tests.Models
 {
     public class SystemsTests
     {

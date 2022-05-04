@@ -53,7 +53,6 @@ namespace Invasion.Models
                 _bulletSystem.StopWork(bullet);
             });
             
-            //wtf do with that????
             yield return IfCollided<WeaponBaseDecorator, EnemyBase>((weaponDecorator, enemy) =>
             {
                 if (weaponDecorator.Parent is Player)

@@ -4,30 +4,22 @@ using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.WIC;
 using SharpDX.Windows;
-using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace Invasion.Engine
 {
     public class DirectXGraphicsProvider : IGraphicProvider
     {
-        private Factory _factory;
-        public Factory Factory { get => _factory; }
-
-        private SharpDX.DirectWrite.Factory _writeFactory;
-        public SharpDX.DirectWrite.Factory WriteFactory { get => _writeFactory; }
-        private WindowRenderTarget _renderTarget;
-        public WindowRenderTarget RenderTarget { get => _renderTarget; }
-
-        private ImagingFactory _imagingFactory;
-        public ImagingFactory ImagingFactory { get => _imagingFactory; }
+        public Factory Factory { get; init; }
+        public SharpDX.DirectWrite.Factory WriteFactory { get; init; }
+        public ImagingFactory ImagingFactory { get; init; }
         public Dictionary<string, System.Drawing.Bitmap> BitmapsConfiguration { get; set; } = new Dictionary<string, System.Drawing.Bitmap>();
         public IGraphicTarget GraphicTarget { get; set; }
 
         public DirectXGraphicsProvider(RenderForm form)
         {
             BitmapsConfiguration = new Dictionary<string, System.Drawing.Bitmap>();
-            _factory = new Factory();
-            _writeFactory = new SharpDX.DirectWrite.Factory();
+            Factory = new Factory();
+            WriteFactory = new SharpDX.DirectWrite.Factory();
             RenderTargetProperties renderProp = new RenderTargetProperties()
             {
                 DpiX = 0,
@@ -44,16 +36,15 @@ namespace Invasion.Engine
                 PixelSize = new Size2(Screen.Width, Screen.Height),
                 PresentOptions = PresentOptions.None
             };
-            GraphicTarget = new SharpDXTarget(new WindowRenderTarget(_factory, renderProp, winProp));
-            _imagingFactory = new ImagingFactory();
+            GraphicTarget = new SharpDXTarget(new WindowRenderTarget(Factory, renderProp, winProp));
+            ImagingFactory = new ImagingFactory();
         }
 
         public void Dispose()
         {
-            Utilities.Dispose(ref _imagingFactory);
-            Utilities.Dispose(ref _renderTarget);
-            Utilities.Dispose(ref _factory);
-            Utilities.Dispose(ref _writeFactory);
+            ImagingFactory.Dispose();
+            Factory.Dispose();
+            WriteFactory.Dispose();
             foreach (var bitmap in BitmapsConfiguration.Values)
                 bitmap.Dispose();
         }

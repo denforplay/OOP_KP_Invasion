@@ -14,7 +14,7 @@ namespace Invasion.Tests
 
         public GraphicsProviderTests()
         {
-            _graphicProvider = new DirectXGraphicsProvider(null);
+            _graphicProvider = new DirectXGraphicsProvider(new RenderForm());
         }
 
         [Fact]

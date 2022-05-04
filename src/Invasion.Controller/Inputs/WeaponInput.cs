@@ -8,14 +8,12 @@ namespace Invasion.Controller.Inputs;
 
 public class WeaponInput : IInputComponent<Vector2>
 {
-    private IInputProvider _inputProvider;
     private KeyButton _leftButton;
     private KeyButton _rightButton;
     private KeyButton _shootKey;
 
     public WeaponInput(IInputProvider inputProvider, Key leftKey, Key rightKey, Key shootKey)
     {
-        _inputProvider = inputProvider;
         _leftButton = new KeyButton(inputProvider, leftKey);
         _rightButton = new KeyButton(inputProvider, rightKey);
         _shootKey = new KeyButton(inputProvider, shootKey);

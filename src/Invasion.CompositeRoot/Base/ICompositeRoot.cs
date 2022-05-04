@@ -3,16 +3,11 @@
     /// <summary>
     /// Composite root base interface
     /// </summary>
-    public interface ICompositeRoot
+    public interface ICompositeRoot : IDisposable
     {
         /// <summary>
         /// Compose low chained entities
         /// </summary>
         void Compose();
-
-        /// <summary>
-        /// Dispose entities
-        /// </summary>
-        void Dispose();
     }
 }

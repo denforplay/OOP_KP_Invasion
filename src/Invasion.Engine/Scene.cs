@@ -5,7 +5,10 @@ using System.Numerics;
 
 namespace Invasion.Engine
 {
-    public class Scene
+    /// <summary>
+    /// Represents scene
+    /// </summary>
+    public class Scene : IScene
     {
         private List<GameObject> _gameObjects;
         private List<IController> _controllers;
@@ -13,6 +16,9 @@ namespace Invasion.Engine
 
         private List<ColliderBase> _colliders;
 
+        /// <summary>
+        /// Scene default constructor
+        /// </summary>
         public Scene()
         {
             _controllers = new List<IController>();
@@ -21,6 +27,12 @@ namespace Invasion.Engine
             _gameObjects = new List<GameObject>();
         }
         
+        /// <summary>
+        /// Scene constructor
+        /// </summary>
+        /// <param name="gameObjects">Start scene gameobjects</param>
+        /// <param name="controllers">Start scene controllers</param>
+        /// <param name="views">Start scene views</param>
         public Scene(List<GameObject> gameObjects, List<IController> controllers, List<IView> views)
         {
             _colliders = new List<ColliderBase>();
@@ -30,23 +42,41 @@ namespace Invasion.Engine
             Initialize();
         }
 
+        /// <summary>
+        /// Add on scene new gameobject with view and controller
+        /// </summary>
+        /// <param name="gameObject">GameObject</param>
+        /// <param name="view">View</param>
+        /// <param name="controller">Controller</param>
         public void Add(GameObject gameObject, IView view, IController controller)
         {
             AddGameObject(gameObject);
-            AddGameObjectView(view);
+            AddView(view);
             AddController(controller);
         }
 
+        /// <summary>
+        /// Add controller on scene
+        /// </summary>
+        /// <param name="controller">Controller</param>
         public void AddController(IController controller)
         {
             _controllers.Add(controller);
         }
         
+        /// <summary>
+        /// Removes controller from scene
+        /// </summary>
+        /// <param name="controller">Controller to remove</param>
         public void RemoveController(IController controller)
         {
             _controllers.Remove(controller);
         }
         
+        /// <summary>
+        /// Add gameobject on scene
+        /// </summary>
+        /// <param name="gameObject">Gameobject to add</param>
         public void AddGameObject(GameObject gameObject)
         {
             _gameObjects.Add(gameObject);
@@ -56,6 +86,10 @@ namespace Invasion.Engine
             }
         }
 
+        /// <summary>
+        /// Remove gameobject from scene
+        /// </summary>
+        /// <param name="gameObject">Gameobject to remove</param>
         public void RemoveGameObject(GameObject gameObject)
         {
             _gameObjects.Remove(gameObject);
@@ -65,16 +99,27 @@ namespace Invasion.Engine
             }
         }
 
-        public void AddGameObjectView(IView gameObjectView)
+        /// <summary>
+        /// Add view on scene
+        /// </summary>
+        /// <param name="view">View to add</param>
+        public void AddView(IView view)
         {
-            _views.Add(gameObjectView);
+            _views.Add(view);
         }
 
-        public void RemoveGameObjectView(IView gameObjectView)
+        /// <summary>
+        /// Remove view from scene
+        /// </summary>
+        /// <param name="view">View</param>
+        public void RemoveView(IView view)
         {
-            _views.Remove(gameObjectView);
+            _views.Remove(view);
         }
         
+        /// <summary>
+        /// Initialize scene
+        /// </summary>
         public void Initialize()
         {
             _gameObjects.ForEach(g =>
@@ -86,12 +131,18 @@ namespace Invasion.Engine
             });
         }
 
+        /// <summary>
+        /// Update scene
+        /// </summary>
         public void Update()
         {
             _controllers.ForEach(c => c.Update());
             _views.ForEach(c => c.Update());
         }
 
+        /// <summary>
+        /// Update scene physics
+        /// </summary>
         public void FixedUpdate()
         {
             _gameObjects.ForEach(g =>

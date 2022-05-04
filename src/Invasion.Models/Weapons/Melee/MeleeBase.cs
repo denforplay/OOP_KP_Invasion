@@ -48,7 +48,7 @@ public class MeleeBase : WeaponBase
 
     public override void Update()
     {
-        if (_canAttack)
+        if (_canAttack && _parent is not null)
         {
             _transform.Rotation = _parentTransform.Rotation;
             _transform.Position = _parentTransform.Position;
