@@ -1,5 +1,4 @@
-﻿using Invasion.Engine;
-using Invasion.Engine.Components;
+﻿using Invasion.Engine.Components;
 using Invasion.Engine.Graphics;
 using Invasion.Models.Collisions;
 using Invasion.Models.Factories.ModificatorFactories;
@@ -10,6 +9,9 @@ using System.Numerics;
 
 namespace Invasion.Models.Spawners;
 
+/// <summary>
+/// Represents modifications spawner
+/// </summary>
 public class ModificationSpawner : ISpawner
 {
     private ModificatorSystem _modificatorSystem;
@@ -18,6 +20,12 @@ public class ModificationSpawner : ISpawner
     private IGraphicProvider _graphicProvider;
     private bool _isSpawning = true;
     
+    /// <summary>
+    /// Modification spawner
+    /// </summary>
+    /// <param name="modificatorSystem">Modificator system</param>
+    /// <param name="controller">Controller</param>
+    /// <param name="graphicProvider">Graphic provider</param>
     public ModificationSpawner(ModificatorSystem modificatorSystem, CollisionController controller, IGraphicProvider graphicProvider)
     {
         _graphicProvider = graphicProvider;
@@ -47,6 +55,10 @@ public class ModificationSpawner : ISpawner
         }
     }
 
+    /// <summary>
+    /// Method that spawns modificator on current position
+    /// </summary>
+    /// <param name="position">Position where to spawn modificator</param>
     public async void SpawnModificator(Vector3 position)
     {
         ModificatorBase randomModificator = _variants[_random.Next(0, _variants.Length)].Invoke();

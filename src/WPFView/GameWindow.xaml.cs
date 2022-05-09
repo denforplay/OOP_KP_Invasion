@@ -21,6 +21,7 @@ namespace WPFView
         
         public void StartGame()
         {
+            Time.TimeScale = 1;
             bool marker = false;
             Subscribe();
             Screen.Width = (int)viewBox.DesiredSize.Width;
@@ -44,6 +45,7 @@ namespace WPFView
 
         public void LoseGame(GameLoseEvent loseEvent)
         {
+            Time.TimeScale = 0;
             UnSubscribe();
             _gameView.Stop();
             LoseWindow loseWindow = new LoseWindow();

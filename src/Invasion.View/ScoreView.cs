@@ -4,15 +4,22 @@ using Invasion.Engine.Graphics.GraphicTargets;
 using Invasion.Engine.Interfaces;
 using Invasion.Models;
 using SharpDX;
-using SharpDX.Direct2D1;
 
 namespace Invasion.View
 {
+    /// <summary>
+    /// Shows current game score
+    /// </summary>
     public class ScoreView : IView
     {
         private TextRenderer _scoreText;
         private ScoreSystem _scoreSystem;
 
+        /// <summary>
+        /// Score view constructor
+        /// </summary>
+        /// <param name="scoreSystem">Score system</param>
+        /// <param name="renderTarget">Render target</param>
         public ScoreView(ScoreSystem scoreSystem, IGraphicTarget renderTarget)
         {
             _scoreSystem = scoreSystem;

@@ -10,6 +10,9 @@ using System.Drawing;
 
 namespace Invasion.Models.Factories.EnemiesFactories
 {
+    /// <summary>
+    /// Class to create instance of beating enemy
+    /// </summary>
     public class BeatingEnemyFactory : IModelFactory<BeatingEnemy>
     {
         private string _spriteFileName = @"Sources\beatingEnemy.png";
@@ -17,6 +20,12 @@ namespace Invasion.Models.Factories.EnemiesFactories
         private CollisionController _collisionController;
         private EnemyConfiguration _configuration;
 
+        /// <summary>
+        /// Beating enemy factory constructor
+        /// </summary>
+        /// <param name="graphicProvider">Graphics provider</param>
+        /// <param name="collisionController">Collision controller</param>
+        /// <param name="enemyConfiguration">Enemy configuration</param>
         public BeatingEnemyFactory(IGraphicProvider graphicProvider, CollisionController collisionController, EnemyConfiguration enemyConfiguration)
         {
             _collisionController = collisionController;

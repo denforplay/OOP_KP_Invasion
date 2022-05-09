@@ -6,6 +6,9 @@ using Invasion.Models.Players.Decorator;
 
 namespace Invasion.Models.Modificators.Traps
 {
+    /// <summary>
+    /// Class represents cant shoot trap
+    /// </summary>
     public class CantShootTrap : TrapBase
     {
         public CantShootTrap(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)

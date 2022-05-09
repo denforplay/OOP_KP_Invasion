@@ -6,8 +6,17 @@ using Invasion.Models.Players.Decorator;
 
 namespace Invasion.Models.Modificators.Traps
 {
+    /// <summary>
+    /// Class represents freeze trap
+    /// </summary>
     public class FreezeTrap : TrapBase
     {
+        /// <summary>
+        /// Freeze trap constructor
+        /// </summary>
+        /// <param name="components">Components</param>
+        /// <param name="configuration">Configuration</param>
+        /// <param name="layer">Layer</param>
         public FreezeTrap(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
         {
         }

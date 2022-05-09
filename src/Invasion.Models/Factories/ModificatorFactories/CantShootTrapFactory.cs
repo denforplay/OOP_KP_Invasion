@@ -8,12 +8,20 @@ using System.Drawing;
 
 namespace Invasion.Models.Factories.ModificatorFactories
 {
+    /// <summary>
+    /// Class to create "cant shoot" trap
+    /// </summary>
     public class CantShootTrapFactory : IModelFactory<CantShootTrap>
     {
         private string _spriteFileName = @"Sources\CantShootTrap.png";
         private IGraphicProvider _graphicProvider;
         private CollisionController _collisionController;
 
+        /// <summary>
+        /// Factory constructor
+        /// </summary>
+        /// <param name="graphicProvider">Graphic provider</param>
+        /// <param name="collisionController">Collision controller</param>
         public CantShootTrapFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
         {
             _collisionController = collisionController;

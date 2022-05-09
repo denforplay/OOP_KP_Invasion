@@ -5,8 +5,17 @@ using Invasion.Models.Decorator;
 
 namespace Invasion.Models.Modificators.Traps;
 
+/// <summary>
+/// Class represents base trap
+/// </summary>
 public abstract class TrapBase : ModificatorBase
 {
+    /// <summary>
+    /// Trap base constructor
+    /// </summary>
+    /// <param name="components">List of components</param>
+    /// <param name="configuration">Configuration</param>
+    /// <param name="layer">Layer</param>
     protected TrapBase(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
     {
     }
@@ -25,5 +34,9 @@ public abstract class TrapBase : ModificatorBase
         }
     }
 
+    /// <summary>
+    /// Apply bonus on player
+    /// </summary>
+    /// <param name="player">Player</param>
     protected abstract void Apply(PlayerDecorator player);
 }

@@ -9,12 +9,20 @@ using Invasion.Models.Modificators.Traps;
 
 namespace Invasion.Models.Factories.ModificatorFactories;
 
+/// <summary>
+/// Class to create slow trap
+/// </summary>
 public class SlowTrapFactory : IModelFactory<SlowTrap>
 {
     private string _spriteFileName = @"Sources\slowTrap.png";
     private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
     
+    /// <summary>
+    /// Slow trap factory constructor
+    /// </summary>
+    /// <param name="graphicProvider">Graphic provider</param>
+    /// <param name="collisionController">Collision controller</param>
     public SlowTrapFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
         _collisionController = collisionController;

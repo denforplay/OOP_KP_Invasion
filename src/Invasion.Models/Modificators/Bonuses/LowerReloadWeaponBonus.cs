@@ -8,6 +8,12 @@ namespace Invasion.Models.Modificators.Bonuses
 {
     public class LowerReloadWeaponBonus : BonusBase
     {
+        /// <summary>
+        /// Lower reload weapon bonus constructor
+        /// </summary>
+        /// <param name="components">Components</param>
+        /// <param name="configuration">Configuration</param>
+        /// <param name="layer">Layer</param>
         public LowerReloadWeaponBonus(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
         {
         }

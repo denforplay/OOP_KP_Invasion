@@ -11,12 +11,21 @@ using Invasion.Models.Weapons.Melee;
 
 namespace Invasion.Models
 {
+    /// <summary>
+    /// Represents collision records
+    /// </summary>
     public class CollisionRecords
     {
         private BulletSystem _bulletSystem;
         private EnemySystem _enemySystem;
         private ModificatorSystem _modificatorSystem;
 
+        /// <summary>
+        /// Collision records constructor
+        /// </summary>
+        /// <param name="bulletSystem">Bullet system</param>
+        /// <param name="enemySystem">Enemy system</param>
+        /// <param name="modificatorSystem">Modificator system</param>
         public CollisionRecords(BulletSystem bulletSystem, EnemySystem enemySystem, ModificatorSystem modificatorSystem)
         {
             _modificatorSystem = modificatorSystem;
@@ -24,6 +33,10 @@ namespace Invasion.Models
             _enemySystem = enemySystem;
         }
         
+        /// <summary>
+        /// Returns collide values
+        /// </summary>
+        /// <returns>List of collision records</returns>
         public IEnumerable<IRecord> StartCollideValues()
         {
             yield return IfCollided<BulletBase, EnemyBase>((bullet, enemy) =>

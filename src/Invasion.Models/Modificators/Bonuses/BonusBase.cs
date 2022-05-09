@@ -6,8 +6,17 @@ using Invasion.Models.Weapons.Decorator;
 
 namespace Invasion.Models.Modificators.Bonuses;
 
+/// <summary>
+/// Abstract class represents base bonus object
+/// </summary>
 public abstract class BonusBase : ModificatorBase
 {
+    /// <summary>
+    /// Bonus base constructor
+    /// </summary>
+    /// <param name="components">Components</param>
+    /// <param name="configuration">Configurations</param>
+    /// <param name="layer">Layer</param>
     protected BonusBase(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
     {
     }
@@ -26,5 +35,9 @@ public abstract class BonusBase : ModificatorBase
         }
     }
 
+    /// <summary>
+    /// Method to apply bonus on weapon
+    /// </summary>
+    /// <param name="weaponBase">Weapon</param>
     protected abstract void Apply(WeaponBaseDecorator weaponBase);
 }

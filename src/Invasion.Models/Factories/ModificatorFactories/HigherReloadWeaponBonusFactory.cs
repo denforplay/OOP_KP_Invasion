@@ -8,6 +8,9 @@ using Invasion.Models.Modificators.Bonuses;
 
 namespace Invasion.Models.Factories.ModificatorFactories;
 
+/// <summary>
+/// Class to create instance of higher reload weapon bonus
+/// </summary>
 public class HigherReloadWeaponBonusFactory : IModelFactory<HigherReloadWeaponBonus>
 {
     private string _spriteFileName = @"Sources\lowerReload.png";

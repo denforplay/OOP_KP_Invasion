@@ -5,13 +5,17 @@ using Invasion.Models.Weapons.Firearms.Base;
 
 namespace Invasion.Models.Weapons.Firearms.Bullets;
 
+/// <summary>
+/// Represents base bullet
+/// </summary>
 public class BulletBase : GameObject
 {
-    private int _damage = 5;
     private FirearmBase _parent;
     public bool IsUsed { get; set; }
-    public int Damage => _damage;
 
+    /// <summary>
+    /// Bullet parent
+    /// </summary>
     public FirearmBase Parent => _parent;
     public BulletBase(List<IComponent> components, Layer layer = Layer.Bullet) : base(components, layer)
     {

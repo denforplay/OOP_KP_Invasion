@@ -9,12 +9,20 @@ using System.Drawing;
 
 namespace Invasion.Models.Factories.BulletFactories;
 
+/// <summary>
+/// Class provider default bullet production
+/// </summary>
 public class DefaultBulletFactory : IModelFactory<DefaultBullet>
 {
     private string _spriteFileName = @"Sources\defaultBullet.png";
     private IGraphicProvider _graphicProvider;
     private CollisionController _collisionController;
 
+    /// <summary>
+    /// Default bullet factory constructor
+    /// </summary>
+    /// <param name="graphicProvider">Graphic provider</param>
+    /// <param name="collisionController">Collision controller</param>
     public DefaultBulletFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
     {
         _graphicProvider = graphicProvider;

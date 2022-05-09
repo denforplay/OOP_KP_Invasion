@@ -8,12 +8,20 @@ using System.Drawing;
 
 namespace Invasion.Models.Factories.ModificatorFactories
 {
+    /// <summary>
+    /// Class to create instance of lower reload weapon bonus
+    /// </summary>
     public class LowerReloadWeaponBonusFactory : IModelFactory<LowerReloadWeaponBonus>
     {
         private string _spriteFileName = @"Sources\higherReload.png";
         private IGraphicProvider _graphicProvider;
         private CollisionController _collisionController;
 
+        /// <summary>
+        /// Lower weapon bonus factory constructor
+        /// </summary>
+        /// <param name="graphicProvider">Graphics provider</param>
+        /// <param name="collisionController">Collision controller</param>
         public LowerReloadWeaponBonusFactory(IGraphicProvider graphicProvider, CollisionController collisionController)
         {
             _collisionController = collisionController;

@@ -10,7 +10,10 @@ using System.Numerics;
 
 namespace Invasion.Models.Weapons.Firearms.Base;
 
-public class FirearmBase : WeaponBase
+/// <summary>
+/// Represents base firearm
+/// </summary>
+public abstract class FirearmBase : WeaponBase
 {
     public override void GiveDamage(IHealthable healthable)
     {
@@ -25,6 +28,14 @@ public class FirearmBase : WeaponBase
     public override GameObject Parent => _parent;
     public override float Speed { get; set; }
 
+    /// <summary>
+    /// Firearm base constructor
+    /// </summary>
+    /// <param name="bulletFactory">Bullet factory</param>
+    /// <param name="bulletSystem">Bullet system</param>
+    /// <param name="configuration">Weapon configuration</param>
+    /// <param name="components">Components</param>
+    /// <param name="parent">Parent</param>
     public FirearmBase(IModelFactory<BulletBase> bulletFactory, BulletSystem bulletSystem, 
         WeaponConfiguration configuration, List<IComponent> components, GameObject parent) : base(configuration, components, Layer.Weapon)
     {
@@ -48,6 +59,11 @@ public class FirearmBase : WeaponBase
         }
     }
 
+    /// <summary>
+    /// Get bullet method
+    /// </summary>
+    /// <param name="direction">Bullet direction</param>
+    /// <returns>New entity of bullet</returns>
     protected virtual BulletBase GetBullet(Vector2 direction)
     {
         var bullet = _bulletFactory.Create();

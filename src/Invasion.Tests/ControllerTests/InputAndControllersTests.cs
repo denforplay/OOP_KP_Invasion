@@ -30,7 +30,7 @@ namespace Invasion.Tests
 
         public InputAndControllersTests()
         {
-            _inputProvider = new DirectXInputProvider(new SharpDX.Windows.RenderForm());
+            _inputProvider = new DirectXInputProvider();
             _graphicProvider = new DirectXGraphicsProvider(new SharpDX.Windows.RenderForm());
             Compose();
             _weaponFactory = new WeaponFactory(null, new BulletSystem(), _graphicProvider);

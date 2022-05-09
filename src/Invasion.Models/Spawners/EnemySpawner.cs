@@ -11,6 +11,9 @@ using System.Numerics;
 
 namespace Invasion.Models.Spawners;
 
+/// <summary>
+/// Represents enemy spawner
+/// </summary>
 public class EnemySpawner : ISpawner
 {
     private EnemySystem _enemySystem;
@@ -20,6 +23,13 @@ public class EnemySpawner : ISpawner
     private Vector3[] _spawnPositions;
     private IGraphicProvider _graphicProvider;
     private bool _isSpawning = true;
+
+    /// <summary>
+    /// Enemy spawner
+    /// </summary>
+    /// <param name="enemySystem">Enemy system</param>
+    /// <param name="controller">Collision controller</param>
+    /// <param name="graphicProvider">Graphic provider</param>
     public EnemySpawner(EnemySystem enemySystem, CollisionController controller, IGraphicProvider graphicProvider)
     {
         _graphicProvider = graphicProvider;

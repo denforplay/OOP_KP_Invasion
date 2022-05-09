@@ -119,10 +119,13 @@ namespace Invastion.CompositeRoot.Implementations
         /// <param name="enemy">Enemy entity</param>
         private void UpdateScoreSystem(Entity<EnemyBase> enemy)
         {
-            _scoreSystem.AddScores(enemy.GetEntity.Cost);
-            if (_scoreSystem.CurrentScore >= _gameConfiguration.NeededScore)
+            if (Time.TimeScale != 0)
             {
-                SingletonEventBus.GetInstance.Invoke(new GameWinEvent(_scoreSystem.CurrentScore));
+                _scoreSystem.AddScores(enemy.GetEntity.Cost);
+                if (_scoreSystem.CurrentScore >= _gameConfiguration.NeededScore)
+                {
+                    SingletonEventBus.GetInstance.Invoke(new GameWinEvent(_scoreSystem.CurrentScore));
+                }
             }
         }
 
@@ -131,8 +134,8 @@ namespace Invastion.CompositeRoot.Implementations
         /// </summary>
         private void GenerateBorders()
         {
-            GenerateBorder(@"Sources\topdownwall.png", new Vector3(20, 0.8f, 0), Vector3.Zero, new Size(1920, 2));
-            GenerateBorder(@"Sources\topdownwall.png", new Vector3(20, 25f, 0),Vector3.Zero, new Size(1920, 2));
+            GenerateBorder(@"Sources\topdownwall.png", new Vector3(20, 1f, 0), Vector3.Zero, new Size(1920, 1));
+            GenerateBorder(@"Sources\topdownwall.png", new Vector3(20, 25f, 0),Vector3.Zero, new Size(1920, 3));
             GenerateBorder(@"Sources\topdownwall.png", new Vector3(0f, 15f, 0), new Vector3((float)Math.PI/2, 0, 0), new Size(2, 1080));
             GenerateBorder(@"Sources\topdownwall.png", new Vector3(44.5f, 15f, 0), new Vector3((float)Math.PI/2, 0, 0), new Size(2, 1080));
         }

@@ -8,6 +8,9 @@ using Transform = Invasion.Engine.Components.Transform;
 
 namespace Invasion.View;
 
+/// <summary>
+/// Represents view of healthable object
+/// </summary>
 public class HealthView : IView
 {
     private Transform _parent;
@@ -15,6 +18,12 @@ public class HealthView : IView
     private IHealthable _healthable;
     private TextRenderer _healthText;
 
+    /// <summary>
+    /// Health view constructor
+    /// </summary>
+    /// <param name="healthableObject">Healthable object</param>
+    /// <param name="renderTarget">Render target</param>
+    /// <exception cref="Exception"></exception>
     public HealthView(GameObject healthableObject, IGraphicTarget renderTarget)
     {
         _healthable = healthableObject as IHealthable;

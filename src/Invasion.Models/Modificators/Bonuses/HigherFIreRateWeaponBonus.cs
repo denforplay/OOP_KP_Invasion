@@ -5,8 +5,17 @@ using Invasion.Models.Weapons.Decorator;
 
 namespace Invasion.Models.Modificators.Bonuses
 {
+    /// <summary>
+    /// Class represents higher fire rate bonus
+    /// </summary>
     public class HigherFIreRateWeaponBonus : BonusBase
     {
+        /// <summary>
+        /// Higher fire rate weapon bonus constructor
+        /// </summary>
+        /// <param name="components">Components</param>
+        /// <param name="configuration">Configuration</param>
+        /// <param name="layer">Layer</param>
         public HigherFIreRateWeaponBonus(List<IComponent> components, ModificatorConfiguration configuration, Layer layer = Layer.Modificator) : base(components, configuration, layer)
         {
         }

@@ -7,6 +7,9 @@ using System.Numerics;
 
 namespace Invasion.Models.Weapons.Melee;
 
+/// <summary>
+/// Represents base melee weapon
+/// </summary>
 public class MeleeBase : WeaponBase
 {
     public override void GiveDamage(IHealthable healthable)
@@ -19,6 +22,13 @@ public class MeleeBase : WeaponBase
     private Transform _parentTransform;
     private bool _canAttack;
 
+    /// <summary>
+    /// Melee base constructor
+    /// </summary>
+    /// <param name="parent">Weapon parent</param>
+    /// <param name="configuration">Weapon configuration</param>
+    /// <param name="components">Components</param>
+    /// <param name="layer">Layer</param>
     public MeleeBase(GameObject parent, WeaponConfiguration configuration, List<IComponent> components, Layer layer = Layer.Weapon) : base(configuration, components, layer)
     {
         _parent = parent;
@@ -27,12 +37,13 @@ public class MeleeBase : WeaponBase
         _canAttack = true;
     }
 
+    /// <summary>
+    /// Show if melee can attack or not
+    /// </summary>
     public bool IsAttack => !_canAttack;
     public override GameObject Parent => _parent;
     public override int Damage { get; set; }
     public override float Speed { get; set; }
-
-
 
     public override async void Attack(Vector2 direction)
     {

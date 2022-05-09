@@ -5,12 +5,19 @@ using Invasion.Engine.Interfaces;
 
 namespace Invasion.View
 {
+    /// <summary>
+    /// Reprents game object view
+    /// </summary>
     public class GameObjectView : IView
     {
         private IRenderer _renderer;
         private Transform _transform;
         private GameObject _gameObject;
 
+        /// <summary>
+        /// Game object view constructor
+        /// </summary>
+        /// <param name="gameObject">Game object</param>
         public GameObjectView(GameObject gameObject)
         {
             _gameObject = gameObject;
@@ -24,6 +31,9 @@ namespace Invasion.View
             _renderer.Dispose();
         }
 
+        /// <summary>
+        /// Update game object view
+        /// </summary>
         public void Update()
         {
             _renderer?.Draw();
